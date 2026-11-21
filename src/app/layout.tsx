@@ -19,13 +19,13 @@ export default async function RootLayout({children}:{children:React.ReactNode}){
    || (/Android/i.test(userAgent)&&/\bwv\b/i.test(userAgent))
    || /^(com\.whatsapp|com\.instagram\.android|com\.facebook\.katana|com\.facebook\.lite|com\.facebook\.orca)$/i.test(requestedWith);
  const android=/Android/i.test(userAgent);
- return <html lang="en"><body style={embedded?{overflow:"hidden"}:undefined}><Script id="iteration13-early-install-capture" strategy="beforeInteractive">{`
+ return <html lang="en"><body style={embedded?{overflow:"hidden"}:undefined}><Script id="love-is-foods-early-install-capture" strategy="beforeInteractive">{`
 (function () {
   window.addEventListener("beforeinstallprompt", function (event) {
     var standalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
-    if (standalone || window.__iteration13PwaListenerReady === true) return;
+    if (standalone || window.__loveIsFoodsPwaListenerReady === true) return;
     event.preventDefault();
-    window.__iteration13InstallPrompt = event;
+    window.__loveIsFoodsInstallPrompt = event;
   });
 })();
 `}</Script><PwaRegister initialEmbedded={embedded} initialAndroid={android}/>{children}<Analytics/><SpeedInsights/></body></html>
