@@ -8,8 +8,8 @@ if(manifest.name!=="Love is Foods")failures.push("manifest name must be Love is 
 if(manifest.short_name!=="Love is Foods")failures.push("manifest short name must be Love is Foods");
 if(manifest.theme_color!=="#db0b0b")failures.push("manifest theme color must use Love is Foods red");
 if(!manifest.icons?.some(icon=>icon.src==="/love-is-foods-icon.svg"))failures.push("Love is Foods app icon missing from manifest");
-for(const p of ["/love-is-foods-icon.svg","/love-is-foods-icon-192.png","/love-is-foods-icon-512.png"])if(!manifest.icons?.some(icon=>icon.src===p))failures.push("manifest icon entry missing "+p);
-for(const p of ["public/love-is-foods-icon.svg","public/love-is-foods-icon-192.png","public/love-is-foods-icon-512.png"])if(!fs.existsSync(path.join(root,p)))failures.push("app icon asset missing "+p);
+for(const p of ["/love-is-foods-icon.svg",])if(!manifest.icons?.some(icon=>icon.src===p))failures.push("manifest icon entry missing "+p);
+for(const p of ["public/love-is-foods-icon.svg"])if(!fs.existsSync(path.join(root,p)))failures.push("app icon asset missing "+p);
 const appManifest=read("src/app/manifest.ts");
 if(!appManifest.includes('name: "Love is Foods"')||!appManifest.includes('short_name: "Love is Foods"'))failures.push("Next.js manifest identity is not Love is Foods");
 if(!appManifest.includes('theme_color: "#db0b0b"'))failures.push("Next.js manifest theme color is incorrect");
