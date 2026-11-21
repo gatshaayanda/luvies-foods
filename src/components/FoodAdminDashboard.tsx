@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
 import {useEffect,useMemo,useState} from "react";
-import {subscribeToFoodOrders,subscribeToMenuItems,updateFoodOrderStatus,updateFoodOrderPayment,saveMenuItem,deleteMenuItem,ORDER_STATUSES,type FoodOrder,type MenuItem,type OrderStatus} from "@/lib/firebase/data";
+import {subscribeToFoodOrders,subscribeToMenuItems,ensureStarterMenuSeeded,updateFoodOrderStatus,updateFoodOrderPayment,saveMenuItem,deleteMenuItem,ORDER_STATUSES,type FoodOrder,type MenuItem,type OrderStatus} from "@/lib/firebase/data";
 
 const money=(n:number)=>"P"+(Number.isFinite(n)?n:0).toFixed(2);
 const blank:MenuItem={id:"",name:"",price:0,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:1,section:"deal",days:[]};
 export default function FoodAdminDashboard(){
  const [orders,setOrders]=useState<FoodOrder[]>([]),[menu,setMenu]=useState<MenuItem[]>([]),[loading,setLoading]=useState(true),[notice,setNotice]=useState(""),[tab,setTab]=useState<"orders"|"menu"|"settings">("orders"),[draft,setDraft]=useState<MenuItem>(blank),[editing,setEditing]=useState(false),[saving,setSaving]=useState(false);
- useEffect(()=>{const a=subscribeToFoodOrders(items=>{setOrders(items);setLoading(false)},e=>{setNotice(e.message);setLoading(false)});const b=subscribeToMenuItems(setMenu,e=>setNotice(e.message));return()=>{a();b()}},[]);
+ useEffect(()=>{void ensureStarterMenuSeeded().catch(()=>setNotice("The starter menu could not be created. Check Firestore access."));const a=subscribeToFoodOrders(items=>{setOrders(items);setLoading(false)},e=>{setNotice(e.message);setLoading(false)});const b=subscribeToMenuItems(setMenu,e=>setNotice(e.message));return()=>{a();b()}},[]);
  const active=useMemo(()=>orders.filter(o=>!["Delivered","Collected","Cancelled"].includes(o.status)),[orders]);
  async function status(id:string,value:OrderStatus){setNotice("");try{await updateFoodOrderStatus(id,value);setNotice("Order status updated.")}catch{setNotice("Could not update this order. Check access and try again.")}}
  async function payment(order:FoodOrder){const amount=window.prompt("Amount received (BWP)",String(order.amountPaid??order.total));if(amount===null)return;const parsed=Number(amount);if(!Number.isFinite(parsed)||parsed<0||parsed>order.total){setNotice("Enter a valid amount between P0 and the order total.");return}const method=window.prompt("Payment method: cash, etransfer or other",order.paymentMethod??"cash");if(!method||!["cash","etransfer","other"].includes(method)){setNotice("Choose cash, etransfer or other.");return}try{await updateFoodOrderPayment(order.id,parsed===0?"unpaid":parsed>=order.total?"paid":"partial",method as "cash"|"etransfer"|"other",parsed);setNotice("Payment record saved.")}catch{setNotice("Could not save the payment record.")}}
