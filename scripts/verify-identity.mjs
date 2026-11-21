@@ -16,7 +16,7 @@ if(!appManifest.includes('theme_color: "#db0b0b"'))failures.push("Next.js manife
 const layout=read("src/app/layout.tsx");
 for(const value of ["Love is Foods | Good food, made with love","applicationName:\"Love is Foods\"","capable:true,title:\"Love is Foods\"","themeColor:\"#db0b0b\""])if(!layout.includes(value))failures.push("layout metadata missing "+value);
 const sw=read("public/sw.js");
-if(!/iteration13-shell-v\\d+/.test(sw))failures.push("service-worker cache namespace must remain isolated and versioned");
+if(!/love-is-foods-shell-v\\d+/.test(sw))failures.push("service-worker cache namespace must remain isolated and versioned");
 if(!sw.includes("/love-is-foods-icon.svg"))failures.push("service-worker app shell must cache the Love is Foods icon");
 const pwa=read("src/app/pwa-register.tsx");
 for(const value of ['await prompt.prompt()','await prompt.userChoice','className="i13-install-card"','className="i13-install-close"','isIosSafari()','installState === "embedded"','navigator.serviceWorker.register("/sw.js", { updateViaCache: "none" })'])if(!pwa.includes(value))failures.push("protected PWA installation contract missing "+value);
