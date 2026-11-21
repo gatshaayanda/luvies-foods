@@ -6094,3 +6094,161 @@ h1 em,
 
 /* Store Design opens on the owner's primary job: managing customer offerings. Keep the live preview available in Identity & appearance, not above the catalogue editor. */
 .sd-admin[data-admin-current="store"][data-store-section="offerings"] .sd-showcase-preview{display:none!important}
+
+
+
+/* LOVE IS FOODS — visual identity layer
+   Presentation-only overrides. Store, account, Briefcase, order, persistence,
+   upload and PWA behavior remain owned by the existing components. */
+:root{color-scheme:light}
+body{background:#fbf8f7;color:#202b3c}
+.serviceDemo{
+  --sd-ink:#202b3c;
+  --sd-paper:#fbf8f7;
+  --sd-blue:#db0b0b;
+  --sd-lime:#c04467;
+  --sd-line:#eadfe1;
+  color:var(--sd-ink);
+  background:
+    radial-gradient(ellipse at 92% 4%,rgba(192,68,103,.075),transparent 30%),
+    #fbf8f7;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+.serviceDemo .sd-wrap{width:min(1160px,calc(100% - 36px))}
+.serviceDemo .sd-topline{background:#202b3c;color:#fff;border-bottom:1px solid #354358}
+.serviceDemo .sd-connect{color:#f4c5d2}
+.serviceDemo .sd-header{background:rgba(251,248,247,.94);border-bottom:1px solid #eadfe1;box-shadow:0 5px 20px rgba(32,43,60,.045)}
+.serviceDemo .sd-nav{min-height:68px}
+.serviceDemo .sd-brand strong{color:#202b3c;letter-spacing:.015em;font-size:.9rem}
+.serviceDemo .sd-brand small{color:#697486;letter-spacing:.13em}
+.serviceDemo .sd-logo{width:42px;height:42px;border-radius:13px;background:#db0b0b;color:#fff;box-shadow:0 5px 14px rgba(219,11,11,.2);font-size:.9rem}
+.serviceDemo .sd-nav nav button,.serviceDemo .sd-nav nav a{color:#202b3c;font-size:.8rem}
+.serviceDemo .sd-nav nav button:hover,.serviceDemo .sd-nav nav a:hover{color:#db0b0b;text-decoration:none}
+.serviceDemo .sd-count{background:#f9e7eb;color:#9d294d;border-radius:999px;font-size:.68rem;font-weight:850}
+.serviceDemo .sd-hero{
+  padding:clamp(34px,5vw,62px) 0 clamp(38px,5vw,64px);
+  background:
+    radial-gradient(ellipse at 83% 38%,rgba(192,68,103,.15),transparent 37%),
+    radial-gradient(ellipse at 12% 92%,rgba(219,11,11,.07),transparent 32%),
+    linear-gradient(180deg,#fffdfc 0%,#fbf8f7 100%);
+}
+.serviceDemo .sd-hero-grid{gap:clamp(22px,4vw,54px)}
+.serviceDemo .sd-kicker{color:#a12d50;letter-spacing:.13em}
+.serviceDemo .sd-hero h1,.serviceDemo .sd-account-head h1,.serviceDemo .sd-admin-head h1{
+  color:#202b3c;
+  font-size:clamp(2.65rem,5.5vw,5.1rem);
+  line-height:.96;
+  letter-spacing:-.065em;
+  margin:14px 0 17px;
+}
+.serviceDemo .sd-hero h1 em,.serviceDemo .sd-section-head h2 em,.serviceDemo .sd-order-copy h2 em,
+.serviceDemo .sd-account-head h1 em,.serviceDemo .sd-admin-head h1 em{color:#db0b0b}
+.serviceDemo .sd-hero-copy>p,.serviceDemo .sd-section-head>p,.serviceDemo .sd-order-copy>p,
+.serviceDemo .sd-account-head>p,.serviceDemo .sd-admin-head p{color:#586477;line-height:1.65;font-size:.94rem}
+.serviceDemo .sd-hero-actions{margin-top:20px}
+.serviceDemo .sd-button{min-height:45px;border-radius:10px;font-size:.76rem;letter-spacing:.01em}
+.serviceDemo .sd-primary{background:#db0b0b;border-color:#db0b0b;color:#fff!important;box-shadow:0 5px 14px rgba(219,11,11,.15)}
+.serviceDemo .sd-primary:hover{background:#b90909;border-color:#b90909}
+.serviceDemo .sd-outline{background:#fff;color:#202b3c;border-color:#d8cbd0}
+.serviceDemo .sd-outline:hover{background:#fbedf1;border-color:#c04467}
+.serviceDemo button:focus-visible,.serviceDemo a:focus-visible,.serviceDemo input:focus-visible,
+.serviceDemo select:focus-visible,.serviceDemo textarea:focus-visible{outline:3px solid #c04467;outline-offset:3px}
+.serviceDemo .sd-hero-meta{border-color:#eadfe1;color:#657084}
+.serviceDemo .sd-hero-meta b{color:#c04467}
+.serviceDemo .sd-hero-art{min-height:360px}
+.serviceDemo .sd-art-window{border:1px solid #eadfe1;border-radius:18px;overflow:hidden;box-shadow:0 24px 65px rgba(32,43,60,.12);transform:none}
+.serviceDemo .sd-services{padding:clamp(36px,5vw,64px) 0}
+.serviceDemo .sd-section-head{margin-bottom:22px}
+.serviceDemo .sd-section-head h2,.serviceDemo .sd-order-copy h2{color:#202b3c;font-size:clamp(2rem,4vw,3.5rem);line-height:1;letter-spacing:-.055em}
+.serviceDemo .sd-service-grid{gap:14px}
+.serviceDemo .sd-service-card{border:1px solid #eadfe1;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 8px 24px rgba(32,43,60,.055)}
+.serviceDemo .sd-service-media{background:#f5e9ec}
+.serviceDemo .sd-media-placeholder{background:linear-gradient(135deg,#202b3c 0%,#35445b 58%,#c04467 145%);color:#fff}
+.serviceDemo .sd-store-collection{padding-top:22px;padding-bottom:48px}
+.serviceDemo .sd-storefront-bar{
+  margin-bottom:16px;padding:14px 16px;border:1px solid #eadfe1;border-left:4px solid #db0b0b;
+  border-radius:13px;background:linear-gradient(110deg,#fff 0%,#fff7f8 100%);
+  box-shadow:0 5px 18px rgba(32,43,60,.035)
+}
+.serviceDemo .sd-storefront-title .sd-kicker{color:#a12d50}
+.serviceDemo .sd-storefront-signals{align-self:center}
+.serviceDemo .sd-store-availability{border-radius:999px;background:#edf7ef;color:#25613a;border:1px solid #cce8d2;font-weight:800}
+.serviceDemo .sd-store-availability.is-limited{background:#fff5e8;color:#8a4c0d;border-color:#f1d5ae}
+.serviceDemo .sd-store-availability.is-unavailable{background:#fff0f0;color:#a32222;border-color:#f1caca}
+.serviceDemo .sd-store-announcement{border-color:#f0d5dc;background:#fff7f9;border-radius:10px}
+.serviceDemo .sd-store-announcement-label{color:#a12d50}
+.serviceDemo .sd-store-announcement p{color:#202b3c;font-weight:700}
+.serviceDemo .sd-store-grid{gap:16px}
+.serviceDemo .sd-store-card{border:1px solid #eadfe1;border-radius:16px;background:#fff;box-shadow:0 8px 24px rgba(32,43,60,.06)}
+.serviceDemo .sd-store-card:hover{border-color:#d99aaa;box-shadow:0 13px 28px rgba(32,43,60,.1)}
+.serviceDemo .sd-store-card .sd-service-media{background:#f6e9ed}
+.serviceDemo .sd-store-card .sd-media-placeholder{background:linear-gradient(145deg,#202b3c,#34445c 70%,#c04467);color:#fff}
+.serviceDemo .sd-store-card .sd-service-info{padding:18px}
+.serviceDemo .sd-store-card .sd-service-title h3{color:#202b3c;font-size:1.2rem;letter-spacing:-.035em}
+.serviceDemo .sd-store-card .sd-service-title>strong{color:#db0b0b;font-size:1.2rem;font-weight:900}
+.serviceDemo .sd-store-card .sd-service-info>p{color:#667184;font-size:.87rem;line-height:1.55}
+.serviceDemo .sd-order-button{min-height:44px;border:1px solid #db0b0b;border-radius:9px;background:#db0b0b;color:#fff;font-weight:850}
+.serviceDemo .sd-order-button:hover{background:#b90909;border-color:#b90909;color:#fff}
+.serviceDemo .sd-order-section{background:#f8ecef;border-color:#f0dce2}
+.serviceDemo .sd-order-note{border-color:#ead5dc;background:#fff;border-radius:12px}
+.serviceDemo .sd-order-note>span{color:#c04467}
+.serviceDemo .sd-account-content,.serviceDemo .sd-admin-panel{border:1px solid #eadfe1;border-radius:15px;background:#fff;box-shadow:0 8px 24px rgba(32,43,60,.045)}
+.serviceDemo .sd-account-content{padding:clamp(16px,2.5vw,24px)}
+.serviceDemo .sd-account-head{margin-bottom:24px}
+.serviceDemo .sd-empty>span{border-radius:12px;background:#fbedf1;color:#c04467}
+.serviceDemo .sd-order-card{border:1px solid #eadfe1;border-radius:12px;background:#fff}
+.serviceDemo .sd-admin{padding-top:30px}
+.serviceDemo .sd-os-heading{border-color:#3a485d}
+.serviceDemo .sd-os-heading h1{color:#fff;font-size:clamp(1.8rem,3.5vw,2.8rem);letter-spacing:-.045em}
+.serviceDemo .sd-os-heading p{color:#d4dce8}
+.serviceDemo .sd-os-status{border-color:#c04467;background:rgba(192,68,103,.13);color:#ffdce5}
+.serviceDemo .sd-os-nav{background:#202b3c;border-color:#35445a;border-radius:12px}
+.serviceDemo .sd-os-nav a{border-radius:8px}
+.serviceDemo .sd-os-nav a:hover{background:#c04467;color:#fff}
+.serviceDemo .sd-admin-panel{color:#202b3c}
+.serviceDemo .sd-panel-head h2{color:#202b3c}
+.serviceDemo .sd-small-button{border-color:#d8cbd0;border-radius:8px;color:#202b3c}
+.serviceDemo .sd-small-button:hover{border-color:#c04467;background:#fff5f7}
+.serviceDemo .sd-admin-form input,.serviceDemo .sd-admin-form textarea,.serviceDemo .sd-admin-form select,
+.serviceDemo .sd-field input,.serviceDemo .sd-field textarea,.serviceDemo .sd-field select{
+  border-color:#ded5d8;border-radius:9px;background:#fff;color:#202b3c
+}
+.serviceDemo .sd-admin-form input:focus,.serviceDemo .sd-admin-form textarea:focus,.serviceDemo .sd-admin-form select:focus,
+.serviceDemo .sd-field input:focus,.serviceDemo .sd-field textarea:focus,.serviceDemo .sd-field select:focus{
+  border-color:#c04467;box-shadow:0 0 0 3px rgba(192,68,103,.12)
+}
+.serviceDemo .sd-footer{padding:20px 0;background:#202b3c;color:#fff;border-top:3px solid #c04467}
+.serviceDemo .sd-footer .sd-brand strong{color:#fff}
+.serviceDemo .sd-footer .sd-brand small{color:#d4dce8}
+.serviceDemo .sd-footer-systems .sd-owner-briefcase,.serviceDemo .sd-footer-systems .sd-owner-backpack{
+  border-color:#dce3ed;border-radius:12px;box-shadow:0 7px 20px rgba(0,0,0,.18)
+}
+@media(max-width:900px){
+  .serviceDemo .sd-hero{padding:34px 0 42px}
+  .serviceDemo .sd-hero-grid{grid-template-columns:minmax(0,1fr) minmax(250px,.82fr);gap:20px}
+  .serviceDemo .sd-hero-art{min-height:300px}
+}
+@media(max-width:680px){
+  .serviceDemo .sd-wrap{width:calc(100% - 26px)}
+  .serviceDemo .sd-hero{padding:28px 0 34px}
+  .serviceDemo .sd-hero-grid{grid-template-columns:minmax(0,1fr);gap:18px}
+  .serviceDemo .sd-hero h1,.serviceDemo .sd-account-head h1,.serviceDemo .sd-admin-head h1{font-size:clamp(2.5rem,11vw,3.7rem);line-height:.98;margin:12px 0}
+  .serviceDemo .sd-hero-art{min-height:230px}
+  .serviceDemo .sd-section-head{align-items:flex-start;flex-direction:column;gap:8px;margin-bottom:16px}
+  .serviceDemo .sd-section-head h2,.serviceDemo .sd-order-copy h2{font-size:clamp(2rem,9vw,3rem)}
+  .serviceDemo .sd-services{padding:30px 0}
+  .serviceDemo .sd-store-collection{padding-top:16px;padding-bottom:34px}
+  .serviceDemo .sd-storefront-bar{padding:12px;gap:10px}
+  .serviceDemo .sd-storefront-signals{width:100%}
+  .serviceDemo .sd-store-availability{min-height:31px}
+  .serviceDemo .sd-store-card .sd-service-info{padding:15px}
+  .serviceDemo .sd-store-card .sd-service-title h3{font-size:1.08rem}
+  .serviceDemo .sd-store-card .sd-service-title>strong{font-size:1.05rem}
+  .serviceDemo .sd-nav{min-height:60px}
+  .serviceDemo .sd-brand strong{font-size:.74rem}
+  .serviceDemo .sd-logo{width:36px;height:36px;border-radius:11px}
+  .serviceDemo .sd-account-content,.serviceDemo .sd-admin-panel{border-radius:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .serviceDemo .sd-store-card,.serviceDemo .sd-button{transition:none!important}
+}
