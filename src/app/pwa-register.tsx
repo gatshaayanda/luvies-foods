@@ -13,7 +13,7 @@ type InstallPromptEvent = Event & {
 };
 type InstallState = "hidden" | "native" | "embedded";
 
-const INSTALL_DISMISSED_KEY = "iteration13:install:dismissed-at";
+const INSTALL_DISMISSED_KEY = "love-is-foods:install:dismissed-at";
 const INSTALL_DISMISS_MS = 7 * 24 * 60 * 60 * 1000;
 
 function environment() {
@@ -82,9 +82,9 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
       if (!user) return;
       const idToken = await getIdToken(user).catch(() => null);
       if (!idToken) return;
-      const pendingKeys = Object.keys(localStorage).filter(key => key.startsWith("plug-pending-order-notification-"));
+      const pendingKeys = Object.keys(localStorage).filter(key => key.startsWith("love-is-foods-pending-order-notification-"));
       for (const key of pendingKeys) {
-        const orderId = key.replace("plug-pending-order-notification-", "");
+        const orderId = key.replace("love-is-foods-pending-order-notification-", "");
         try {
           const response = await fetch("/api/notifications/order-created", {
             method: "POST",
