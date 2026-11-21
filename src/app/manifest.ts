@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     id: "/",
     name: "Love is Foods",
     short_name: "Love is Foods",
-    description: "A mobile-first service-order demo with customer requests, local admin tools, installation guidance and offline-aware behavior.",
+    description: "Love is Foods menu, ordering, customer account and owner operations.",
     start_url: "/",
     scope: "/",
     display: "standalone",
@@ -26,7 +26,7 @@ export default function manifest(): MetadataRoute.Manifest {
     shortcuts: [
       {
         name: "Browse menu",
-        short_name: "Services",
+        short_name: "Menu",
         description: "Browse meals and place an order",
         url: "/",
         icons: [{ src: "/love-is-foods-icon.svg", sizes: "any", type: "image/svg+xml" }]
@@ -40,7 +40,7 @@ export default function manifest(): MetadataRoute.Manifest {
       },
       {
         name: "Owner Briefcase",
-        short_name: "Admin",
+        short_name: "Briefcase",
         description: "Manage the Love is Foods menu and orders",
         url: "/admin",
         icons: [{ src: "/love-is-foods-icon.svg", sizes: "any", type: "image/svg+xml" }]
