@@ -126,13 +126,13 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
 
     window.addEventListener("online", online);
     document.addEventListener("visibilitychange", visibilityChange);
-    const promptWindow = window as Window & { __iteration13InstallPrompt?: Event; __iteration13PwaListenerReady?: boolean };
+    const promptWindow = window as Window & { __loveIsFoodsInstallPrompt?: Event; __loveIsFoodsPwaListenerReady?: boolean };
     // The browser can emit beforeinstallprompt before React hydrates. Adopt the
     // event captured by the tiny beforeInteractive script before listening normally.
-    promptWindow.__iteration13PwaListenerReady = true;
-    const earlyPrompt = promptWindow.__iteration13InstallPrompt;
+    promptWindow.__loveIsFoodsPwaListenerReady = true;
+    const earlyPrompt = promptWindow.__loveIsFoodsInstallPrompt;
     if (earlyPrompt) {
-      delete promptWindow.__iteration13InstallPrompt;
+      delete promptWindow.__loveIsFoodsInstallPrompt;
       onBeforeInstallPrompt(earlyPrompt);
     }
     window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
@@ -171,7 +171,7 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
       setInstallState("hidden");
       clearDismissal();
     };
-    window.addEventListener("iteration13-open-install", requestInstall);
+    window.addEventListener("love-is-foods-open-install", requestInstall);
     window.addEventListener("appinstalled", appInstalled);
 
     const register = async () => {
@@ -196,7 +196,7 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
     navigator.serviceWorker?.addEventListener("controllerchange", controllerChange);
 
     return () => {
-      window.removeEventListener("iteration13-open-install", requestInstall);
+      window.removeEventListener("love-is-foods-open-install", requestInstall);
       window.removeEventListener("appinstalled", appInstalled);
       window.removeEventListener("online", online);
       document.removeEventListener("visibilitychange", visibilityChange);
@@ -213,7 +213,7 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
     const previousOverflow = document.body.style.overflow;
     if (isEmbeddedGate) document.body.style.overflow = "hidden";
     if (installState === "embedded") embeddedActionRef.current?.focus();
-    else document.querySelector<HTMLButtonElement>(".plugInstallPrimary")?.focus();
+    else document.querySelector<HTMLButtonElement>(".loveFoodsInstallPrimary")?.focus();
 
     const keepDialogFocused = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -300,20 +300,20 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
   const embeddedInstallStyle: CSSProperties = { position: "fixed", inset: 0, zIndex: 2147483647, display: "flex", alignItems: "center", justifyContent: "center", padding: 20, background: "rgba(0,0,0,.82)", backdropFilter: "blur(4px)", overscrollBehavior: "contain" };
   const installCard = installState === "native" && installHelpOpen && isIosSafari() ? (
     <div style={installShellStyle} role="presentation">
-      <section className="plugInstallModal" role="dialog" aria-modal="false" aria-labelledby="plug-install-title" aria-describedby="plug-install-message">
-        <div className="plugInstallTop"><span className="plugInstallMark">13</span><span className="plugInstallTag">ITERATION 13 · SERVICE STUDIO</span><button type="button" className="plugInstallClose" aria-label="Close install guidance" onClick={dismissInstall}>×</button></div>
-        <div className="plugInstallKicker">IPHONE & IPAD</div>
+      <section className="loveFoodsInstallModal" role="dialog" aria-modal="false" aria-labelledby="plug-install-title" aria-describedby="plug-install-message">
+        <div className="loveFoodsInstallTop"><span className="loveFoodsInstallMark">13</span><span className="loveFoodsInstallTag">LOVE IS FOODS</span><button type="button" className="loveFoodsInstallClose" aria-label="Close install guidance" onClick={dismissInstall}>×</button></div>
+        <div className="loveFoodsInstallKicker">IPHONE & IPAD</div>
         <h2 id="plug-install-title">Add to Home Screen.</h2>
         <p id="plug-install-message">In Safari, tap <b>Share</b>, choose <b>Add to Home Screen</b>, then tap <b>Add</b>. Open the new Home Screen icon to launch the installed app.</p>
-        <button type="button" className="plugInstallPrimary" onClick={dismissInstall}>Continue on the website</button>
+        <button type="button" className="loveFoodsInstallPrimary" onClick={dismissInstall}>Continue on the website</button>
       </section>
     </div>
 ) : installState === "embedded" ? (
     <div style={embeddedInstallStyle} role="alertdialog" aria-modal="true" aria-labelledby="plug-embedded-title" aria-describedby="plug-embedded-message">
       <div className="pwaInstallInfo" style={{...installShellStyle, position: "relative", left: "auto", right: "auto", bottom: "auto", width: "100%", maxWidth: 520, margin: 0}}>
         <div>
-          <strong id="plug-embedded-title"><span aria-hidden="true">🌐 </span>OPEN ITERATION 13 IN YOUR BROWSER</strong>
-          <span id="plug-embedded-message">{embeddedAndroid ? <>Open Iteration 13 in Chrome to continue. Chrome will offer its own installation action when the app is eligible.</> : <>Iteration 13 opened inside another app. Open this page in your browser to continue.</>}</span>
+          <strong id="plug-embedded-title"><span aria-hidden="true">🌐 </span>OPEN LOVE IS FOODS IN YOUR BROWSER</strong>
+          <span id="plug-embedded-message">{embeddedAndroid ? <>Open Love is Foods in Chrome to continue. Chrome will offer its own installation action when the app is eligible.</> : <>Love is Foods opened inside another app. Open this page in your browser to continue.</>}</span>
         </div>
         <div className="pwaInstallActions" style={{display:"flex",justifyContent:"flex-end"}}>
           <button ref={embeddedActionRef} type="button" style={{background:"#0866FF",color:"#fff"}} onClick={openBrowser}>{embeddedAndroid ? "OPEN IN CHROME" : "OPEN IN BROWSER"}</button>
@@ -324,12 +324,12 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
 
   return <>
     {!environment().standalone && installState !== "embedded" && (canInstall || canShowManualInstall) && !installCardDismissed && !(installState === "native" && installHelpOpen) && (
-      <aside className="i13-install-card" aria-label="Install Iteration 13">
+      <aside className="i13-install-card" aria-label="Install Love is Foods">
         <div className="i13-install-brand">
           <span className="i13-install-mark" aria-hidden="true">13</span>
-          <span><strong>ITERATION 13</strong><small>SERVICE STUDIO</small></span>
+          <span><strong>LOVE IS FOODS</strong><small>SERVICE STUDIO</small></span>
         </div>
-        <button className="i13-install-close" type="button" aria-label="Dismiss install prompt" onClick={() => setInstallCardDismissed(true)}>×</button>
+        <button className="i13-install-close" type="button" aria-label="Dismiss install prompt" onClick={dismissInstall}>×</button>
         <button className="i13-install-action" type="button" onClick={() => {
           if (installPromptRef.current) {
             void install();
@@ -339,7 +339,7 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
             setInstallHelpOpen(true);
             setInstallState("native");
           }
-        }}>{canInstall ? "Install Iteration 13" : "Add to Home Screen"} <span aria-hidden="true">↗</span></button>
+        }}>{canInstall ? "Install Love is Foods" : "Add to Home Screen"} <span aria-hidden="true">↗</span></button>
       </aside>
     )}
     {installCard}
