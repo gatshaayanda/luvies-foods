@@ -300,20 +300,20 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
   const embeddedInstallStyle: CSSProperties = { position: "fixed", inset: 0, zIndex: 2147483647, display: "flex", alignItems: "center", justifyContent: "center", padding: 20, background: "rgba(0,0,0,.82)", backdropFilter: "blur(4px)", overscrollBehavior: "contain" };
   const installCard = installState === "native" && installHelpOpen && isIosSafari() ? (
     <div style={installShellStyle} role="presentation">
-      <section className="loveFoodsInstallModal" role="dialog" aria-modal="false" aria-labelledby="plug-install-title" aria-describedby="plug-install-message">
-        <div className="loveFoodsInstallTop"><span className="loveFoodsInstallMark">13</span><span className="loveFoodsInstallTag">LOVE IS FOODS</span><button type="button" className="loveFoodsInstallClose" aria-label="Close install guidance" onClick={dismissInstall}>×</button></div>
+      <section className="loveFoodsInstallModal" role="dialog" aria-modal="false" aria-labelledby="love-install-title" aria-describedby="love-install-message">
+        <div className="loveFoodsInstallTop"><span className="loveFoodsInstallMark">L♥</span><span className="loveFoodsInstallTag">LOVE IS FOODS</span><button type="button" className="loveFoodsInstallClose" aria-label="Close install guidance" onClick={dismissInstall}>×</button></div>
         <div className="loveFoodsInstallKicker">IPHONE & IPAD</div>
-        <h2 id="plug-install-title">Add to Home Screen.</h2>
-        <p id="plug-install-message">In Safari, tap <b>Share</b>, choose <b>Add to Home Screen</b>, then tap <b>Add</b>. Open the new Home Screen icon to launch the installed app.</p>
+        <h2 id="love-install-title">Add to Home Screen.</h2>
+        <p id="love-install-message">In Safari, tap <b>Share</b>, choose <b>Add to Home Screen</b>, then tap <b>Add</b>. Open the new Home Screen icon to launch the installed app.</p>
         <button type="button" className="loveFoodsInstallPrimary" onClick={dismissInstall}>Continue on the website</button>
       </section>
     </div>
 ) : installState === "embedded" ? (
-    <div style={embeddedInstallStyle} role="alertdialog" aria-modal="true" aria-labelledby="plug-embedded-title" aria-describedby="plug-embedded-message">
+    <div style={embeddedInstallStyle} role="alertdialog" aria-modal="true" aria-labelledby="love-embedded-title" aria-describedby="love-embedded-message">
       <div className="pwaInstallInfo" style={{...installShellStyle, position: "relative", left: "auto", right: "auto", bottom: "auto", width: "100%", maxWidth: 520, margin: 0}}>
         <div>
-          <strong id="plug-embedded-title"><span aria-hidden="true">🌐 </span>OPEN LOVE IS FOODS IN YOUR BROWSER</strong>
-          <span id="plug-embedded-message">{embeddedAndroid ? <>Open Love is Foods in Chrome to continue. Chrome will offer its own installation action when the app is eligible.</> : <>Love is Foods opened inside another app. Open this page in your browser to continue.</>}</span>
+          <strong id="love-embedded-title"><span aria-hidden="true">🌐 </span>OPEN LOVE IS FOODS IN YOUR BROWSER</strong>
+          <span id="love-embedded-message">{embeddedAndroid ? <>Open Love is Foods in Chrome to continue. Chrome will offer its own installation action when the app is eligible.</> : <>Love is Foods opened inside another app. Open this page in your browser to continue.</>}</span>
         </div>
         <div className="pwaInstallActions" style={{display:"flex",justifyContent:"flex-end"}}>
           <button ref={embeddedActionRef} type="button" style={{background:"#0866FF",color:"#fff"}} onClick={openBrowser}>{embeddedAndroid ? "OPEN IN CHROME" : "OPEN IN BROWSER"}</button>
@@ -326,8 +326,8 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
     {!environment().standalone && installState !== "embedded" && (canInstall || canShowManualInstall) && !installCardDismissed && !(installState === "native" && installHelpOpen) && (
       <aside className="i13-install-card" aria-label="Install Love is Foods">
         <div className="i13-install-brand">
-          <span className="i13-install-mark" aria-hidden="true">13</span>
-          <span><strong>LOVE IS FOODS</strong><small>SERVICE STUDIO</small></span>
+          <span className="i13-install-mark" aria-hidden="true">L♥</span>
+          <span><strong>LOVE IS FOODS</strong><small>GOOD FOOD, MADE WITH LOVE</small></span>
         </div>
         <button className="i13-install-close" type="button" aria-label="Dismiss install prompt" onClick={dismissInstall}>×</button>
         <button className="i13-install-action" type="button" onClick={() => {
