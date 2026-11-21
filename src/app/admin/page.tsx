@@ -1,3 +1,3 @@
-import AdminGate from "@/app/admin/admin-gate";
-import PlugAdminDashboard from "@/components/PlugAdminDashboard";
-export default function AdminPage(){return <AdminGate><PlugAdminDashboard/></AdminGate>}
+import FoodAdminGate from "@/app/admin/food-admin-gate";
+import FoodAdminDashboard from "@/components/FoodAdminDashboard";
+export default function AdminPage(){return <FoodAdminGate><FoodAdminDashboard/></FoodAdminGate>}
