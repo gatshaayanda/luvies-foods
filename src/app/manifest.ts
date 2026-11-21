@@ -29,21 +29,21 @@ export default function manifest(): MetadataRoute.Manifest {
         short_name: "Services",
         description: "Browse meals and place an order",
         url: "/",
-        icons: [{ src: "/love-is-foods-icon-192.png", sizes: "192x192", type: "image/png" }]
+        icons: [{ src: "/love-is-foods-icon.svg", sizes: "any", type: "image/svg+xml" }]
       },
       {
         name: "My account",
         short_name: "Account",
         description: "Review your food orders",
         url: "/account",
-        icons: [{ src: "/love-is-foods-icon-192.png", sizes: "192x192", type: "image/png" }]
+        icons: [{ src: "/love-is-foods-icon.svg", sizes: "any", type: "image/svg+xml" }]
       },
       {
         name: "Owner Briefcase",
         short_name: "Admin",
         description: "Manage the Love is Foods menu and orders",
         url: "/admin",
-        icons: [{ src: "/love-is-foods-icon-192.png", sizes: "192x192", type: "image/png" }]
+        icons: [{ src: "/love-is-foods-icon.svg", sizes: "any", type: "image/svg+xml" }]
       }
     ]
   };
