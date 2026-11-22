@@ -1,3 +1,27 @@
+# Luvie's Foods — project-specific implementation rules
+
+This repository is the live Luvie's Foods application, not an Iteration 13 prototype. Business identity: **Luvie's Foods**; tagline: **Good food, made with love**; owner/operator: Lesedi; location: Gaborone, Botswana; currency: BWP.
+
+## Product surfaces
+- The three primary surfaces are Store (`/`), customer Account (`/account`) and private owner Briefcase (`/admin`).
+- Ordering opens as an integrated checkout sheet from Store. `/order` is a compatibility redirect into that Store flow; `/store` redirects to `/`.
+- Customer Account must work independently of menu availability. A customer can restore/create a guest account, save contact and delivery details, and see an empty order history before food is published.
+- Do not put the owner Briefcase link in the Store header. Preserve the existing footer Briefcase entry and owner-only access.
+
+## Business data and integrations
+- Confirmed starter menu: Rice and chicken — P40; Rice and beef — P40. Seed only through the authorised owner Briefcase when the menu collection is empty.
+- Never fabricate orders, customers, sales, stock or reward eligibility.
+- Brand colours: red #db0b0b, navy #202b3c and rose #c04467.
+- UploadThing is the media upload provider. Do not add Firebase Storage.
+- Firebase project and Firestore rules are client-owned and configured; do not replace credentials or rules without evidence and authorization.
+
+## Protected systems
+- Preserve Iteration 13's PWA install lifecycle, native user-triggered prompt, branded dismissible card, iOS Safari guidance, embedded-browser handoff, service-worker update lifecycle and offline protections. Change brand assets/copy/cache namespace only.
+- Preserve inherited chatbot behavior and features; change branding/content only.
+- Use the existing compact mobile-first design system. Do not reintroduce long-form generic prototype screens or unrequested navigation routes.
+
+---
+
 # Iteration 13 — Reusable PWA Foundation Contract
 
 ## Fast handoff for future implementation chats
