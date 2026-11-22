@@ -1,11 +1,11 @@
 "use client";
+/* eslint-disable react/no-unescaped-entities -- Customer-facing copy uses natural apostrophes. */
 /* eslint-disable react/no-unescaped-entities -- Brand name and customer-facing copy contain natural apostrophes. */
 import Link from "next/link";
 import {FormEvent,useEffect,useMemo,useState} from "react";
 import {signInAnonymously,onAuthStateChanged,type User} from "firebase/auth";
 import {createFoodOrder,getCustomerProfile,getMenuItems,readCachedMenuItems,saveCustomerProfile,type MenuItem} from "@/lib/firebase/data";
 import {auth} from "@/lib/firebase/client";
-import NotificationSettings from "@/components/NotificationSettings";
 function gaboroneDateKey(date=new Date()){const parts=new Intl.DateTimeFormat("en-US",{timeZone:"Africa/Gaborone",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(date);return `${parts.find(p=>p.type==="year")?.value}-${parts.find(p=>p.type==="month")?.value}-${parts.find(p=>p.type==="day")?.value}`}
 function weekdayForDate(dateKey:string){return new Intl.DateTimeFormat("en-US",{weekday:"long",timeZone:"Africa/Gaborone"}).format(new Date(`${dateKey}T12:00:00`))}
 function addGaboroneDays(dateKey:string,offset:number){const date=new Date(`${dateKey}T12:00:00`);date.setUTCDate(date.getUTCDate()+offset);return `${date.getUTCFullYear()}-${String(date.getUTCMonth()+1).padStart(2,"0")}-${String(date.getUTCDate()).padStart(2,"0")}`}
@@ -57,13 +57,13 @@ export default function OrderForm({embedded=false,onClose}:{embedded?:boolean;on
  if(submitted)return (
   <main className={embedded?"orderPage lf-order-overlay":"orderPage"}>
    <div className="orderWrap">
-    <div className="orderCard confirm">{embedded&&<button type="button" className="lf-order-close" onClick={onClose} aria-label="Close order">×</button>}{embedded&&<button type="button" className="lf-order-close" onClick={onClose} aria-label="Close order">×</button>}
+    <div className="orderCard confirm">{embedded&&<button type="button" className="lf-order-close" onClick={onClose} aria-label="Close order">×</button>}
      <div className="confirmIcon">🍔</div>
      <span className="kicker">{pendingSync?"Offline save":"Order submitted"}</span>
      <h1>{pendingSync?"Saved on this phone.":"Order received."}</h1>
      <p>{pendingSync?"Your order is waiting to synchronize. Reconnect this device so it can reach Luvie's Foods. Until then, the kitchen has not received it.":"Your order was written to the Luvie's Foods order queue. The kitchen can review it and contact you if needed."}</p>
      <strong>Reference #{reference.slice(0,8).toUpperCase()}</strong>
-     <NotificationSettings/>
+     
      <div className="actions centered">
       <div>
        <p className="orderTruth"><strong>Your order is saved with Luvie's Foods.</strong> You can follow it from <Link href="/account">My Luvie's Foods</Link> when this guest session is available.</p>
