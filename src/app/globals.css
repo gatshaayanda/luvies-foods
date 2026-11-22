@@ -6288,3 +6288,15 @@ body{background:#fbf8f7;color:#202b3c}
 .i13-install-brand{padding-right:25px}.i13-install-mark{background:#db0b0b;color:#fff;border:0;box-shadow:none;border-radius:11px}.i13-install-brand strong{color:#202b3c}.i13-install-brand small{color:#776b67}.i13-install-action{background:#db0b0b;color:#fff;border-radius:11px;min-height:42px;font-size:11px}.i13-install-close{background:#f5eeeb;color:#202b3c}
 @media(max-width:760px){.lf-hero{grid-template-columns:1fr;gap:20px;padding-top:26px}.lf-hero-copy{padding:4px 0}.lf-hero h1{font-size:52px}.lf-hero-photo{height:270px;grid-row:2}.lf-hero-stamp{right:28px;top:auto;bottom:260px;width:68px;height:68px}.lf-menu-grid{grid-template-columns:1fr}.lf-meal{grid-template-columns:39% 1fr;min-height:152px}.lf-meal-image{min-height:152px}.lf-meal-info{padding:13px}.lf-meal-info h3{font-size:18px}.lf-promise{margin:0 12px 20px}.lf-footer{gap:8px;font-size:8px}.lf-topline{padding:0 12px;font-size:8px}}
 @media(max-width:390px){.lf-hero h1{font-size:45px}.lf-header{padding:0 14px}.lf-meal{grid-template-columns:36% 1fr}.lf-meal-info{padding:11px}.lf-meal-info h3{font-size:16px}.lf-primary{padding:12px 15px}}
+
+/* Luvie's Foods — integrated order sheet */
+.lf-primary,.lf-meal-bottom>button,.lf-promise>button{border:0;cursor:pointer;font:inherit}
+.lf-meal-bottom>button{background:#202b3c;color:#fff;border-radius:999px;padding:9px 13px;font-size:10px;font-weight:900}
+.lf-promise>button{font-size:11px;font-weight:900;color:#fff;border-bottom:1px solid #c04467;padding:7px 0;background:transparent}
+.lf-order-overlay{position:fixed!important;inset:0;z-index:950;overflow-y:auto;background:#fbf7f3!important;padding:16px 0 36px;overscroll-behavior:contain}
+.lf-order-overlay .orderWrap{max-width:1080px}
+.lf-order-overlay .orderCard{position:relative}
+.lf-order-overlay .lf-order-close{position:absolute;right:14px;top:12px;border:0;border-radius:50%;width:38px;height:38px;background:#f5eeeb;color:#202b3c;font-size:25px;cursor:pointer}
+.lf-order-overlay .orderHeader .actions{display:flex;gap:8px;align-items:center}
+.lf-order-overlay .orderHeader .logoMark{font-size:17px}
+@media(max-width:680px){.lf-order-overlay{padding:8px 0 24px}.lf-order-overlay .orderHeader{gap:8px}.lf-order-overlay .orderHeader .actions{gap:5px}}
