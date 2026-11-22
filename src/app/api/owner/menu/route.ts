@@ -45,7 +45,7 @@ async function listMenu(db:ReturnType<typeof getFirestore>){
 export async function POST(request:Request){
  try{
   const db=await getOwnerDatabase(request);
-  const body=await request.json().catch(()=>null) as {action?:unknown;item?:Record<string,unknown>;id?:unknown}|null;
+  const body=await request.json().catch(()=>null) as {action?:unknown;item?:Record<string,unknown>;settings?:Record<string,unknown>;id?:unknown}|null;
   const action=body?.action;
   if(action==="seed"){
    for(const meal of starterMeals){
