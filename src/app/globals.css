@@ -6527,3 +6527,13 @@ body{background:#fbf8f7;color:#202b3c}
 .lf-bc-message-thread form button{min-height:40px;padding:0 16px;border:0;border-radius:999px;background:#db0b0b;color:#fff;font-size:11px;font-weight:900;cursor:pointer}
 .lf-bc-message-thread form button:disabled{opacity:.55;cursor:wait}
 @media(max-width:560px){.lf-bc-message-threads>button{align-items:flex-start;flex-direction:column}}
+
+
+/* Custom enquiry overlay: restore readable storefront hierarchy on the light shell. */
+.lf-order-overlay .lf-request-intro h1{color:#202b3c!important}
+.lf-order-overlay .lf-request-intro>.kicker{color:#a33d45!important}
+.lf-order-overlay .lf-request-intro>p{color:#655b55}
+.lf-order-overlay .lf-request-stage-head h2{color:#fff}
+.lf-order-overlay .lf-request-stage-head>div>.kicker{color:#f0c4a7}
+.lf-order-overlay .lf-request-stage-head>div>p{color:#c8bdb6}
+.lf-order-overlay .lf-request-stage-head>strong{color:#f0a078}
