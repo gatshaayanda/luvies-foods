@@ -6624,3 +6624,13 @@ body{background:#fbf8f7;color:#202b3c}
 @media(max-width:560px){.lf-customer-helper{right:12px;bottom:82px}.lf-customer-helper-panel{max-height:calc(100dvh - 82px)}.lf-account-google-link{align-items:stretch;flex-direction:column}.lf-account-google-link .lf-account-primary{width:100%}}
 
 .lf-account-google-secondary{min-height:38px;padding:0 13px;border:1px solid #e5d9d2;border-radius:999px;background:#fff;color:#7a3038;font-size:10px;font-weight:900;cursor:pointer}.lf-account-google-secondary:disabled{opacity:.55;cursor:wait}
+
+/* Persistent English / Setswana preference — compact and readable in each customer header. */
+.lf-language-switcher{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 9px;border:1px solid #eadfd8;border-radius:999px;background:#fff;color:#51433e;font-size:10px;font-weight:800;white-space:nowrap}
+.lf-language-switcher svg{flex:0 0 auto;color:#9d353c}
+.lf-language-switcher select{max-width:94px;min-width:0;border:0;background:transparent;color:#202b3c;font:800 10px Inter,Arial,sans-serif;outline-offset:3px}
+.lf-language-switcher select:focus-visible{outline:2px solid #db0b0b;border-radius:4px}
+.lf-language-label{color:#756963}
+.lf-header nav .lf-language-switcher,.lf-account-header nav .lf-language-switcher{margin-left:0}
+.lf-order-overlay .lf-language-switcher{min-height:34px;padding:0 7px}
+@media(max-width:560px){.lf-language-switcher{gap:4px;min-height:34px;padding:0 7px}.lf-language-label{display:none}.lf-language-switcher select{max-width:82px}}
