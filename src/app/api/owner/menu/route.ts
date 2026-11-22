@@ -1,6 +1,6 @@
 import {cert,getApps,initializeApp} from "firebase-admin/app";
 import {getAuth} from "firebase-admin/auth";
-import {getFirestore} from "firebase-admin/firestore";
+import {getFirestore,type DocumentData} from "firebase-admin/firestore";
 import {NextResponse} from "next/server";
 
 export const runtime="nodejs";
@@ -17,10 +17,10 @@ function getAdminApp(){
  return existing??initializeApp({credential:cert(serviceAccount as Parameters<typeof cert>[0]),projectId:expectedProject},name);
 }
 
-const starterMeals=[
+const starterMeals:DocumentData[]=[
  {id:"rice-and-chicken",name:"Rice and chicken",price:40,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:1,imageUrl:"https://9hqs4mvyjb.ufs.sh/f/4b6x094yqDzNr2Ycpkziq1PRh9nKcZ6A3UgIYaVJCrpDTeO0",section:"deal",days:[]},
  {id:"rice-and-beef",name:"Rice and beef",price:40,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:2,imageUrl:"https://9hqs4mvyjb.ufs.sh/f/4b6x094yqDzN4cSgJSyqDzNSR9iuQ7HtY2bdagyBOnkUPMrX",section:"deal",days:[]}
-] as const;
+];
 const menuFields=["id","name","price","friendPrice","category","description","available","preparationMinutes","sortOrder","imageUrl","section","days","brand","productType","sizes","colors","sourceUrl"] as const;
 
 async function getOwnerDatabase(request:Request){
