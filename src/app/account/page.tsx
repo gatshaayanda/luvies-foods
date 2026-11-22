@@ -16,6 +16,7 @@ const dateTime=(value:string)=>{try{return new Intl.DateTimeFormat("en-BW",{time
 const statusCopy:Record<string,string>={New:"Received · waiting for Lesedi to review",Accepted:"Accepted · your order is being arranged",Preparing:"Being prepared",Ready:"Ready for collection",Delivering:"On the way",Collected:"Collected",Delivered:"Delivered",Cancelled:"Cancelled"};
 
 export default function AccountPage(){
+ const {t}=useFoodLanguage();
  const[user,setUser]=useState<User|null>(null);
  const[profile,setProfile]=useState<CustomerProfile|null>(null);
  const[orders,setOrders]=useState<FoodOrder[]>([]);
