@@ -4,6 +4,7 @@ import Link from "next/link";
 import {useEffect,useState} from "react";
 import {subscribeToMenuItems,subscribeToBusinessSettings,DEFAULT_ANNOUNCEMENT,type MenuItem,type BusinessSettings} from "@/lib/firebase/data";
 import OrderForm from "@/app/order/order-form";
+import FoodCustomerHelper from "@/components/FoodCustomerHelper";
 
 const foodFallbacks=[
  "https://images.bolt.eu/store/2025/2025-09-05/f50f2745-e417-46ea-922e-edb49e5a72ee.jpeg",
@@ -50,6 +51,7 @@ export default function FoodStorefront(){
   {selectedCount>0&&<div className="lf-selection-bar"><div><strong>{selectedCount} {selectedCount===1?"item":"items"} selected</strong><small>Estimated total · P{selectedTotal.toFixed(2)}</small></div><Link href={"/account?request=1&items="+encodeURIComponent(selectedParam)}>Continue with selected food <span>↗</span></Link></div>}
   <section className="lf-promise"><span>♥</span><div><strong>Good food, made with love.</strong><small>Choose your favourite, place your order, and we'll take care of the rest.</small></div><a href="#menu" aria-label="Browse the menu and choose your food">Let's eat ↗</a></section>
   <footer className="lf-footer"><Link href="/">LUVIE'S FOODS <span>♥</span></Link><span>GOOD FOOD, MADE WITH LOVE</span><a href="/admin" aria-label="Open the owner Briefcase">💼 Briefcase</a></footer>
+  <FoodCustomerHelper/>
   {orderOpen&&<OrderForm embedded onClose={closeOrder}/>}
  </main>;
 }
