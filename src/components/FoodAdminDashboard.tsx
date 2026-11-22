@@ -43,7 +43,22 @@ export default function FoodAdminDashboard(){
   catch(error){const code=typeof error?.code==="string"?error.code:"unknown";setNotice("Menu check failed ("+code+"). The app could not read or write the menu with this Firebase session. No Firestore rules were changed.")}
   finally{setSaving(false)}
  }
- async function saveItem(event:FormEvent<HTMLFormElement>){event.preventDefault();if(!draft.name.trim()||!Number.isFinite(draft.price)||draft.price<0){setNotice("Enter a meal name and valid price.");return}setSaving(true);try{await saveMenuItem({...draft,id:draft.id||"food-"+crypto.randomUUID(),name:draft.name.trim(),sortOrder:Number(draft.sortOrder)||menu.length+1});setDraft(blank);setEditing(false);setNotice("Menu item saved. Publish the menu when ready.")}catch{setNotice("Menu item could not be saved.")}finally{setSaving(false)}}
+ async function saveItem(event:FormEvent<HTMLFormElement>){
+  event.preventDefault();
+  if(!draft.name.trim()||!Number.isFinite(draft.price)||draft.price<0){setNotice("Enter a meal name and valid price.");return}
+  setSaving(true);setNotice("");
+  try{
+   await saveMenuItem({...draft,id:draft.id||"food-"+crypto.randomUUID(),name:draft.name.trim(),sortOrder:Number(draft.sortOrder)||menu.length+1});
+   setDraft(blank);setEditing(false);setNotice("Menu item saved to Firebase. Publish the menu when ready.");
+  }catch(error){
+   const failure=error as {code?:string;message?:string};
+   const code=typeof failure?.code==="string"?failure.code:"unknown";
+   const detail=typeof failure?.message==="string"?failure.message:"No additional error detail was returned.";
+   if(code==="permission-denied")setNotice("Firebase denied this menu save (permission-denied). The current owner session is not authorised to write the menu. Check the signed-in owner access record; your Firestore rules were not changed.");
+   else if(code==="unavailable"||code==="deadline-exceeded"||!navigator.onLine)setNotice("The menu could not reach Firebase ("+code+"). Check the connection and try saving again. Your draft is still open.");
+   else setNotice("Menu save failed ("+code+"): "+detail+" Your draft is still open.");
+  }finally{setSaving(false)}
+ }
  async function removeItem(item:MenuItem){if(!window.confirm("Delete "+item.name+" from the menu?"))return;try{await deleteMenuItem(item.id);setNotice("Menu item deleted.")}catch{setNotice("Could not delete this menu item.")}}
  async function publishMenu(){if(!menu.some(item=>item.available)){setNotice("Make at least one meal available before publishing.");return}setSaving(true);try{const at=new Date().toISOString();await saveBusinessSettings({...settings,menuPublishedAt:at,updatedAt:at});setNotice("Menu published to the customer Store.")}catch{setNotice("Menu publication failed. Check your connection.")}finally{setSaving(false)}}
  async function publishStore(event:FormEvent<HTMLFormElement>){event.preventDefault();setSaving(true);try{await saveBusinessSettings({...settings,updatedAt:new Date().toISOString()});setNotice("Store announcement published.")}catch{setNotice("Store update could not be published.")}finally{setSaving(false)}}
