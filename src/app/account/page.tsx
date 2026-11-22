@@ -17,7 +17,9 @@ export default function AccountPage(){
  const[ready,setReady]=useState(false);
  const[busy,setBusy]=useState(false);
  const[message,setMessage]=useState("");
- const[tab,setTab]=useState<"orders"|"details">("orders");\n const[selectedRequest,setSelectedRequest]=useState<{id:string;quantity:number}[]>([]);\n const[selectedMenu,setSelectedMenu]=useState<MenuItem[]>([]);
+ const[tab,setTab]=useState<"orders"|"details">("orders");
+ const[selectedRequest,setSelectedRequest]=useState<{id:string;quantity:number}[]>([]);
+ const[selectedMenu,setSelectedMenu]=useState<MenuItem[]>([]);
 
  useEffect(()=>{
   let disposed=false;
@@ -70,7 +72,9 @@ export default function AccountPage(){
     <span className="lf-account-session"><i/> {user?.isAnonymous?"Customer space":"Signed in"}</span>
    </section>
 
-   {selectedRequest.length>0&&<section className="lf-account-current-request" aria-labelledby="lf-current-request-title"><div><span className="lf-eyebrow">YOUR SELECTION</span><h2 id="lf-current-request-title">Your food is ready.</h2><p>We brought your selected meals here. Review them, then continue to the short request.</p></div><div className="lf-account-request-items">{requestMeals.map(entry=><div key={entry.id}><span>{entry.quantity} × {entry.item?.name}</span><strong>{money((entry.item?.price??0)*entry.quantity)}</strong></div>)}</div><div className="lf-account-request-bottom"><strong>Estimated total · {money(requestTotal)}</strong><Link className="lf-account-primary" href={"/order?items="+encodeURIComponent(requestParam)}>Continue with {requestMeals.length} selected {requestMeals.length===1?"item":"items"} <span>→</span></Link></div>{requestMeals.length===0&&<p role="status">Those meals are no longer available. Return to the Store to choose from the current menu.</p>}</section>}\n\n   <section className="lf-account-summary" aria-label="Order summary">
+   {selectedRequest.length>0&&<section className="lf-account-current-request" aria-labelledby="lf-current-request-title"><div><span className="lf-eyebrow">YOUR SELECTION</span><h2 id="lf-current-request-title">Your food is ready.</h2><p>We brought your selected meals here. Review them, then continue to the short request.</p></div><div className="lf-account-request-items">{requestMeals.map(entry=><div key={entry.id}><span>{entry.quantity} × {entry.item?.name}</span><strong>{money((entry.item?.price??0)*entry.quantity)}</strong></div>)}</div><div className="lf-account-request-bottom"><strong>Estimated total · {money(requestTotal)}</strong><Link className="lf-account-primary" href={"/order?items="+encodeURIComponent(requestParam)}>Continue with {requestMeals.length} selected {requestMeals.length===1?"item":"items"} <span>→</span></Link></div>{requestMeals.length===0&&<p role="status">Those meals are no longer available. Return to the Store to choose from the current menu.</p>}</section>}
+
+   <section className="lf-account-summary" aria-label="Order summary">
     <div><span>ACTIVE ORDERS</span><strong>{active.length}</strong><small>{active.length===1?"Order being handled":"Orders being handled"}</small></div>
     <div><span>ALL ORDERS</span><strong>{orders.length}</strong><small>Saved order history</small></div>
     <Link href="/?order=1">＋ Start an order <span>↗</span></Link>
