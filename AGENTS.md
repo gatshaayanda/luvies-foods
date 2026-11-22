@@ -414,3 +414,13 @@ The product owner has approved a top-down, screen-by-screen redesign of the Iter
 - Load the saved business identity, catalogue, uploaded media URLs, announcement, customer requests, Account records, owner Briefcase notes and activity from their existing keys without reseeding, replacing or resetting them.
 - Continue must preserve the existing workspace and remove only obsolete launch query parameters from the URL; it must not migrate, clear or overwrite browser-local records.
 - Verify the existing workspace resumes unchanged, new requests still appear in Account and owner Briefcase, and the setup path remains independent. Keep Setup as the current QA checkpoint; do not redesign Account or Briefcase.
+
+
+## Owner Briefcase — current implementation
+- `/admin` remains protected by Firebase email/password sign-in and the existing `admins/{uid}` owner/staff authorization check. Do not replace it with Iteration 13's browser-local demo access word.
+- The owner workspace is a Luvie's Foods adaptation: Today, Orders, Customers, Money, Menu, Store and Notes.
+- Today, Orders, Customers and Money derive from the live Firestore food-order/menu/business-settings subscriptions. Customer rows are derived from actual saved orders; they are not a separate CRM collection.
+- Payment totals mean recorded amounts only. Outstanding order value is an order-value calculation, not a cash balance or accounting ledger.
+- Menu changes and Store announcements persist through the existing Firestore helpers; menu publication remains an explicit action and requires an available meal. Menu/announcement media continue to use UploadThing.
+- Owner Notes are intentionally device-local (`localStorage`) and are labelled as such. They are not Firebase-synced or shared with staff.
+- Do not add demo orders, customer records, sales, stock or analytics. Keep unavailable operational areas clearly labelled rather than implying they are live.
