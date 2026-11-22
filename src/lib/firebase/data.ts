@@ -1,5 +1,5 @@
 "use client";
-import {addDoc,collection,doc,getDoc,getDocs,onSnapshot,query,setDoc,updateDoc,deleteDoc,where} from "firebase/firestore";
+import {addDoc,collection,doc,getDoc,getDocs,onSnapshot,query,setDoc,updateDoc,where} from "firebase/firestore";
 import type {Unsubscribe} from "firebase/firestore";
 import {auth,db} from "@/lib/firebase/client";
 
