@@ -424,3 +424,13 @@ The product owner has approved a top-down, screen-by-screen redesign of the Iter
 - Menu changes and Store announcements persist through the existing Firestore helpers; menu publication remains an explicit action and requires an available meal. Menu/announcement media continue to use UploadThing.
 - Owner Notes are intentionally device-local (`localStorage`) and are labelled as such. They are not Firebase-synced or shared with staff.
 - Do not add demo orders, customer records, sales, stock or analytics. Keep unavailable operational areas clearly labelled rather than implying they are live.
+
+
+## Customer language preference — English and Setswana
+
+- Customer-facing Store, order form, Account, guided help and customer Messages support English and Setswana. English is the default; customers can change language from the Store, Account or order-form header.
+- Keep translation copy in `src/lib/food-translations.ts`. The selected preference is stored locally under `luvies-foods:language:v1` and shared across customer routes; it is optional and must never block browsing or ordering.
+- The translation structure follows The Plug's shared dictionary and preference-event pattern, adapted to Luvie's food-ordering vocabulary rather than copying sneaker/sourcing language.
+- Translate interface labels, guidance and system status only. Menu item names/descriptions, Lesedi's announcements, customer notes and human messages remain in the language in which their author entered them; do not silently machine-translate business/customer-authored content.
+- The owner Briefcase remains English for this release. BWP remains the canonical currency and must not change with language.
+- Setswana copy is a product draft and should receive a fluent local-language review before formal public launch. Preserve meaning around requests versus confirmed orders, requested versus guaranteed times, payment records and price-on-request.
