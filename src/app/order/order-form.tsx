@@ -56,7 +56,9 @@ export default function OrderForm({embedded=false,onClose}:{embedded?:boolean;on
       })
       .catch(profileError=>console.warn("Luvie's Foods customer profile save unavailable",profileError));
    }
-   try{window.localStorage.removeItem(customDraftKey)}catch{}setSubmitted(true);formElement.reset();
+   try{window.localStorage.removeItem(customDraftKey)}catch{}
+   if(!offline){window.location.replace("/account");return;}
+   setSubmitted(true);formElement.reset();
   }catch(error){console.error("Luvie’s Foods order submission failed",error);const code=typeof error==="object"&&error!==null&&"code" in error?String((error as {code?:unknown}).code):"";if(code.includes("permission-denied"))setError("Firebase denied the order write under the current rules. Lesedi has NOT received it. Your details are still on this screen; please try again or contact Luvie’s Foods.");else if(code.includes("unavailable")||!navigator.onLine)setError("Luvie’s Foods could not reach the order service. Lesedi has NOT received this request. Check your connection and try again; your details are still on this screen.");else setError("We couldn’t save your request. Lesedi has NOT received it. Your details are still here. Please try again, or contact Luvie’s Foods if it keeps happening.")}finally{setBusy(false)}
  }
  if(submitted)return (
