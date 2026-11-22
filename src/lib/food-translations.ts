@@ -239,7 +239,27 @@ const setswana: Record<string,string> = {
   "Add your delivery location or landmark.":"Tsenya lefelo la go tlisiwa kgotsa letshwao la lone.",
   "Firebase denied the order write under the current rules. Lesedi has NOT received it. Your details are still on this screen; please try again or contact Luvie’s Foods.":"Firebase ga e a letlelela go bolokwa ga kopo ka melao ya jaanong. Lesedi GA A e amogela. Dintlha tsa gago di sa ntse di le mo sekirining seno; leka gape kgotsa ikgolaganye le Luvie's Foods.",
   "Luvie’s Foods could not reach the order service. Lesedi has NOT received this request. Check your connection and try again; your details are still on this screen.":"Luvie's Foods ga e a kgona go fitlhelela tirelo ya dikopo. Lesedi GA A amogela kopo eno. Tlhola kgokagano mme o leke gape; dintlha tsa gago di sa ntse di le mo sekirining seno.",
-  "We couldn’t save your request. Lesedi has NOT received it. Your details are still here. Please try again, or contact Luvie’s Foods if it keeps happening.":"Ga re a kgona go boloka kopo ya gago. Lesedi GA A e amogela. Dintlha tsa gago di sa ntse di le fano. Leka gape kgotsa ikgolaganye le Luvie's Foods fa bothata bo tswelela."
+  "We couldn’t save your request. Lesedi has NOT received it. Your details are still here. Please try again, or contact Luvie’s Foods if it keeps happening.":"Ga re a kgona go boloka kopo ya gago. Lesedi GA A e amogela. Dintlha tsa gago di sa ntse di le fano. Leka gape kgotsa ikgolaganye le Luvie's Foods fa bothata bo tswelela.",
+"Ask Luvie's Foods customer help":"Botsa thuso ya Luvie's Foods",
+  "Recorded payments":"Dituelo tse di kwadisitsweng",
+  "Request progress":"Kgatelopele ya kopo",
+  "A DIRECT LINE TO LESEDI":"MOLAETSA O O TLHAMALALANG LE LESEDI",
+  "conversations":"dipuisano",
+  "All messages":"Melaetsa yotlhe",
+  "Start the conversation. Ask Lesedi about your request, availability, collection or delivery.":"Simolola puisano. Botsa Lesedi ka kopo ya gago, gore dijo di teng, go tsaya dijo kgotsa go tlisediwa.",
+  "Write a message to Lesedi…":"Kwala molaetsa o o yang kwa go Lesedi…",
+  "Sending…":"E a romelwa…",
+  "Send message":"Romela molaetsa",
+  "You":"Wena",
+  "New · ":"Ntšhwa · ",
+  "No messages yet.":"Ga go na melaetsa jaanong.",
+  "Talk to Lesedi.":"Bua le Lesedi.",
+  "Ask about a food request, menu availability, collection, delivery or payment. Your messages will stay here.":"Botsa ka kopo ya dijo, gore dijo di teng, go tsaya dijo, go tlisediwa kgotsa tuelo. Melaetsa ya gago e tla nna fano.",
+  "Opening…":"E a bulwa…",
+  "Start a conversation":"Simolola puisano",
+  "A conversation could not be started.":"Puisano ga e a kgona go simololwa.",
+  "Messages could not be marked as read.":"Melaetsa ga e a kgona go tshwaiwa e le e e badilweng.",
+  "Your message could not be sent. Please try again.":"Molaetsa wa gago ga o a kgona go romelwa. Tsweetswee leka gape."
 };
 
 export function foodText(language:FoodLanguage,value:string):string {
