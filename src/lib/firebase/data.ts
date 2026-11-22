@@ -85,7 +85,15 @@ export async function ensureStarterMenuSeeded():Promise<MenuItem[]>{
 const MENU_CACHE_KEY="love-is-foods-menu-cache-v1";
 export function readCachedMenuItems():MenuItem[]{if(typeof window==="undefined")return [];try{const raw=window.localStorage.getItem(MENU_CACHE_KEY);return raw?JSON.parse(raw) as MenuItem[]:[]}catch{return []}}
 export async function getMenuItems():Promise<MenuItem[]>{const snapshot=await getDocs(menuCollection);const items=snapshot.docs.map(item=>({id:item.id,...item.data() as Omit<MenuItem,"id">})).sort((a,b)=>a.sortOrder-b.sortOrder||a.name.localeCompare(b.name));try{if(typeof window!=="undefined")window.localStorage.setItem(MENU_CACHE_KEY,JSON.stringify(items))}catch{}return items}
-export async function saveMenuItem(item:MenuItem){await setDoc(doc(menuCollection,item.id),item)}
+export async function saveMenuItem(item:MenuItem){
+ if(!item.id.trim())throw new Error("Menu item is missing its record ID.");
+ if(!item.name.trim())throw new Error("Enter a meal name before saving.");
+ if(!Number.isFinite(item.price)||item.price<0)throw new Error("Enter a valid meal price.");
+ // Firestore rejects undefined values. Strip optional empty fields before writing so
+ // older menu records and newly-created drafts share the same safe save path.
+ const payload=Object.fromEntries(Object.entries(item).filter(([,value])=>value!==undefined));
+ await setDoc(doc(menuCollection,item.id),payload);
+}
 export async function deleteMenuItem(id:string){await deleteDoc(doc(db,"menu",id))}
 export async function getBusinessSettings():Promise<BusinessSettings|null>{const snapshot=await getDoc(doc(settingsCollection,"main"));return snapshot.exists()?{id:snapshot.id,...snapshot.data() as Omit<BusinessSettings,"id">}:null}
 export async function saveBusinessSettings(settings:BusinessSettings){await setDoc(doc(settingsCollection,"main"),settings)}
