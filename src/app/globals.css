@@ -6290,7 +6290,7 @@ body{background:#fbf8f7;color:#202b3c}
 .lf-empty-copy{position:relative;z-index:1;display:grid;justify-items:start;gap:10px;max-width:560px}
 .lf-empty-copy h3{margin:0;color:#202b3c;font:700 clamp(26px,3.3vw,38px)/1.08 Georgia,'Times New Roman',serif;letter-spacing:-.04em;text-transform:none}
 .lf-empty-copy p{max-width:520px;margin:0;color:#665c59;font-size:15px;line-height:1.65}
-.lf-custom-cta{display:inline-flex;align-items:center;justify-content:center;gap:22px;min-height:48px;margin-top:5px;padding:0 20px;border-radius:999px;background:#db0b0b;color:#fff!important;font-size:13px;font-weight:900;box-shadow:0 8px 20px #db0b0b25;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.lf-custom-cta{display:inline-flex;align-items:center;justify-content:center;gap:22px;min-height:48px;margin-top:5px;padding:0 20px;border:0;border-radius:999px;background:#db0b0b;color:#fff!important;font:inherit;font-size:13px;font-weight:900;cursor:pointer;box-shadow:0 8px 20px #db0b0b25;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
 .lf-custom-cta span{font-size:18px;transition:transform .2s ease}
 .lf-custom-cta:hover{transform:translateY(-2px);background:#bd0808;box-shadow:0 12px 24px #db0b0b30}
 .lf-custom-cta:hover span{transform:translate(2px,-2px)}
