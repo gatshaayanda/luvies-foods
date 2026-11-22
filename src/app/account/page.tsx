@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unescaped-entities -- Luvie's Foods brand copy uses natural apostrophes. */
 import Link from "next/link";
 import {useEffect,useState,type FormEvent} from "react";
-import {onAuthStateChanged,signInAnonymously,type User} from "firebase/auth";
+import {GoogleAuthProvider,linkWithPopup,onAuthStateChanged,signInAnonymously,type User} from "firebase/auth";
 import {auth} from "@/lib/firebase/client";
 import FoodCustomerMessages from "@/components/FoodCustomerMessages";
 import {getCustomerProfile,saveCustomerProfile,subscribeToCustomerOrders,getMenuItems,type CustomerProfile,type FoodOrder,type MenuItem} from "@/lib/firebase/data";
@@ -29,6 +29,7 @@ export default function AccountPage(){
 
  useEffect(()=>{
   const params=new URLSearchParams(window.location.search);
+  if(params.get("tab")==="messages")setTab("messages");
   if(params.get("request")!=="1")return;
   const parsed=(params.get("items")??"").split(",").map(part=>{const [id,quantity]=part.split(":");return{id,quantity:Number(quantity)}}).filter(item=>item.id&&Number.isInteger(item.quantity)&&item.quantity>0&&item.quantity<=50);
   setSelectedRequest(parsed);
@@ -58,6 +59,26 @@ export default function AccountPage(){
   });
   return()=>{disposed=true;stopAuth();stopOrders()};
  },[]);
+
+ async function connectGoogle(){
+  if(!user||!user.isAnonymous||busy)return;
+  setBusy(true);setMessage("");
+  const provider=new GoogleAuthProvider();
+  provider.setCustomParameters({prompt:"select_account"});
+  try{
+   const credential=await linkWithPopup(user,provider);
+   const linked=credential.user;
+   const next={...(profile??{uid:linked.uid,name:"",email:"",phone:"",preferredDeliveryLocation:"",notes:"",createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()}),uid:linked.uid,email:linked.email??"",name:profile?.name||linked.displayName||"",updatedAt:new Date().toISOString()};
+   await saveCustomerProfile(next);
+   setUser(linked);setProfile(next);
+   setMessage("Google sign-in is connected. Use this same Google account to return to your Luvie's Foods history on another device.");
+  }catch(error){
+   const code=typeof error==="object"&&error!==null&&"code" in error?String((error as {code?:unknown}).code):"";
+   if(code==="auth/credential-already-in-use"||code==="auth/email-already-in-use")setMessage("That Google account is already connected to another Firebase account. We haven't switched accounts or moved your orders, so your current order history stays safe.");
+   else if(code==="auth/popup-closed-by-user")setMessage("Google sign-in was cancelled. Your current customer space is unchanged.");
+   else setMessage("Google sign-in could not be connected. Check that Google is enabled in Firebase Authentication and try again.");
+  }finally{setBusy(false)}
+ }
 
  async function save(event:FormEvent<HTMLFormElement>){
   event.preventDefault();
@@ -115,6 +136,7 @@ export default function AccountPage(){
      {order.instructions&&<p className="lf-account-order-note">Your note: {order.instructions}</p>}
     </article>)}</div>}
    </section>:tab==="messages"?<FoodCustomerMessages uid={user?.uid??""}/>:tab==="receipts"?<section className="lf-account-panel" role="tabpanel"><div className="lf-account-panel-head"><div><span className="lf-eyebrow">PAYMENT HISTORY</span><h2>Receipts</h2></div><span>Recorded payments</span></div>{orders.filter(order=>(order.paymentStatus==="paid"||order.paymentStatus==="partial")&&(order.amountPaid??0)>0).length===0?<div className="lf-account-empty"><span className="lf-account-empty-mark">♥</span><h3>No receipts yet.</h3><p>When Lesedi records a payment against one of your food requests, its payment record will appear here.</p></div>:<div className="lf-account-orders">{orders.filter(order=>(order.paymentStatus==="paid"||order.paymentStatus==="partial")&&(order.amountPaid??0)>0).map(order=><article className="lf-account-order" key={order.id}><div className="lf-account-order-top"><div><span className="lf-account-order-ref">PAYMENT RECORD · ORDER {order.id.slice(0,8).toUpperCase()}</span><small>{dateTime(order.createdAt)}</small></div><strong className="lf-order-status">{order.paymentStatus==="paid"?"Paid":"Part-paid"}</strong></div><div className="lf-account-order-bottom"><div><span>{order.paymentMethod==="etransfer"?"Electronic transfer":order.paymentMethod==="cash"?"Cash":order.paymentMethod==="other"?"Other":"Payment method not recorded"}</span><small>Food request · {order.items.map(item=>item.name).join(", ")}</small></div><strong>{money(order.amountPaid??0)}</strong></div><p className="lf-account-order-note">Payment record for your reference. This is not a tax invoice.</p></article>)}</div>}</section>:tab==="rewards"?<section className="lf-account-panel" role="tabpanel"><div className="lf-account-panel-head"><div><span className="lf-eyebrow">A LITTLE THANK-YOU</span><h2>Rewards</h2></div><span>Luvie's Foods</span></div><div className="lf-account-empty"><span className="lf-account-empty-mark">♥</span><h3>Your rewards live here.</h3><p>Complete the eight-second race challenge to earn a 5% discount. Your reward will appear here once Lesedi has verified and recorded it against your account.</p><Link className="lf-account-primary" href="/#menu">Back to Luvie's Foods <span>↗</span></Link></div></section>:<section className="lf-account-panel" role="tabpanel"><div className="lf-account-panel-head"><div><span className="lf-eyebrow">READY FOR NEXT TIME</span><h2>Your details</h2></div><span>Private customer profile</span></div>
+    {user?.isAnonymous?<div className="lf-account-google-link"><div><strong>Keep your food journey with you.</strong><small>Connect Google to return to this same customer account from another device.</small></div><button className="lf-account-primary" type="button" onClick={()=>void connectGoogle()} disabled={busy}>{busy?"Connecting…":"Connect Google account"}</button></div>:user?.providerData.some(provider=>provider.providerId==="google.com")?<p className="lf-account-message">Google sign-in connected · {user.email}</p>:null}
     {profile&&<form className="lf-account-form" onSubmit={save}>
      <label>Your name<input value={profile.name} onChange={event=>setProfile({...profile,name:event.target.value})} autoComplete="name" required/></label>
      <label>Phone number<input type="tel" value={profile.phone} onChange={event=>setProfile({...profile,phone:event.target.value})} autoComplete="tel" required/></label>
