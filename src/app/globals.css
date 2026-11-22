@@ -6300,3 +6300,11 @@ body{background:#fbf8f7;color:#202b3c}
 .lf-order-overlay .orderHeader .actions{display:flex;gap:8px;align-items:center}
 .lf-order-overlay .orderHeader .logoMark{font-size:17px}
 @media(max-width:680px){.lf-order-overlay{padding:8px 0 24px}.lf-order-overlay .orderHeader{gap:8px}.lf-order-overlay .orderHeader .actions{gap:5px}}
+
+
+/* Luvie's Foods — live business announcement */
+.lf-announcement{max-width:1116px;margin:0 auto 28px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:18px;border:1px solid #f0d5dc;border-left:4px solid #db0b0b;border-radius:15px;background:linear-gradient(110deg,#fff 0%,#fff5f7 100%);box-shadow:0 7px 22px #202b3c0a}
+.lf-announcement-copy{display:grid;gap:6px;min-width:0}
+.lf-announcement-copy strong{font:700 19px Georgia,serif;color:#202b3c}
+.lf-announcement>img{width:104px;height:76px;object-fit:cover;border-radius:10px;flex:0 0 auto}
+@media(max-width:760px){.lf-announcement{margin:0 13px 22px;padding:12px;gap:12px}.lf-announcement-copy strong{font-size:16px}.lf-announcement>img{width:82px;height:68px}}

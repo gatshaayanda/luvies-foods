@@ -11,7 +11,8 @@ export type OrderItem={name:string;price:number;quantity:number};
 export type CustomerProfile={uid:string;name:string;email:string;phone:string;preferredDeliveryLocation:string;notes:string;createdAt:string;updatedAt:string};
 export type FoodOrder={id:string;customerId?:string;createdAt:string;customerName:string;phone:string;mode:"pickup"|"delivery";scheduledFor:string;deliveryLocation:string;instructions:string;items:OrderItem[];total:number;status:OrderStatus;paymentStatus?:PaymentStatus;paymentMethod?:PaymentMethod;amountPaid?:number};
 export type MenuItem={id:string;name:string;price:number;friendPrice?:number;category:string;description:string;available:boolean;preparationMinutes:number;sortOrder:number;imageUrl?:string;section?:"daily"|"deal";days?:string[];brand?:string;productType?:string;sizes?:string[];colors?:string[];sourceUrl?:string};
-export type BusinessSettings={id:string;location:string;hours:string;locationNote:string;updatedAt:string};export type NotificationPreferences={enabled:boolean;leadMinutes:number;updatedAt:string};
+export type BusinessSettings={id:string;location:string;hours:string;locationNote:string;announcementEnabled?:boolean;announcementText?:string;announcementImageUrl?:string;updatedAt:string};
+export const DEFAULT_ANNOUNCEMENT={enabled:true,text:"Ask if we have Xmas Special discounts🎄",imageUrl:"https://9hqs4mvyjb.ufs.sh/f/4b6x094yqDzN9pcOc52Bw9LKbDkMFC0PpJXVt5sQWAYgIvf2"} as const;export type NotificationPreferences={enabled:boolean;leadMinutes:number;updatedAt:string};
 export type NotificationToken={token:string;admin:boolean;updatedAt:string};
 export type DailyReconciliation={date:string;actualCash:number;actualETransfer:number;actualOther:number;notes:string;updatedAt:string};
 
@@ -46,7 +47,7 @@ const conversationsCollection=collection(db,"conversations");
 export async function createCustomerConversation(uid:string,title:string):Promise<string>{
  const profile=await getCustomerProfile(uid);
  const now=new Date().toISOString();
- const reference=await addDoc(conversationsCollection,{customerId:uid,customerName:profile?.name||"Love is Foods customer",title,status:"open",createdAt:now,updatedAt:now,lastMessageAt:now,lastMessagePreview:"",unreadForCustomer:false,unreadForAdmin:false});
+ const reference=await addDoc(conversationsCollection,{customerId:uid,customerName:profile?.name||"Luvie's Foods customer",title,status:"open",createdAt:now,updatedAt:now,lastMessageAt:now,lastMessagePreview:"",unreadForCustomer:false,unreadForAdmin:false});
  return reference.id;
 }
 export function subscribeToCustomerConversations(uid:string,onChange:(items:Conversation[])=>void,onError:(error:Error)=>void):Unsubscribe{
@@ -67,8 +68,8 @@ export async function ensureStarterMenuSeeded():Promise<MenuItem[]>{
  const snapshot=await getDocs(menuCollection);
  if(snapshot.empty){
   const meals:MenuItem[]=[
-   {id:"rice-and-chicken",name:"Rice and chicken",price:40,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:1,section:"deal",days:[]},
-   {id:"rice-and-beef",name:"Rice and beef",price:40,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:2,section:"deal",days:[]}
+   {id:"rice-and-chicken",name:"Rice and chicken",price:40,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:1,imageUrl:"https://9hqs4mvyjb.ufs.sh/f/4b6x094yqDzNr2Ycpkziq1PRh9nKcZ6A3UgIYaVJCrpDTeO0",section:"deal",days:[]},
+   {id:"rice-and-beef",name:"Rice and beef",price:40,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:2,imageUrl:"https://9hqs4mvyjb.ufs.sh/f/4b6x094yqDzN4cSgJSyqDzNSR9iuQ7HtY2bdagyBOnkUPMrX",section:"deal",days:[]}
   ];
   await Promise.all(meals.map(item=>setDoc(doc(menuCollection,item.id),item)));
   return meals;

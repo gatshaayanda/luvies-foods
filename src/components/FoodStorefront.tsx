@@ -1,8 +1,8 @@
 "use client";
-/* eslint-disable react/no-unescaped-entities -- Brand name and customer-facing copy contain natural apostrophes. */
+/* eslint-disable react/no-unescaped-entities -- Brand and announcement copy use natural apostrophes. */
 import Link from "next/link";
 import {useEffect,useState} from "react";
-import {subscribeToMenuItems,type MenuItem} from "@/lib/firebase/data";
+import {subscribeToMenuItems,subscribeToBusinessSettings,DEFAULT_ANNOUNCEMENT,type MenuItem,type BusinessSettings} from "@/lib/firebase/data";
 import OrderForm from "@/app/order/order-form";
 
 const foodFallbacks=[
@@ -10,11 +10,19 @@ const foodFallbacks=[
  "https://ivebeen.cooking/_next/image?q=75&url=https%3A%2F%2Ffiles.ivebeen.cooking%2Fimages%2Fkansiye%2Ftmpkk5ghuno.jpeg&w=640"
 ];
 export default function FoodStorefront(){
- const [items,setItems]=useState<MenuItem[]>([]),[loaded,setLoaded]=useState(false),[error,setError]=useState(""),[orderOpen,setOrderOpen]=useState(false);
+ const [items,setItems]=useState<MenuItem[]>([]),[loaded,setLoaded]=useState(false),[error,setError]=useState(""),[orderOpen,setOrderOpen]=useState(false),[settings,setSettings]=useState<BusinessSettings|null>(null);
  useEffect(()=>{if(new URLSearchParams(window.location.search).get("order")==="1")setOrderOpen(true)},[]);
- useEffect(()=>subscribeToMenuItems(next=>{setItems(next);setLoaded(true)},e=>{setError(e.message);setLoaded(true)}),[]);
+ useEffect(()=>{
+  const stopMenu=subscribeToMenuItems(next=>{setItems(next);setLoaded(true)},e=>{setError(e.message);setLoaded(true)});
+  const stopSettings=subscribeToBusinessSettings(next=>setSettings(next),()=>{});
+  return()=>{stopMenu();stopSettings()};
+ },[]);
  const available=items.filter(item=>item.available).sort((a,b)=>a.sortOrder-b.sortOrder);
+ const announcementEnabled=settings?.announcementEnabled!==false;
+ const announcementText=(settings?.announcementText??DEFAULT_ANNOUNCEMENT.text).trim();
+ const announcementImage=settings?.announcementImageUrl??DEFAULT_ANNOUNCEMENT.imageUrl;
  function closeOrder(){setOrderOpen(false);if(typeof window!=="undefined"&&window.location.search.includes("order=1"))window.history.replaceState(null,"",window.location.pathname)}
+ const menuSignal=!loaded?"Today's menu is loading":available.length===0?"Menu updates from Lesedi · Check back soon":available.length+" meal"+(available.length===1?"":"s")+" available to order";
  return <main className="lf-store">
   <div className="lf-topline"><span>MADE WITH LOVE · GABORONE</span><span>GOOD FOOD, GOOD MOOD</span></div>
   <header className="lf-header">
@@ -22,19 +30,20 @@ export default function FoodStorefront(){
    <nav><Link href="/account">My account</Link></nav>
   </header>
   <section className="lf-hero">
-   <div className="lf-hero-copy"><span className="lf-eyebrow">FRESHLY MADE · FULL OF LOVE</span><h1>Good food.<br/><em>Made with love.</em></h1><p>Comforting meals, made to bring a little more joy to your day.</p><div className="lf-hero-actions"><button type="button" className="lf-primary" onClick={()=>setOrderOpen(true)}>Order your meal <span>↗</span></button><a href="#menu" className="lf-secondary">Explore the menu</a></div><div className="lf-hero-note"><span>●</span> Two favourites on the menu · P40 each</div></div>
+   <div className="lf-hero-copy"><span className="lf-eyebrow">FRESHLY MADE · FULL OF LOVE</span><h1>Good food.<br/><em>Made with love.</em></h1><p>Comforting meals, made to bring a little more joy to your day.</p><div className="lf-hero-actions"><button type="button" className="lf-primary" onClick={()=>setOrderOpen(true)}>Order your meal <span>↗</span></button><a href="#menu" className="lf-secondary">Explore the menu</a></div><div className="lf-hero-note"><span>●</span> {menuSignal}</div></div>
    <div className="lf-hero-photo" role="img" aria-label="A freshly prepared rice and grilled chicken meal"><div className="lf-photo-caption"><small>MADE FRESH</small><strong>A little love in every plate.</strong></div></div>
    <div className="lf-hero-stamp">GOOD<br/>FOOD<br/><span>♥</span></div>
   </section>
+  {announcementEnabled&&announcementText&&<section className="lf-announcement" aria-label="Business update"><div className="lf-announcement-copy"><span className="lf-eyebrow">BUSINESS UPDATE</span><strong>{announcementText}</strong></div>{announcementImage&&<img src={announcementImage} alt="Luvie's Foods announcement" loading="lazy"/>}</section>}
   <section className="lf-menu-section" id="menu">
-   <div className="lf-section-head"><div><span className="lf-eyebrow">THE GOOD STUFF</span><h2>Today&apos;s menu<span>.</span></h2></div><span className="lf-count">{loaded?available.length+" available":"Menu loading"}</span></div>
-   {error?<p className="lf-state" role="alert">The menu could not be loaded right now. Please try again shortly.</p>:!loaded?<p className="lf-state">Loading today&apos;s menu…</p>:available.length===0?<div className="lf-empty"><strong>We’re preparing the menu.</strong><span>There are no published meals just yet. You can still create your account and be ready for the next menu.</span><Link href="/account">Open your account ↗</Link></div>:<div className="lf-menu-grid">{available.map((item,index)=><article className="lf-meal" key={item.id}>
+   <div className="lf-section-head"><div><span className="lf-eyebrow">THE GOOD STUFF</span><h2>Today's menu<span>.</span></h2></div><span className="lf-count">{loaded?available.length+" available":"Menu loading"}</span></div>
+   {error?<p className="lf-state" role="alert">The menu could not be loaded right now. Please try again shortly.</p>:!loaded?<p className="lf-state">Loading today's menu…</p>:available.length===0?<div className="lf-empty"><strong>We're preparing the menu.</strong><span>Lesedi is preparing the next menu. Check back soon, or open your account to keep your details ready.</span><Link href="/account">Open your account ↗</Link></div>:<div className="lf-menu-grid">{available.map((item,index)=><article className="lf-meal" key={item.id}>
     <div className="lf-meal-image" style={{backgroundImage:"url('"+(item.imageUrl||foodFallbacks[index%foodFallbacks.length])+"')"}}><span>LUVIE'S FOODS</span></div>
     <div className="lf-meal-info"><div><small>{item.category||"MADE WITH LOVE"}</small><h3>{item.name}</h3>{item.description&&<p>{item.description}</p>}</div><div className="lf-meal-bottom"><strong>P{item.price.toFixed(2)}</strong><button type="button" onClick={()=>setOrderOpen(true)}>Order <span>↗</span></button></div></div>
    </article>)}</div>}
   </section>
-  <section className="lf-promise"><span>♥</span><div><strong>Good food, made with love.</strong><small>Choose your favourite, place your order, and we&apos;ll take care of the rest.</small></div><button type="button" onClick={()=>setOrderOpen(true)}>Let&apos;s eat ↗</button></section>
-  <footer className="lf-footer"><Link href="/">LUVIE'S FOODS <span>♥</span></Link><span>GOOD FOOD, MADE WITH LOVE</span><Link href="/admin">💼 Briefcase</Link></footer>
- {orderOpen&&<OrderForm embedded onClose={closeOrder}/>}
+  <section className="lf-promise"><span>♥</span><div><strong>Good food, made with love.</strong><small>Choose your favourite, place your order, and we'll take care of the rest.</small></div><button type="button" onClick={()=>setOrderOpen(true)}>Let's eat ↗</button></section>
+  <footer className="lf-footer"><Link href="/">LUVIE'S FOODS <span>♥</span></Link><span>GOOD FOOD, MADE WITH LOVE</span><Link href="/admin" aria-label="Owner Briefcase">💼 Briefcase</Link></footer>
+  {orderOpen&&<OrderForm embedded onClose={closeOrder}/>}
  </main>;
 }
