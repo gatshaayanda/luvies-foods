@@ -33,15 +33,15 @@ export default function FoodStorefront(){
  function closeOrder(){setOrderOpen(false);if(typeof window!=="undefined"&&window.location.search.includes("order=1"))window.history.replaceState(null,"",window.location.pathname)}
  const menuSignal=!loaded?t("Today's menu is loading"):available.length===0?t("Menu updates from Lesedi · Check back soon"):available.length+" "+t(available.length===1?"meal available to order":"meals available to order");
  return <main className="lf-store">
-  <div className="lf-topline"><span>MADE WITH LOVE · GABORONE</span><span>{t("GOOD FOOD, GOOD MOOD")}</span></div>
+  <div className="lf-topline"><span>{t("MADE WITH LOVE · GABORONE")}</span><span>{t("GOOD FOOD, GOOD MOOD")}</span></div>
   <header className="lf-header">
-   <Link href="/" className="lf-brand" aria-label="Luvie's Foods home"><span className="lf-mark">L<span>♥</span></span><span><strong>LUVIE'S FOODS</strong><small>GOOD FOOD, MADE WITH LOVE</small></span></Link>
+   <Link href="/" className="lf-brand" aria-label="Luvie's Foods home"><span className="lf-mark">L<span>♥</span></span><span><strong>LUVIE'S FOODS</strong><small>{t("GOOD FOOD, MADE WITH LOVE")}</small></span></Link>
    <nav><Link href="/account">{t("My account")}</Link><FoodLanguageSwitcher/></nav>
   </header>
   <section className="lf-hero">
    <div className="lf-hero-copy"><span className="lf-eyebrow">{t("FRESHLY MADE · FULL OF LOVE")}</span><h1>{t("Good food.")}<br/><em>{t("Made with love.")}</em></h1><p>{t("Comforting meals, made to bring a little more joy to your day.")}</p><div className="lf-hero-actions"><a className="lf-primary" href="#menu">{t("Choose your food")} <span>↓</span></a><a href="#menu" className="lf-secondary">{t("Explore the menu")}</a></div><div className="lf-hero-note"><span>●</span> {menuSignal}</div></div>
    <div className="lf-hero-photo" role="img" aria-label="A freshly prepared rice and grilled chicken meal"><div className="lf-photo-caption"><small>{t("MADE FRESH")}</small><strong>{t("A little love in every plate.")}</strong></div></div>
-   <div className="lf-hero-stamp">GOOD<br/>FOOD<br/><span>♥</span></div>
+   <div className="lf-hero-stamp">{t("GOOD")}<br/>{t("FOOD")}<br/><span>♥</span></div>
   </section>
   {announcementEnabled&&announcementText&&<section className="lf-announcement" aria-label="Business update"><div className="lf-announcement-copy"><span className="lf-eyebrow">{t("BUSINESS UPDATE")}</span><strong>{announcementText}</strong></div>{announcementImage&&<img src={announcementImage} alt="Luvie's Foods announcement" loading="lazy"/>}</section>}
   <section className="lf-menu-section" id="menu">
@@ -53,7 +53,7 @@ export default function FoodStorefront(){
   </section>
   {selectedCount>0&&<div className="lf-selection-bar"><div><strong>{selectedCount} {t(selectedCount===1?"item":"items")} {t("selected")}</strong><small>{t("Estimated total")} · P{selectedTotal.toFixed(2)}</small></div><Link href={"/account?request=1&items="+encodeURIComponent(selectedParam)}>{t("Continue with selected food")} <span>↗</span></Link></div>}
   <section className="lf-promise"><span>♥</span><div><strong>{t("Good food, made with love.")}</strong><small>{t("Choose your favourite, place your order, and we'll take care of the rest.")}</small></div><a href="#menu" aria-label="Browse the menu and choose your food">{t("Let's eat")} ↗</a></section>
-  <footer className="lf-footer"><Link href="/">LUVIE'S FOODS <span>♥</span></Link><span>GOOD FOOD, MADE WITH LOVE</span><a href="/admin" aria-label="Open the owner Briefcase">💼 Briefcase</a></footer>
+  <footer className="lf-footer"><Link href="/">LUVIE'S FOODS <span>♥</span></Link><span>{t("GOOD FOOD, MADE WITH LOVE")}</span><a href="/admin" aria-label="Open the owner Briefcase">💼 Briefcase</a></footer>
   <FoodCustomerHelper/>
   {orderOpen&&<OrderForm embedded onClose={closeOrder}/>}
  </main>;
