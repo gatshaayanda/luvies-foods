@@ -1,4 +1,4 @@
-name: Deploy The Plug Firebase rules
+name: Deploy Luvie's Foods Firebase rules
 
 on:
   push:
@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: the-plug-firebase-rules-deploy
+  group: luvies-foods-firebase-rules-deploy
   cancel-in-progress: false
 
 jobs:
@@ -43,7 +43,7 @@ jobs:
           umask 077
           printf '%s' "$FIREBASE_SERVICE_ACCOUNT_JSON" > "$RUNNER_TEMP/firebase-service-account.json"
 
-      - name: Deploy The Plug Firestore rules
+      - name: Deploy Luvie's Foods Firestore rules
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
         run: |
