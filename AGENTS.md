@@ -6,6 +6,8 @@ This repository is the live Luvie's Foods application, not an Iteration 13 proto
 - The three primary surfaces are Store (`/`), customer Account (`/account`) and private owner Briefcase (`/admin`).
 - Ordering opens as an integrated checkout sheet from Store. `/order` is a compatibility redirect into that Store flow; `/store` redirects to `/`.
 - Customer Account must work independently of menu availability. A customer can restore/create a guest account, save contact and delivery details, and see an empty order history before food is published.
+- The owner explicitly publishes a menu from Briefcase → Menu. `businessSettings/main.menuPublishedAt` records that publication time; the Store's no-menu count-up uses this persisted timestamp and resets only on the explicit Publish menu action, never on individual item edits. Publishing requires at least one available meal.
+- When no meals are available, the Store offers a custom-order-oriented handoff to `/account`. The current Account route does not yet submit custom-order requests; the next Account redesign must implement that request journey before the CTA is presented as a working request form.
 - Do not put the owner Briefcase link in the Store header. Preserve the existing footer Briefcase entry and owner-only access.
 
 ## Business data and integrations
