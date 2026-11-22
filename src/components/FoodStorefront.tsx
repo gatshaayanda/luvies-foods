@@ -24,7 +24,7 @@ export default function FoodStorefront(){
  const available=items.filter(item=>item.available).sort((a,b)=>a.sortOrder-b.sortOrder);
  const selectedItems=available.filter(item=>(selection[item.id]??0)>0);
  const selectedCount=selectedItems.reduce((sum,item)=>sum+(selection[item.id]??0),0);
- const selectedTotal=selectedItems.reduce((sum,item)=>sum+item.price*(selection[item.id]??0),0);
+ const selectedTotal=selectedItems.reduce((sum,item)=>sum+(item.friendPrice!==undefined&&(selection[item.id]??0)>=2?item.friendPrice:item.price)*(selection[item.id]??0),0);
  const selectedParam=selectedItems.map(item=>item.id+":"+(selection[item.id]??0)).join(",");
  function changeSelection(id:string,delta:number){setSelection(current=>({...current,[id]:Math.max(0,(current[id]??0)+delta)}))}
  const announcementEnabled=settings?.announcementEnabled!==false;
