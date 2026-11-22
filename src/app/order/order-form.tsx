@@ -76,10 +76,10 @@ export default function OrderForm({embedded=false,onClose}:{embedded?:boolean;on
      
      <div className="actions centered">
       <div>
-       <p className="orderTruth"><strong>{t("Your request is saved with Luvie's Foods.")}</strong> {t("You can follow it from")} <Link href="/account">My Luvie's Foods</Link> when this guest session is available.</p>
+       <p className="orderTruth"><strong>{t("Your request is saved with Luvie's Foods.")}</strong> {t("You can follow it from")} <Link href="/account">{t("My Luvie's Foods")}</Link> when this guest session is available.</p>
       </div>
       <div>
-       <Link className="button buttonLight" href="/account">My Luvie's Foods →</Link>
+       <Link className="button buttonLight" href="/account">{t("My Luvie's Foods")} →</Link>
        <p className="orderTruth">{t("Opens your private order history and activity feed.")}</p>
       </div>
       <div>
@@ -117,7 +117,7 @@ export default function OrderForm({embedded=false,onClose}:{embedded?:boolean;on
      <div className="fieldGrid"><label className="fieldFull">{t("Your name")}<input name="customerName" autoComplete="name" value={customerName} onChange={event=>setCustomerName(event.target.value)} required/></label><label className="fieldFull">{t("WhatsApp number")}<input name="phone" type="tel" autoComplete="tel" inputMode="tel" value={customerPhone} onChange={event=>setCustomerPhone(event.target.value)} required/></label></div>
      <button type="button" className="lf-optional-toggle" aria-expanded={showInstructions} onClick={()=>setShowInstructions(value=>!value)}><span className="lf-optional-toggle-label">{showInstructions?"− "+t("Hide special instructions"):"＋ "+t("Add special instructions")}</span><span className="lf-optional-pill">{t("OPTIONAL · TAP TO")} {showInstructions?t("CLOSE"):t("ADD")}</span></button>
      {showInstructions&&<label className="lf-request-field">{t("Anything Lesedi should know?")}<textarea name="instructions" value={instructions} onChange={event=>setInstructions(event.target.value)} rows={3} placeholder={t("Allergies, collection notes or other useful details…")}/></label>}
-     <div className="lf-request-review"><div><span>{customMode?"Custom request · "+customDescription.trim():selected.map(item=>item.quantity+" × "+item.name).join(" · ")}</span><strong>{customMode?t("Price on request"):"P"+total.toFixed(2)}</strong></div><small>{scheduledDate} · {scheduledTime} · {t(mode==="delivery"?"Delivery":"Collection")}</small></div>
+     <div className="lf-request-review"><div><span>{customMode?t("Custom request")+" · "+customDescription.trim():selected.map(item=>item.quantity+" × "+item.name).join(" · ")}</span><strong>{customMode?t("Price on request"):"P"+total.toFixed(2)}</strong></div><small>{scheduledDate} · {scheduledTime} · {t(mode==="delivery"?"Delivery":"Collection")}</small></div>
      {error&&<p role="alert" className="notice">{error}</p>}
      <div className="lf-request-actions"><button type="button" className="button buttonLight" onClick={()=>{setError("");setStep(2)}}>← {t("Back")}</button><button className="button buttonPrimary" type="submit" disabled={busy||(!selected.length&&!(customMode&&customDescription.trim()))||unavailableSelected.length>0}>{busy?t("Sending request…"):customMode?t("Send custom request"):t("Send food request")+" · P"+total.toFixed(2)}</button></div>
      <p className="orderTruth">{t("No payment is taken now. Your request is sent to Lesedi for review and confirmation.")}</p>
