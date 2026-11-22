@@ -217,7 +217,29 @@ const setswana: Record<string,string> = {
   "Google sign-in was cancelled. Your current customer space is unchanged.":"Go tsena ka Google go phimotswe. Akhaonto ya gago ya jaanong ga e a fetolwa.",
   "Your details are saved with Luvie's Foods.":"Dintlha tsa gago di bolokilwe mo Luvie's Foods.",
   "We couldn't save your details. Check your connection and try again.":"Ga re a kgona go boloka dintlha tsa gago. Tlhola kgokagano mme o leke gape.",
-  "Add your name and phone number so Lesedi can follow up about your order.":"Tsenya leina la gago le nomoro ya mogala gore Lesedi a kgone go ikgolaganya le wena ka kopo ya gago."
+  "Add your name and phone number so Lesedi can follow up about your order.":"Tsenya leina la gago le nomoro ya mogala gore Lesedi a kgone go ikgolaganya le wena ka kopo ya gago.",
+"CUSTOMER HELP":"THUSO YA MOREKI",
+  "Dumela! I can help you find the menu, start a custom request, understand collection and delivery, or reach Lesedi. I'm an automated guide, not a person.":"Dumela! Nka go thusa go bona menu, go romela kopo ya dijo tse di kgethegileng, go tlhaloganya go tsaya dijo kgotsa go tlisediwa, le go fitlhelela Lesedi. Ke thuso ya kaelo, ga ke motho.",
+  "I can help with the Store menu, custom requests, collection or delivery, the Xmas Special announcement, and contacting Lesedi. Choose a shortcut below or open Messages for a personal reply.":"Nka go thusa ka menu, dikopo tsa dijo tse di kgethegileng, go tsaya dijo kgotsa go tlisediwa, kitsiso ya Keresemose, le go ikgolaganya le Lesedi. Tlhopha tsela e khutshwane fa tlase kgotsa bula Melaetsa go bona karabo ya motho.",
+  "Received · waiting for Lesedi to review":"E amogetswe · e emetse gore Lesedi a e sekaseke",
+  "Accepted · your order is being arranged":"E amogetswe · dijo tsa gago di a baakanngwa",
+  "Being prepared":"Di a apewa",
+  "Ready for collection":"Di setse di siame go tsewa",
+  "On the way":"Di mo tseleng",
+  "Collected":"Di tseetswe",
+  "Delivered":"Di tliseditswe",
+  "Cancelled":"E phimotswe",
+  "Order status updated by Luvie's Foods":"Seemo sa kopo se ntšhwafaditswe ke Luvie's Foods",
+  "Choose at least one food item.":"Tlhopha dijo di le dingwe kgotsa go feta.",
+  "No menu items are currently published for this date. Describe the food you would like as a custom request.":"Ga go na dijo tse di phasaladitsweng tsa letlha leno. Tlhalosa dijo tse o di batlang mo kopong e e kgethegileng.",
+  "One or more selected items are not published for ":"Selo se le sengwe kgotsa go feta ga se a phasaladiwa ka ",
+  ". Remove them or choose a date when they are available.":". Di tlose kgotsa o tlhophe letlha le di tla bong di le teng.",
+  "Please choose the date and time you need the order.":"Tsweetswee tlhopha letlha le nako tse o di batlang.",
+  "Choose a future time for your order.":"Tlhopha nako e e iseng e fete.",
+  "Add your delivery location or landmark.":"Tsenya lefelo la go tlisiwa kgotsa letshwao la lone.",
+  "Firebase denied the order write under the current rules. Lesedi has NOT received it. Your details are still on this screen; please try again or contact Luvie’s Foods.":"Firebase ga e a letlelela go bolokwa ga kopo ka melao ya jaanong. Lesedi GA A e amogela. Dintlha tsa gago di sa ntse di le mo sekirining seno; leka gape kgotsa ikgolaganye le Luvie's Foods.",
+  "Luvie’s Foods could not reach the order service. Lesedi has NOT received this request. Check your connection and try again; your details are still on this screen.":"Luvie's Foods ga e a kgona go fitlhelela tirelo ya dikopo. Lesedi GA A amogela kopo eno. Tlhola kgokagano mme o leke gape; dintlha tsa gago di sa ntse di le mo sekirining seno.",
+  "We couldn’t save your request. Lesedi has NOT received it. Your details are still here. Please try again, or contact Luvie’s Foods if it keeps happening.":"Ga re a kgona go boloka kopo ya gago. Lesedi GA A e amogela. Dintlha tsa gago di sa ntse di le fano. Leka gape kgotsa ikgolaganye le Luvie's Foods fa bothata bo tswelela."
 };
 
 export function foodText(language:FoodLanguage,value:string):string {
