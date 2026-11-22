@@ -6600,3 +6600,25 @@ body{background:#fbf8f7;color:#202b3c}
 .lf-order-overlay .lf-optional-pill{flex:0 0 auto;padding:6px 9px;border-radius:999px;background:#f4dfd9;color:#783a32;font-size:9px;font-weight:900;letter-spacing:.07em}
 .lf-order-overlay .lf-request-stage .notice[role=alert]{padding:14px 16px;border:1px solid #d78b6c;border-left:4px solid #b42318;border-radius:12px;background:#fff0eb;color:#76251d;font-size:13px;font-weight:650;line-height:1.55}
 @media(max-width:680px){.lf-order-overlay .lf-optional-toggle{align-items:flex-start;flex-direction:column;gap:8px}.lf-order-overlay .lf-order-stage .fieldGrid{grid-template-columns:1fr}}
+
+
+/* Luvie's Foods customer help — compact, storefront-native and explicit about automation. */
+.lf-customer-helper{position:fixed;right:18px;bottom:18px;z-index:80;display:grid;justify-items:end;gap:10px;font-family:Inter,Arial,sans-serif}
+.lf-customer-helper-launcher{min-height:48px;padding:0 18px;border:0;border-radius:999px;background:#db0b0b;color:#fff;font-size:12px;font-weight:900;box-shadow:0 8px 24px #24120f35;cursor:pointer}
+.lf-customer-helper-panel{width:min(370px,calc(100vw - 28px));max-height:min(620px,calc(100dvh - 92px));display:grid;grid-template-rows:auto minmax(90px,1fr) auto auto auto;gap:11px;padding:14px;border:1px solid #eadfd8;border-radius:17px;background:#fffaf6;color:#202b3c;box-shadow:0 18px 48px #24120f30}
+.lf-customer-helper-panel>header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid #eee3dc}
+.lf-customer-helper-panel>header>div{display:grid;gap:4px}.lf-customer-helper-panel>header small{color:#9d353c;font-size:8px;font-weight:900;letter-spacing:.13em}.lf-customer-helper-panel>header strong{font:700 22px Georgia,serif}
+.lf-customer-helper-panel>header button{width:34px;height:34px;border:1px solid #eadfd8;border-radius:50%;background:#fff;color:#202b3c;font-size:22px;cursor:pointer}
+.lf-customer-helper-thread{display:grid;align-content:start;gap:8px;overflow:auto;min-height:110px;max-height:220px}
+.lf-customer-helper-thread p{max-width:90%;margin:0;padding:10px 12px;border-radius:12px;background:#f2e9e2;color:#493d38;font-size:11px;line-height:1.5;overflow-wrap:anywhere}
+.lf-customer-helper-thread p.you{justify-self:end;background:#fae7e7;color:#672c31}
+.lf-customer-helper-shortcuts{display:flex;flex-wrap:wrap;gap:6px}
+.lf-customer-helper-shortcuts button{min-height:32px;padding:6px 9px;border:1px solid #e6c9c3;border-radius:999px;background:#fff;color:#8e3038;font-size:10px;font-weight:800;cursor:pointer}
+.lf-customer-helper-panel form{display:flex;gap:7px}
+.lf-customer-helper-panel form input{min-width:0;flex:1;height:42px;padding:0 11px;border:1px solid #e5d9d2;border-radius:10px;background:#fff;color:#202b3c;font:12px Inter,Arial,sans-serif}
+.lf-customer-helper-panel form button{padding:0 13px;border:0;border-radius:10px;background:#db0b0b;color:#fff;font-size:11px;font-weight:900}
+.lf-customer-helper-panel form button:disabled{opacity:.45}
+.lf-customer-helper-footnote{margin:0;color:#82746e;font-size:9px;line-height:1.45}.lf-customer-helper-footnote a{color:#9d353c;font-weight:900;text-decoration:underline}
+.lf-account-google-link{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 16px;padding:14px;border:1px solid #eadfd8;border-radius:13px;background:#fffaf6}
+.lf-account-google-link>div{display:grid;gap:5px}.lf-account-google-link strong{font-size:12px;color:#202b3c}.lf-account-google-link small{max-width:360px;color:#756963;font-size:10px;line-height:1.45}.lf-account-google-link .lf-account-primary{flex:0 0 auto;min-height:40px;padding:0 13px}
+@media(max-width:560px){.lf-customer-helper{right:12px;bottom:12px}.lf-customer-helper-panel{max-height:calc(100dvh - 82px)}.lf-account-google-link{align-items:stretch;flex-direction:column}.lf-account-google-link .lf-account-primary{width:100%}}
