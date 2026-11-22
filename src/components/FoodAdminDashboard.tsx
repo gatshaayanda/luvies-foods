@@ -40,7 +40,7 @@ export default function FoodAdminDashboard(){
  async function retryStarterMenu(){
   setSaving(true);setNotice("");
   try{const items=await ensureStarterMenuSeeded();setMenu(items);setNotice("Starter menu checked. "+items.length+" menu item(s) are saved. Review availability, then publish when ready.")}
-  catch(error){const code=typeof error?.code==="string"?error.code:"unknown";setNotice("Menu check failed ("+code+"). The app could not read or write the menu with this Firebase session. No Firestore rules were changed.")}
+  catch(error){const failure=error as {code?:string};const code=typeof failure?.code==="string"?failure.code:"unknown";setNotice("Menu check failed ("+code+"). The app could not read or write the menu with this Firebase session. No Firestore rules were changed.")}
   finally{setSaving(false)}
  }
  async function saveItem(event:FormEvent<HTMLFormElement>){
