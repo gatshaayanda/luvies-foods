@@ -6622,3 +6622,5 @@ body{background:#fbf8f7;color:#202b3c}
 .lf-account-google-link{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 16px;padding:14px;border:1px solid #eadfd8;border-radius:13px;background:#fffaf6}
 .lf-account-google-link>div{display:grid;gap:5px}.lf-account-google-link strong{font-size:12px;color:#202b3c}.lf-account-google-link small{max-width:360px;color:#756963;font-size:10px;line-height:1.45}.lf-account-google-link .lf-account-primary{flex:0 0 auto;min-height:40px;padding:0 13px}
 @media(max-width:560px){.lf-customer-helper{right:12px;bottom:12px}.lf-customer-helper-panel{max-height:calc(100dvh - 82px)}.lf-account-google-link{align-items:stretch;flex-direction:column}.lf-account-google-link .lf-account-primary{width:100%}}
+
+.lf-account-google-secondary{min-height:38px;padding:0 13px;border:1px solid #e5d9d2;border-radius:999px;background:#fff;color:#7a3038;font-size:10px;font-weight:900;cursor:pointer}.lf-account-google-secondary:disabled{opacity:.55;cursor:wait}
