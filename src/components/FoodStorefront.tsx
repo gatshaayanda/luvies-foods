@@ -22,7 +22,7 @@ export default function FoodStorefront(){
    <nav><Link href="/account">My account</Link></nav>
   </header>
   <section className="lf-hero">
-   <div className="lf-hero-copy"><span className="lf-eyebrow">FRESHLY MADE · FULL OF LOVE</span><h1>Good food.<br/><em>Made with love.</em></h1><p>Comforting meals, made to bring a little more joy to your day.</p><div className="lf-hero-actions"><button type="button" className="lf-primary" onClick={()=>setOrderOpen(true)}>Order your meal <span>↗</span></button><a href="#menu" className="lf-secondary">Explore the menu</a></div><div className="lf-hero-note"><span>●</span> Fresh favourites, made with love</div></div>
+   <div className="lf-hero-copy"><span className="lf-eyebrow">FRESHLY MADE · FULL OF LOVE</span><h1>Good food.<br/><em>Made with love.</em></h1><p>Comforting meals, made to bring a little more joy to your day.</p><div className="lf-hero-actions"><button type="button" className="lf-primary" onClick={()=>setOrderOpen(true)}>Order your meal <span>↗</span></button><a href="#menu" className="lf-secondary">Explore the menu</a></div><div className="lf-hero-note"><span>●</span> Two favourites on the menu · P40 each</div></div>
    <div className="lf-hero-photo" role="img" aria-label="A freshly prepared rice and grilled chicken meal"><div className="lf-photo-caption"><small>MADE FRESH</small><strong>A little love in every plate.</strong></div></div>
    <div className="lf-hero-stamp">GOOD<br/>FOOD<br/><span>♥</span></div>
   </section>
