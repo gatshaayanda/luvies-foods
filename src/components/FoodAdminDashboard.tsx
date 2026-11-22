@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable react/no-unescaped-entities -- Brand name and customer-facing copy contain natural apostrophes. */
 import Link from "next/link";
 import {useEffect,useMemo,useState} from "react";
 import {subscribeToFoodOrders,subscribeToMenuItems,ensureStarterMenuSeeded,updateFoodOrderStatus,updateFoodOrderPayment,saveMenuItem,deleteMenuItem,ORDER_STATUSES,type FoodOrder,type MenuItem,type OrderStatus} from "@/lib/firebase/data";
