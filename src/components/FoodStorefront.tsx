@@ -13,6 +13,7 @@ export default function FoodStorefront(){
  useEffect(()=>{if(new URLSearchParams(window.location.search).get("order")==="1")setOrderOpen(true)},[]);
  useEffect(()=>subscribeToMenuItems(next=>{setItems(next);setLoaded(true)},e=>{setError(e.message);setLoaded(true)}),[]);
  const available=items.filter(item=>item.available).sort((a,b)=>a.sortOrder-b.sortOrder);
+ function closeOrder(){setOrderOpen(false);if(typeof window!=="undefined"&&window.location.search.includes("order=1"))window.history.replaceState(null,"",window.location.pathname)}
  return <main className="lf-store">
   <div className="lf-topline"><span>MADE WITH LOVE · GABORONE</span><span>GOOD FOOD, GOOD MOOD</span></div>
   <header className="lf-header">
@@ -33,6 +34,6 @@ export default function FoodStorefront(){
   </section>
   <section className="lf-promise"><span>♥</span><div><strong>Good food, made with love.</strong><small>Choose your favourite, place your order, and we&apos;ll take care of the rest.</small></div><button type="button" onClick={()=>setOrderOpen(true)}>Let&apos;s eat ↗</button></section>
   <footer className="lf-footer"><Link href="/">LUVIE'S FOODS <span>♥</span></Link><span>GOOD FOOD, MADE WITH LOVE</span><Link href="/admin">💼 Briefcase</Link></footer>
- {orderOpen&&<OrderForm embedded onClose={()=>setOrderOpen(false)}/>}
+ {orderOpen&&<OrderForm embedded onClose={closeOrder}/>}
  </main>;
 }
