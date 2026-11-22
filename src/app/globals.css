@@ -6634,3 +6634,20 @@ body{background:#fbf8f7;color:#202b3c}
 .lf-header nav .lf-language-switcher,.lf-account-header nav .lf-language-switcher{margin-left:0}
 .lf-order-overlay .lf-language-switcher{min-height:34px;padding:0 7px}
 @media(max-width:560px){.lf-language-switcher{gap:4px;min-height:34px;padding:0 7px}.lf-language-label{display:none}.lf-language-switcher select{max-width:82px}}
+
+
+/* Keep the language control from crowding the account and order headers on narrow phones. */
+@media(max-width:430px){
+ .lf-account-header nav{gap:6px}
+ .lf-account-header nav>a:first-child{font-size:9px}
+ .lf-account-header-cta{min-height:34px;padding:0 9px;font-size:9px}
+ .lf-account-header .lf-language-switcher select{max-width:70px}
+}
+@media(max-width:680px){
+ .lf-order-overlay .lf-order-header{flex-wrap:wrap;gap:8px}
+ .lf-order-overlay .lf-order-header .actions{gap:6px;margin-left:auto}
+ .lf-order-overlay .lf-order-header .lf-mark{width:36px;height:36px;font-size:21px}
+ .lf-order-overlay .lf-order-header .lf-brand strong{font-size:11px}
+ .lf-order-overlay .lf-order-header .lf-brand small{font-size:7px}
+ .lf-order-overlay .lf-order-header .lf-language-switcher select{max-width:70px}
+}
