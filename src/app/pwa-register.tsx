@@ -76,6 +76,7 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
     const embedded = initialEmbedded || env.embedded;
     setEmbeddedAndroid((initialEmbedded && initialAndroid) || (env.embedded && env.android));
     setCanShowManualInstall(isIosSafari());
+    setInstallCardDismissed(dismissedRecently());
 
     const retryPendingOrderNotifications = async () => {
       const user = auth.currentUser;
@@ -118,7 +119,7 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
       event.preventDefault();
       const prompt = event as InstallPromptEvent;
       installPromptRef.current = prompt;
-      setInstallCardDismissed(false);
+      setInstallCardDismissed(dismissedRecently());
       setCanInstall(true);
       // Retain the one-shot native event for the user's explicit Install click.
       // Do not interrupt page load with a second, custom install screen.
