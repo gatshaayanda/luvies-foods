@@ -6286,7 +6286,7 @@ body{background:#fbf8f7;color:#202b3c}
 .lf-footer{max-width:1160px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;color:#827774;font-size:9px;letter-spacing:.12em}.lf-footer>a:first-child{font-weight:1000;color:#202b3c}.lf-footer>a:first-child span{color:#db0b0b}
 
 /* Luvie's Foods — published-menu pause state */
-.lf-empty-feature{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(250px,.75fr);gap:24px;align-items:center;overflow:hidden;padding:clamp(22px,4vw,38px);border:1px solid #ead9d2;border-radius:22px;background:radial-gradient(ellipse at 88% 8%,#f9e3e6 0,transparent 38%),linear-gradient(120deg,#fff 0%,#fff9f5 100%);box-shadow:0 16px 38px #39251a0b;animation:lf-rise-in .55s cubic-bezier(.2,.7,.2,1) both}
+.lf-empty-feature{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr);gap:24px;align-items:center;overflow:hidden;padding:clamp(22px,4vw,38px);border:1px solid #ead9d2;border-radius:22px;background:radial-gradient(ellipse at 88% 8%,#f9e3e6 0,transparent 38%),linear-gradient(120deg,#fff 0%,#fff9f5 100%);box-shadow:0 16px 38px #39251a0b;animation:lf-rise-in .55s cubic-bezier(.2,.7,.2,1) both}
 .lf-empty-copy{position:relative;z-index:1;display:grid;justify-items:start;gap:10px;max-width:560px}
 .lf-empty-copy h3{margin:0;color:#202b3c;font:700 clamp(26px,3.3vw,38px)/1.08 Georgia,'Times New Roman',serif;letter-spacing:-.04em;text-transform:none}
 .lf-empty-copy p{max-width:520px;margin:0;color:#665c59;font-size:15px;line-height:1.65}
