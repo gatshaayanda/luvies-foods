@@ -13,7 +13,7 @@ const setswana: Record<string,string> = {
   "Briefcase":"Ofisi ya mong wa kgwebo",
   "Open the owner Briefcase":"Bula ofisi ya mong wa kgwebo",
   "My Luvie's Foods":"Akhaonto ya me ya Luvie's Foods",
-  "You're signed in with Google. Your saved Luvie's Foods account is loading.":"O tsentse ka Google. Akhaonto ya gago ya Luvie's Foods e a laisiwa."
+  "You're signed in with Google. Your saved Luvie's Foods account is loading.":"O tsentse ka Google. Akhaonto ya gago ya Luvie's Foods e a laisiwa.",
   "FOOD":"DIJO",
   "MADE WITH LOVE · GABORONE":"DI DIRILWE KA LORATO · GABORONE",
   "GOOD FOOD, MADE WITH LOVE":"DIJO TSE DI MONATE, DI DIRILWE KA LORATO",
@@ -56,7 +56,6 @@ const setswana: Record<string,string> = {
   "Good food, made with love.":"Dijo tse di monate, di dirilwe ka lorato.",
   "Choose your favourite, place your order, and we'll take care of the rest.":"Tlhopha dijo tse o di ratang, romela kopo, mme re tla go thusa ka tse di setseng.",
   "Let's eat":"A re jeng",
-  "Briefcase":"Briefcase",
   "Need a hand?":"A o tlhoka thuso?",
   "Close help":"Tswala thuso",
   "Menu and prices":"Menu le ditlhwatlhwa",
