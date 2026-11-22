@@ -26,7 +26,7 @@ export default function FoodCustomerHelper(){
    /message|lesedi|person|help|order status|my order|track|molaetsa|thuso|seemo/.test(q)?quickReplies[4]:
    /menu|price|meal|food|chicken|beef|rice|tlhwatlhwa|dijo|kgogo|raese/.test(q)?quickReplies[0]:null;
   const reply=item?t(item.text):t("I can help with the Store menu, custom requests, collection or delivery, the Xmas Special announcement, and contacting Lesedi. Choose a shortcut below or open Messages for a personal reply.");
-  setMessages(current=>[...current,{id:Date.now(),from:"you",text:displayQuestion},{id:Date.now()+1,from:"guide",text:reply}].slice(-8));
+  setMessages((current):Message[]=>[...current,{id:Date.now(),from:"you" as const,text:displayQuestion},{id:Date.now()+1,from:"guide" as const,text:reply}].slice(-8));
  }
  function submit(event:FormEvent<HTMLFormElement>){event.preventDefault();const value=input.trim();if(!value)return;setInput("");answer(value)}
  return <div className="lf-customer-helper">
