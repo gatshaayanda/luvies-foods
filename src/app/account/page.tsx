@@ -4,6 +4,7 @@ import Link from "next/link";
 import {useEffect,useState,type FormEvent} from "react";
 import {onAuthStateChanged,signInAnonymously,type User} from "firebase/auth";
 import {auth} from "@/lib/firebase/client";
+import FoodCustomerMessages from "@/components/FoodCustomerMessages";
 import {getCustomerProfile,saveCustomerProfile,subscribeToCustomerOrders,getMenuItems,type CustomerProfile,type FoodOrder,type MenuItem} from "@/lib/firebase/data";
 
 const money=(amount:number)=>"P"+amount.toFixed(2);
@@ -18,7 +19,7 @@ export default function AccountPage(){
  const[ready,setReady]=useState(false);
  const[busy,setBusy]=useState(false);
  const[message,setMessage]=useState("");
- const[tab,setTab]=useState<"orders"|"details">("orders");
+ const[tab,setTab]=useState<"requests"|"messages"|"receipts"|"rewards"|"details">("requests");
  const[selectedRequest,setSelectedRequest]=useState<{id:string;quantity:number}[]>([]);
  const[selectedMenu,setSelectedMenu]=useState<MenuItem[]>([]);
 
@@ -80,7 +81,7 @@ export default function AccountPage(){
 
   <div className="lf-account-wrap">
    <section className="lf-account-intro">
-    <div><span className="lf-eyebrow">YOUR SPACE WITH LUVIE'S FOODS</span><h1>Dumela, {greeting}.</h1><p>Your orders and delivery details, together in one place.</p></div>
+    <div><span className="lf-eyebrow">YOUR ACCOUNT</span><h1>Dumela, {greeting}.</h1><p>Your food requests, messages, receipts and rewards, together in one place.</p><button type="button" className="lf-account-view-details" onClick={()=>setTab("details")}>View details ↗</button></div>
     <span className="lf-account-session"><i/> {user?.isAnonymous?"Customer space":"Signed in"}</span>
    </section>
 
@@ -92,12 +93,14 @@ export default function AccountPage(){
     <Link href="/?order=1">＋ Start an order <span>↗</span></Link>
    </section>
 
-   <div className="lf-account-tabs" role="tablist" aria-label="Customer account sections">
-    <button type="button" role="tab" aria-selected={tab==="orders"} className={tab==="orders"?"active":""} onClick={()=>setTab("orders")}>My orders <span>{orders.length}</span></button>
-    <button type="button" role="tab" aria-selected={tab==="details"} className={tab==="details"?"active":""} onClick={()=>setTab("details")}>My details</button>
-   </div>
+   <nav className="lf-account-tabs" aria-label="Your account">
+    <button type="button" aria-current={tab==="requests"?"page":undefined} className={tab==="requests"?"active":""} onClick={()=>setTab("requests")}>Requests <span>{orders.length}</span></button>
+    <button type="button" aria-current={tab==="messages"?"page":undefined} className={tab==="messages"?"active":""} onClick={()=>setTab("messages")}>Messages</button>
+    <button type="button" aria-current={tab==="receipts"?"page":undefined} className={tab==="receipts"?"active":""} onClick={()=>setTab("receipts")}>Receipts</button>
+    <button type="button" aria-current={tab==="rewards"?"page":undefined} className={tab==="rewards"?"active":""} onClick={()=>setTab("rewards")}>Rewards</button>
+   </nav>
 
-   {!ready?<section className="lf-account-panel lf-account-loading" role="status"><span className="lf-account-spinner"/>Restoring your customer space…</section>:tab==="orders"?<section className="lf-account-panel" role="tabpanel">
+   {!ready?<section className="lf-account-panel lf-account-loading" role="status"><span className="lf-account-spinner"/>Restoring your customer space…</section>:tab==="requests"?<section className="lf-account-panel" role="tabpanel">
     <div className="lf-account-panel-head"><div><span className="lf-eyebrow">YOUR FOOD JOURNEY</span><h2>Order activity</h2></div><span>{orders.length} {orders.length===1?"order":"orders"}</span></div>
     {orders.length===0?<div className="lf-account-empty"><span className="lf-account-empty-mark">♥</span><h3>Your next good meal starts here.</h3><p>Once you place an order from the Store, its reference, items and latest status will appear here.</p><Link className="lf-account-primary" href="/#menu">Browse today's menu <span>↗</span></Link></div>:<div className="lf-account-orders">{orders.map(order=><article className="lf-account-order" key={order.id}>
      <div className="lf-account-order-top"><div><span className="lf-account-order-ref">ORDER · {order.id.slice(0,8).toUpperCase()}</span><small>{dateTime(order.createdAt)}</small></div><strong className={"lf-order-status lf-order-status-"+order.status.toLowerCase()}>{order.status}</strong></div>
