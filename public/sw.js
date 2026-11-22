@@ -51,7 +51,7 @@ self.addEventListener("notificationclick", (event) => {
   }));
 });
 
-const CACHE_VERSION = "luvies-foods-shell-v4";
+const CACHE_VERSION = "luvies-foods-shell-v5";
 const MEDIA_CACHE = "love-is-foods-media-v1";
 const SHELL_CACHE = CACHE_VERSION;
 const STATIC_LIMIT = 100;
