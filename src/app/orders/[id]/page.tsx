@@ -1,4 +1,6 @@
 "use client";
+
+/* eslint-disable react/no-unescaped-entities -- Natural apostrophes are used in customer-facing brand copy. */
 import Link from "next/link";
 import {GoogleAuthProvider,linkWithPopup,onAuthStateChanged,signInWithPopup,type User} from "firebase/auth";
 import {useEffect,useState} from "react";
