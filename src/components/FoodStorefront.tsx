@@ -12,7 +12,7 @@ const foodFallbacks=[
 function formatElapsed(milliseconds:number){const total=Math.max(0,Math.floor(milliseconds/1000));const days=Math.floor(total/86400);const hours=Math.floor((total%86400)/3600);const minutes=Math.floor((total%3600)/60);const seconds=total%60;const hh=String(hours).padStart(2,'0');const mm=String(minutes).padStart(2,'0');const ss=String(seconds).padStart(2,'0');return days>0?days+'d '+hh+'h '+mm+'m':hh+':'+mm+':'+ss;}
 
 export default function FoodStorefront(){
- const [items,setItems]=useState<MenuItem[]>([]),[loaded,setLoaded]=useState(false),[error,setError]=useState(""),[orderOpen,setOrderOpen]=useState(false),[settings,setSettings]=useState<BusinessSettings|null>(null);
+ const [items,setItems]=useState<MenuItem[]>([]),[loaded,setLoaded]=useState(false),[error,setError]=useState(""),[orderOpen,setOrderOpen]=useState(false),[settings,setSettings]=useState<BusinessSettings|null>(null),[selection,setSelection]=useState<Record<string,number>>({});
  const [elapsed,setElapsed]=useState(0);
  useEffect(()=>{const publishedAt=settings?.menuPublishedAt;if(!publishedAt)return;const start=new Date(publishedAt).getTime();if(!Number.isFinite(start))return;const tick=()=>setElapsed(Math.max(0,Date.now()-start));tick();const interval=window.setInterval(tick,1000);return()=>window.clearInterval(interval)},[settings?.menuPublishedAt]);
  useEffect(()=>{if(new URLSearchParams(window.location.search).get("order")==="1")setOrderOpen(true)},[]);
@@ -21,7 +21,7 @@ export default function FoodStorefront(){
   const stopSettings=subscribeToBusinessSettings(next=>setSettings(next),()=>{});
   return()=>{stopMenu();stopSettings()};
  },[]);
- const available=items.filter(item=>item.available).sort((a,b)=>a.sortOrder-b.sortOrder);
+ const available=items.filter(item=>item.available).sort((a,b)=>a.sortOrder-b.sortOrder);\n const selectedItems=available.filter(item=>(selection[item.id]??0)>0);\n const selectedCount=selectedItems.reduce((sum,item)=>sum+(selection[item.id]??0),0);\n const selectedTotal=selectedItems.reduce((sum,item)=>sum+item.price*(selection[item.id]??0),0);\n const selectedParam=selectedItems.map(item=>item.id+":"+(selection[item.id]??0)).join(",");\n function changeSelection(id:string,delta:number){setSelection(current=>({...current,[id]:Math.max(0,(current[id]??0)+delta)}))}
  const announcementEnabled=settings?.announcementEnabled!==false;
  const announcementText=(settings?.announcementText??DEFAULT_ANNOUNCEMENT.text).trim();
  const announcementImage=settings?.announcementImageUrl??DEFAULT_ANNOUNCEMENT.imageUrl;
@@ -34,7 +34,7 @@ export default function FoodStorefront(){
    <nav><Link href="/account">My account</Link></nav>
   </header>
   <section className="lf-hero">
-   <div className="lf-hero-copy"><span className="lf-eyebrow">FRESHLY MADE · FULL OF LOVE</span><h1>Good food.<br/><em>Made with love.</em></h1><p>Comforting meals, made to bring a little more joy to your day.</p><div className="lf-hero-actions"><button type="button" className="lf-primary" onClick={()=>setOrderOpen(true)}>Order your meal <span>↗</span></button><a href="#menu" className="lf-secondary">Explore the menu</a></div><div className="lf-hero-note"><span>●</span> {menuSignal}</div></div>
+   <div className="lf-hero-copy"><span className="lf-eyebrow">FRESHLY MADE · FULL OF LOVE</span><h1>Good food.<br/><em>Made with love.</em></h1><p>Comforting meals, made to bring a little more joy to your day.</p><div className="lf-hero-actions"><a className="lf-primary" href="#menu">Choose your food <span>↓</span></a><a href="#menu" className="lf-secondary">Explore the menu</a></div><div className="lf-hero-note"><span>●</span> {menuSignal}</div></div>
    <div className="lf-hero-photo" role="img" aria-label="A freshly prepared rice and grilled chicken meal"><div className="lf-photo-caption"><small>MADE FRESH</small><strong>A little love in every plate.</strong></div></div>
    <div className="lf-hero-stamp">GOOD<br/>FOOD<br/><span>♥</span></div>
   </section>
@@ -43,10 +43,10 @@ export default function FoodStorefront(){
    <div className="lf-section-head"><div><span className="lf-eyebrow">THE GOOD STUFF</span><h2>Today's menu<span>.</span></h2></div><span className="lf-count">{loaded?available.length+" available":"Menu loading"}</span></div>
    {error?<p className="lf-state" role="alert">The menu could not be loaded right now. Please try again shortly.</p>:!loaded?<p className="lf-state">Loading today's menu…</p>:available.length===0?<div className="lf-empty-feature"><div className="lf-empty-copy"><span className="lf-eyebrow">A LITTLE SOMETHING MADE JUST FOR YOU</span><h3>Not seeing your meal today?</h3><p>Lesedi is getting the next menu ready. Have a dish in mind? Open your account and keep your details close while we prepare the custom-order experience.</p><Link className="lf-custom-cta" href="/account">Open your account <span>↗</span></Link><small>Custom-order requests will be handled through your account in the next update.</small></div><div className="lf-menu-clock"><span className="lf-clock-label">TIME SINCE THE LAST MENU</span>{settings?.menuPublishedAt?<><strong>{formatElapsed(elapsed)}</strong><small>Since Lesedi last published a menu</small></>:<><strong className="lf-clock-pending">First menu pending</strong><small>The count-up begins when Lesedi publishes her first menu.</small></>}<span className="lf-clock-mark" aria-hidden="true">♥</span></div></div>:<div className="lf-menu-grid">{available.map((item,index)=><article className="lf-meal" key={item.id}>
     <div className="lf-meal-image" style={{backgroundImage:"url('"+(item.imageUrl||foodFallbacks[index%foodFallbacks.length])+"')"}}><span>LUVIE'S FOODS</span></div>
-    <div className="lf-meal-info"><div><small>{item.category||"MADE WITH LOVE"}</small><h3>{item.name}</h3>{item.description&&<p>{item.description}</p>}</div><div className="lf-meal-bottom"><strong>P{item.price.toFixed(2)}</strong><button type="button" onClick={()=>setOrderOpen(true)}>Order <span>↗</span></button></div></div>
+    <div className="lf-meal-info"><div><small>{item.category||"MADE WITH LOVE"}</small><h3>{item.name}</h3>{item.description&&<p>{item.description}</p>}</div><div className="lf-meal-bottom"><strong>P{item.price.toFixed(2)}</strong><div className="lf-meal-select">{(selection[item.id]??0)>0&&<button type="button" onClick={()=>changeSelection(item.id,-1)} aria-label={"Remove one "+item.name}>−</button>}<strong>{selection[item.id]??0}</strong><button type="button" onClick={()=>changeSelection(item.id,1)} aria-label={"Add one "+item.name}>{(selection[item.id]??0)>0?"+":"Add"}</button></div></div></div>
    </article>)}</div>}
   </section>
-  <section className="lf-promise"><span>♥</span><div><strong>Good food, made with love.</strong><small>Choose your favourite, place your order, and we'll take care of the rest.</small></div><button type="button" onClick={()=>setOrderOpen(true)}>Let's eat ↗</button></section>
+  {selectedCount>0&&<div className="lf-selection-bar"><div><strong>{selectedCount} {selectedCount===1?"item":"items"} selected</strong><small>Estimated total · P{selectedTotal.toFixed(2)}</small></div><Link href={"/account?request=1&items="+encodeURIComponent(selectedParam)}>Continue with selected food <span>↗</span></Link></div>}\n  <section className="lf-promise"><span>♥</span><div><strong>Good food, made with love.</strong><small>Choose your favourite, place your order, and we'll take care of the rest.</small></div><button type="button" onClick={()=>setOrderOpen(true)}>Let's eat ↗</button></section>
   <footer className="lf-footer"><Link href="/">LUVIE'S FOODS <span>♥</span></Link><span>GOOD FOOD, MADE WITH LOVE</span><Link href="/admin" aria-label="Owner Briefcase">💼 Briefcase</Link></footer>
   {orderOpen&&<OrderForm embedded onClose={closeOrder}/>}
  </main>;
