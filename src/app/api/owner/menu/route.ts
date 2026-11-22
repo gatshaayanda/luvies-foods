@@ -48,8 +48,10 @@ export async function POST(request:Request){
   if(action==="seed"){
    for(const meal of starterMeals){
     const ref=db.collection("menu").doc(meal.id);
-    const existing=await ref.get();
-    if(!existing.exists)await ref.create(meal);
+    await db.runTransaction(async transaction=>{
+     const existing=await transaction.get(ref);
+     if(!existing.exists)transaction.create(ref,meal);
+    });
    }
   }else if(action==="save"){
    const item=body?.item;
