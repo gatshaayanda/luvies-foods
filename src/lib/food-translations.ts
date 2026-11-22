@@ -259,7 +259,24 @@ const setswana: Record<string,string> = {
   "Start a conversation":"Simolola puisano",
   "A conversation could not be started.":"Puisano ga e a kgona go simololwa.",
   "Messages could not be marked as read.":"Melaetsa ga e a kgona go tshwaiwa e le e e badilweng.",
-  "Your message could not be sent. Please try again.":"Molaetsa wa gago ga o a kgona go romelwa. Tsweetswee leka gape."
+  "Your message could not be sent. Please try again.":"Molaetsa wa gago ga o a kgona go romelwa. Tsweetswee leka gape.",
+"New":"Ntšhwa",
+  "Accepted":"E amogetswe",
+  "Preparing":"E a apewa",
+  "Ready":"E setse e siame",
+  "Delivering":"E a tlisiwa",
+  "Cancelled":"E phimotswe",
+  "Received · waiting for Lesedi to review":"E amogetswe · e emetse gore Lesedi a e sekaseke",
+  "Accepted · your order is being arranged":"E amogetswe · dijo tsa gago di a baakanngwa",
+  "Being prepared":"Di a apewa",
+  "Ready for collection":"Di setse di siame go tsewa",
+  "On the way":"Di mo tseleng",
+  "Collected":"Di tseetswe",
+  "Delivered":"Di tliseditswe",
+  "Google sign-in was cancelled. Your current customer space is unchanged.":"Go tsena ka Google go phimotswe. Akhaonto ya gago ya jaanong ga e a fetolwa.",
+  "Your details are saved with Luvie's Foods.":"Dintlha tsa gago di bolokilwe mo Luvie's Foods.",
+  "We couldn't save your details. Check your connection and try again.":"Ga re a kgona go boloka dintlha tsa gago. Tlhola kgokagano mme o leke gape.",
+  "Add your name and phone number so Lesedi can follow up about your order.":"Tsenya leina la gago le nomoro ya mogala gore Lesedi a kgone go ikgolaganya le wena ka kopo ya gago."
 };
 
 export function foodText(language:FoodLanguage,value:string):string {
