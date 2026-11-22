@@ -17,7 +17,7 @@ export default function FoodCustomerHelper(){
  const[open,setOpen]=useState(false);
  const[input,setInput]=useState("");
  const[messages,setMessages]=useState<Message[]>([]);
- useEffect(()=>{setMessages(current=>current.length===0?[{id:1,from:"guide",text:t("Dumela! I can help you find the menu, start a custom request, understand collection and delivery, or reach Lesedi. I'm an automated guide, not a person.")}]:current.map((message,index)=>index===0&&message.id===1?{...message,text:t("Dumela! I can help you find the menu, start a custom request, understand collection and delivery, or reach Lesedi. I'm an automated guide, not a person.")}:message))},[language]);
+ useEffect(()=>{setMessages(current=>current.length===0?[{id:1,from:"guide",text:welcome}]:current.map((message,index)=>index===0&&message.id===1?{...message,text:welcome}:message))},[welcome]);
  function answer(question:string){
   const q=question.toLowerCase();
   const item=/xmas|christmas|special|discount/.test(q)?quickReplies[3]:
