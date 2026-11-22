@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "Love is Foods",
-  "short_name": "Love is Foods",
-  "description": "Order food, manage your account and follow your orders.",
+  "name": "Luvie's Foods",
+  "short_name": "Luvie's Foods",
+  "description": "Good food, made with love. Browse the menu, order and manage your account.",
   "categories": [
     "business",
     "productivity"
@@ -17,7 +17,7 @@
   "theme_color": "#db0b0b",
   "icons": [
     {
-      "src": "/love-is-foods-icon.svg",
+      "src": "/luvies-foods-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
