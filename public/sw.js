@@ -20,20 +20,20 @@ try {
       // Notification payloads are displayed automatically by Firebase. Only render
       // data-only pushes here to avoid showing the same notification twice.
       if (payload.notification) return;
-      const title = payload.data?.title || "Love is Foods update";
+      const title = payload.data?.title || "Luvie's Foods update";
       const options = {
         body: payload.data?.body || "Open the app to check your latest information.",
-        icon: "/love-is-foods-icon.svg",
-        badge: "/love-is-foods-icon.svg",
+        icon: "/luvies-foods-icon.svg",
+        badge: "/luvies-foods-icon.svg",
         data: { link: payload.data?.link || "/account" },
       };
       self.registration.showNotification(title, options);
     });
   } else {
-    console.error("Love is Foods Firebase Messaging web config is incomplete.");
+    console.error("Luvie's Foods Firebase Messaging web config is incomplete.");
   }
 } catch (error) {
-  console.error("Love is Foods Firebase Messaging service worker could not initialize.", error);
+  console.error("Luvie's Foods Firebase Messaging service worker could not initialize.", error);
 }
 
 self.addEventListener("notificationclick", (event) => {
@@ -51,7 +51,7 @@ self.addEventListener("notificationclick", (event) => {
   }));
 });
 
-const CACHE_VERSION = "love-is-foods-shell-v2";
+const CACHE_VERSION = "luvies-foods-shell-v3";
 const MEDIA_CACHE = "love-is-foods-media-v1";
 const SHELL_CACHE = CACHE_VERSION;
 const STATIC_LIMIT = 100;
@@ -59,7 +59,7 @@ const PUBLIC_PAGE_LIMIT = 12;
 const MEDIA_LIMIT = 24;
 const MEDIA_MAX_BYTES = 4 * 1024 * 1024;
 const MEDIA_HOSTS = ["images.unsplash.com", "utfs.io", "ufs.sh"];
-const APP_SHELL = ["/", "/offline", "/patterns", "/iphone-install", "/iphone-install.svg", "/love-is-foods-icon.svg", "/manifest.webmanifest"];
+const APP_SHELL = ["/", "/offline", "/patterns", "/iphone-install", "/iphone-install.svg", "/luvies-foods-icon.svg", "/manifest.webmanifest"];
 
 self.addEventListener("install", event => {
   event.waitUntil((async () => {
