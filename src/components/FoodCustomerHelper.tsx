@@ -1,0 +1,38 @@
+"use client";
+import Link from "next/link";
+import {useState,type FormEvent} from "react";
+
+type Message={id:number;from:"guide"|"you";text:string};
+const quickReplies=[
+ {label:"Menu and prices",text:"Browse the available meals and prices on the Store. Lesedi updates availability there.",href:"/#menu"},
+ {label:"Custom order",text:"Tell Lesedi what you'd like. Custom requests are sent for review; price and availability are confirmed by Lesedi.",href:"/?order=1&custom=1"},
+ {label:"Collection or delivery",text:"Choose collection or delivery in the order form, then select a requested date and time. Your request is not confirmed until Lesedi reviews it.",href:"/?order=1"},
+ {label:"Xmas Special",text:"The Store announcement says to ask about Xmas Special discounts. Ask Lesedi in Messages to confirm what is available.",href:"/account?tab=messages"},
+ {label:"My order or a person",text:"Open My Luvie's Foods, then Messages to contact Lesedi about your saved request.",href:"/account?tab=messages"}
+];
+export default function FoodCustomerHelper(){
+ const[open,setOpen]=useState(false);
+ const[input,setInput]=useState("");
+ const[messages,setMessages]=useState<Message[]>([{id:1,from:"guide",text:"Dumela! I can help you find the menu, start a custom request, understand collection and delivery, or reach Lesedi. I'm an automated guide, not a person."}]);
+ function answer(question:string){
+  const q=question.toLowerCase();
+  const item=/xmas|christmas|special|discount/.test(q)?quickReplies[3]:
+   /custom|special meal|not on menu|something else/.test(q)?quickReplies[1]:
+   /delivery|collect|pickup|pick up|time|when/.test(q)?quickReplies[2]:
+   /message|lesedi|person|help|order status|my order|track/.test(q)?quickReplies[4]:
+   /menu|price|meal|food|chicken|beef|rice/.test(q)?quickReplies[0]:null;
+  const reply=item?.text??"I can help with the Store menu, custom requests, collection or delivery, the Xmas Special announcement, and contacting Lesedi. Choose a shortcut below or open Messages for a personal reply.";
+  setMessages(current=>[...current,{id:Date.now(),from:"you",text:question},{id:Date.now()+1,from:"guide",text:reply}].slice(-8));
+ }
+ function submit(event:FormEvent<HTMLFormElement>){event.preventDefault();const value=input.trim();if(!value)return;setInput("");answer(value)}
+ return <div className="lf-customer-helper">
+  {open&&<section className="lf-customer-helper-panel" role="dialog" aria-modal="false" aria-labelledby="lf-customer-helper-title">
+   <header><div><small>LUVIE'S FOODS · CUSTOMER HELP</small><strong id="lf-customer-helper-title">Need a hand?</strong></div><button type="button" aria-label="Close help" onClick={()=>setOpen(false)}>×</button></header>
+   <div className="lf-customer-helper-thread" aria-live="polite">{messages.map(message=><p key={message.id} className={message.from}>{message.text}</p>)}</div>
+   <div className="lf-customer-helper-shortcuts">{quickReplies.map(item=><button key={item.label} type="button" onClick={()=>answer(item.label)}>{item.label}</button>)}</div>
+   <form onSubmit={submit}><input value={input} onChange={event=>setInput(event.target.value)} placeholder="Ask about food or your order…" aria-label="Ask Luvie's Foods customer help" maxLength={240}/><button type="submit" disabled={!input.trim()}>Send</button></form>
+   <p className="lf-customer-helper-footnote">Automated guidance · For a personal response, <Link href="/account?tab=messages">message Lesedi</Link>.</p>
+  </section>}
+  <button type="button" className="lf-customer-helper-launcher" aria-expanded={open} aria-haspopup="dialog" onClick={()=>setOpen(value=>!value)}>{open?"Close help":"Need a hand? ♥"}</button>
+ </div>;
+}
