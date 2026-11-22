@@ -1,14 +1,108 @@
 "use client";
-/* eslint-disable react/no-unescaped-entities -- Brand name and customer-facing copy contain natural apostrophes. */
+/* eslint-disable react/no-unescaped-entities -- Luvie's Foods brand copy uses natural apostrophes. */
 import Link from "next/link";
-import {useEffect,useState} from "react";
+import {useEffect,useState,type FormEvent} from "react";
 import {onAuthStateChanged,signInAnonymously,type User} from "firebase/auth";
 import {auth} from "@/lib/firebase/client";
 import {getCustomerProfile,saveCustomerProfile,subscribeToCustomerOrders,type CustomerProfile,type FoodOrder} from "@/lib/firebase/data";
-const money=(n:number)=>"P"+n.toFixed(2);
+
+const money=(amount:number)=>"P"+amount.toFixed(2);
+const dateTime=(value:string)=>{try{return new Intl.DateTimeFormat("en-BW",{timeZone:"Africa/Gaborone",dateStyle:"medium",timeStyle:"short"}).format(new Date(value))}catch{return value}};
+const statusCopy:Record<string,string>={New:"Received · waiting for Lesedi to review",Accepted:"Accepted · your order is being arranged",Preparing:"Being prepared",Ready:"Ready for collection",Delivering:"On the way",Collected:"Collected",Delivered:"Delivered",Cancelled:"Cancelled"};
+
 export default function AccountPage(){
- const [user,setUser]=useState<User|null>(null),[profile,setProfile]=useState<CustomerProfile|null>(null),[orders,setOrders]=useState<FoodOrder[]>([]),[busy,setBusy]=useState(false),[ready,setReady]=useState(false),[message,setMessage]=useState("");
- useEffect(()=>{let stop=()=>{};let disposed=false;const authStop=onAuthStateChanged(auth,async current=>{if(!current){try{await signInAnonymously(auth)}catch{if(!disposed){setMessage("We could not restore your order session. Try again when connected.");setReady(true)}}return}if(disposed)return;setUser(current);try{const saved=await getCustomerProfile(current.uid);if(disposed)return;const now=new Date().toISOString();setProfile(saved??{uid:current.uid,name:current.displayName??"",email:current.email??"",phone:"",preferredDeliveryLocation:"",notes:"",createdAt:now,updatedAt:now});stop=subscribeToCustomerOrders(current.uid,setOrders,e=>setMessage(e.message))}catch{setMessage("Your account details are temporarily unavailable.")}finally{setReady(true)}});return()=>{disposed=true;authStop();stop()}},[]);
- async function save(event:React.FormEvent<HTMLFormElement>){event.preventDefault();if(!profile)return;setBusy(true);const form=new FormData(event.currentTarget);const next={...profile,name:String(form.get("name")??"").trim(),phone:String(form.get("phone")??"").trim(),preferredDeliveryLocation:String(form.get("location")??"").trim(),updatedAt:new Date().toISOString()};try{await saveCustomerProfile(next);setProfile(next);setMessage("Your details are saved.")}catch{setMessage("We could not save your details. Try again.")}finally{setBusy(false)}}
- return <main className="orderPage"><div className="orderWrap"><header className="orderHeader"><Link href="/" className="logo"><span className="logoMark">L♥</span><span>LUVIE'S FOODS</span></Link><nav className="accountTopNav"><Link className="button buttonLight" href="/">Store</Link></nav></header><section className="orderCard accountHome"><div className="accountHero"><div><span className="kicker">YOUR ACCOUNT</span><h1>Good food, kept close.</h1><p>See your orders and keep your delivery details ready.</p></div><span className="accountStatus">{user?.isAnonymous?"Guest account":"Signed in"}</span></div>{!ready?<p>Restoring your account…</p>:<><section className="accountSection"><div className="panelHeading"><h2>Your orders</h2><span>{orders.length} saved</span></div>{orders.length===0?<p className="feedEmpty">Your food orders will appear here after checkout.</p>:orders.map(order=><article className="requestAdminCard" key={order.id}><div className="panelHeading"><strong>{order.id.slice(0,9).toUpperCase()}</strong><strong>{money(order.total)}</strong></div><p>{order.items.map(item=>item.quantity+" × "+item.name).join(" · ")}</p><p>Status: <strong>{order.status}</strong> · Payment: {order.paymentStatus??"unpaid"}</p><small>{order.scheduledFor}</small></article>)}</section>{profile&&<section id="profile" className="accountSection"><h2>Your details</h2><form className="adminForm" onSubmit={save}><label>Name<input name="name" defaultValue={profile.name} required/></label><label>Phone<input name="phone" type="tel" defaultValue={profile.phone} required/></label><label>Delivery location<input name="location" defaultValue={profile.preferredDeliveryLocation}/></label><button className="button buttonPrimary" disabled={busy}>{busy?"Saving…":"Save details"}</button></form></section>}</>}{message&&<p className="notice" role="status">{message}</p>}</section></div></main>;
+ const[user,setUser]=useState<User|null>(null);
+ const[profile,setProfile]=useState<CustomerProfile|null>(null);
+ const[orders,setOrders]=useState<FoodOrder[]>([]);
+ const[ready,setReady]=useState(false);
+ const[busy,setBusy]=useState(false);
+ const[message,setMessage]=useState("");
+ const[tab,setTab]=useState<"orders"|"details">("orders");
+
+ useEffect(()=>{
+  let disposed=false;
+  let stopOrders=()=>{};
+  const stopAuth=onAuthStateChanged(auth,async current=>{
+   if(!current){
+    try{await signInAnonymously(auth)}catch{
+     if(!disposed){setMessage("We couldn't restore your customer space. Check your connection and try again.");setReady(true)}
+    }
+    return;
+   }
+   if(disposed)return;
+   setUser(current);
+   try{
+    const saved=await getCustomerProfile(current.uid);
+    if(disposed)return;
+    setProfile(saved??{uid:current.uid,name:current.displayName??"",email:current.email??"",phone:"",preferredDeliveryLocation:"",notes:"",createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()});
+    stopOrders=subscribeToCustomerOrders(current.uid,setOrders,error=>setMessage(error.message));
+   }catch{
+    if(!disposed)setMessage("Your saved details are temporarily unavailable. Your order history will retry when the connection returns.");
+   }finally{if(!disposed)setReady(true)}
+  });
+  return()=>{disposed=true;stopAuth();stopOrders()};
+ },[]);
+
+ async function save(event:FormEvent<HTMLFormElement>){
+  event.preventDefault();
+  if(!profile||busy)return;
+  if(!profile.name.trim()||!profile.phone.trim()){setMessage("Add your name and phone number so Lesedi can follow up about your order.");return}
+  setBusy(true);setMessage("");
+  const next={...profile,name:profile.name.trim(),phone:profile.phone.trim(),preferredDeliveryLocation:profile.preferredDeliveryLocation.trim(),updatedAt:new Date().toISOString()};
+  try{await saveCustomerProfile(next);setProfile(next);setMessage("Your details are saved with Luvie's Foods.")}
+  catch{setMessage("We couldn't save your details. Check your connection and try again.")}
+  finally{setBusy(false)}
+ }
+
+ const active=orders.filter(order=>!["Collected","Delivered","Cancelled"].includes(order.status));
+ const greeting=profile?.name.trim().split(/\s+/)[0]||user?.displayName?.split(/\s+/)[0]||"there";
+
+ return <main className="lf-account-page">
+  <div className="lf-account-topline"><span>MADE WITH LOVE · GABORONE</span><span>YOUR CUSTOMER SPACE</span></div>
+  <header className="lf-account-header">
+   <Link href="/" className="lf-brand" aria-label="Luvie's Foods home"><span className="lf-mark">L<span>♥</span></span><span><strong>LUVIE'S FOODS</strong><small>GOOD FOOD, MADE WITH LOVE</small></span></Link>
+   <nav><Link href="/#menu">Explore menu</Link><Link className="lf-account-header-cta" href="/?order=1">Order food <span>↗</span></Link></nav>
+  </header>
+
+  <div className="lf-account-wrap">
+   <section className="lf-account-intro">
+    <div><span className="lf-eyebrow">YOUR SPACE WITH LUVIE'S FOODS</span><h1>Dumela, {greeting}.</h1><p>Your orders and delivery details, together in one place.</p></div>
+    <span className="lf-account-session"><i/> {user?.isAnonymous?"Customer space":"Signed in"}</span>
+   </section>
+
+   <section className="lf-account-summary" aria-label="Order summary">
+    <div><span>ACTIVE ORDERS</span><strong>{active.length}</strong><small>{active.length===1?"Order being handled":"Orders being handled"}</small></div>
+    <div><span>ALL ORDERS</span><strong>{orders.length}</strong><small>Saved order history</small></div>
+    <Link href="/?order=1">＋ Start an order <span>↗</span></Link>
+   </section>
+
+   <div className="lf-account-tabs" role="tablist" aria-label="Customer account sections">
+    <button type="button" role="tab" aria-selected={tab==="orders"} className={tab==="orders"?"active":""} onClick={()=>setTab("orders")}>My orders <span>{orders.length}</span></button>
+    <button type="button" role="tab" aria-selected={tab==="details"} className={tab==="details"?"active":""} onClick={()=>setTab("details")}>My details</button>
+   </div>
+
+   {!ready?<section className="lf-account-panel lf-account-loading" role="status"><span className="lf-account-spinner"/>Restoring your customer space…</section>:tab==="orders"?<section className="lf-account-panel" role="tabpanel">
+    <div className="lf-account-panel-head"><div><span className="lf-eyebrow">YOUR FOOD JOURNEY</span><h2>Order activity</h2></div><span>{orders.length} {orders.length===1?"order":"orders"}</span></div>
+    {orders.length===0?<div className="lf-account-empty"><span className="lf-account-empty-mark">♥</span><h3>Your next good meal starts here.</h3><p>Once you place an order from the Store, its reference, items and latest status will appear here.</p><Link className="lf-account-primary" href="/#menu">Browse today's menu <span>↗</span></Link></div>:<div className="lf-account-orders">{orders.map(order=><article className="lf-account-order" key={order.id}>
+     <div className="lf-account-order-top"><div><span className="lf-account-order-ref">ORDER · {order.id.slice(0,8).toUpperCase()}</span><small>{dateTime(order.createdAt)}</small></div><strong className={"lf-order-status lf-order-status-"+order.status.toLowerCase()}>{order.status}</strong></div>
+     <div className="lf-account-order-items">{order.items.map((item,index)=><div key={order.id+"-"+index}><span>{item.quantity} × {item.name}</span><strong>{money(item.price*item.quantity)}</strong></div>)}</div>
+     <div className="lf-account-order-bottom"><div><span>{order.mode==="delivery"?"Delivery":"Collection"} · {dateTime(order.scheduledFor)}</span><small>{statusCopy[order.status]??"Order status updated by Luvie's Foods"}</small>{order.mode==="delivery"&&order.deliveryLocation&&<small>{order.deliveryLocation}</small>}</div><strong>{money(order.total)}</strong></div>
+     {order.instructions&&<p className="lf-account-order-note">Your note: {order.instructions}</p>}
+    </article>)}</div>}
+   </section>:<section className="lf-account-panel" role="tabpanel">
+    <div className="lf-account-panel-head"><div><span className="lf-eyebrow">READY FOR NEXT TIME</span><h2>Your details</h2></div><span>Private customer profile</span></div>
+    {profile&&<form className="lf-account-form" onSubmit={save}>
+     <label>Your name<input value={profile.name} onChange={event=>setProfile({...profile,name:event.target.value})} autoComplete="name" required/></label>
+     <label>Phone number<input type="tel" value={profile.phone} onChange={event=>setProfile({...profile,phone:event.target.value})} autoComplete="tel" required/></label>
+     <label className="lf-account-field-wide">Delivery location or landmark<input value={profile.preferredDeliveryLocation} onChange={event=>setProfile({...profile,preferredDeliveryLocation:event.target.value})} autoComplete="street-address" placeholder="Add your area or a nearby landmark"/></label>
+     <button className="lf-account-primary" type="submit" disabled={busy}>{busy?"Saving your details…":"Save my details"} <span>↗</span></button>
+    </form>}
+   </section>}
+
+   {message&&<p className="lf-account-message" role="status">{message}</p>}
+   <p className="lf-account-footnote">Your orders and customer details are saved to your Luvie's Foods account. An order is only confirmed as received when the order submission says it has been saved; a pending offline save has not reached the kitchen yet.</p>
+  </div>
+
+  <footer className="lf-account-footer"><Link href="/">LUVIE'S FOODS <span>♥</span></Link><span>GOOD FOOD, MADE WITH LOVE</span><Link href="/">Back to Store ↗</Link></footer>
+ </main>;
 }
