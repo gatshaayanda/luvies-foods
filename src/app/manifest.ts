@@ -3,9 +3,9 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "Love is Foods",
-    short_name: "Love is Foods",
-    description: "Love is Foods menu, ordering, customer account and owner operations.",
+    name: "Luvie's Foods",
+    short_name: "Luvie's Foods",
+    description: "Luvie's Foods menu, ordering, customer account and owner operations.",
     start_url: "/",
     scope: "/",
     display: "standalone",
@@ -15,28 +15,28 @@ export default function manifest(): MetadataRoute.Manifest {
     lang: "en",
     categories: ["business", "productivity"],
     prefer_related_applications: false,
-    icons: [{ src: "/love-is-foods-icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }],
+    icons: [{ src: "/luvies-foods-icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }],
     shortcuts: [
       {
         name: "Browse menu",
         short_name: "Menu",
         description: "Browse meals and place an order",
         url: "/",
-        icons: [{ src: "/love-is-foods-icon.svg", sizes: "any", type: "image/svg+xml" }]
+        icons: [{ src: "/luvies-foods-icon.svg", sizes: "any", type: "image/svg+xml" }]
       },
       {
         name: "My account",
         short_name: "Account",
         description: "Review your food orders",
         url: "/account",
-        icons: [{ src: "/love-is-foods-icon.svg", sizes: "any", type: "image/svg+xml" }]
+        icons: [{ src: "/luvies-foods-icon.svg", sizes: "any", type: "image/svg+xml" }]
       },
       {
         name: "Owner Briefcase",
         short_name: "Briefcase",
-        description: "Manage the Love is Foods menu and orders",
+        description: "Manage the Luvie's Foods menu and orders",
         url: "/admin",
-        icons: [{ src: "/love-is-foods-icon.svg", sizes: "any", type: "image/svg+xml" }]
+        icons: [{ src: "/luvies-foods-icon.svg", sizes: "any", type: "image/svg+xml" }]
       }
     ]
   };
