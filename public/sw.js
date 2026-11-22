@@ -10,13 +10,13 @@ try {
   console.warn("Background messaging is unavailable; offline app-shell support remains enabled.", error);
 }
 
-let loveIsFoodsMessaging = null;
+let luviesFoodsMessaging = null;
 try {
-  const config = self.__LOVE_IS_FOODS_FIREBASE_CONFIG__;
+  const config = self.__LUVIES_FOODS_FIREBASE_CONFIG__;
   if (config && config.apiKey && config.projectId && config.messagingSenderId && config.appId) {
     firebase.initializeApp(config);
-    loveIsFoodsMessaging = firebase.messaging();
-    loveIsFoodsMessaging.onBackgroundMessage((payload) => {
+    luviesFoodsMessaging = firebase.messaging();
+    luviesFoodsMessaging.onBackgroundMessage((payload) => {
       // Notification payloads are displayed automatically by Firebase. Only render
       // data-only pushes here to avoid showing the same notification twice.
       if (payload.notification) return;
