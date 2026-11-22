@@ -59,7 +59,7 @@ const PUBLIC_PAGE_LIMIT = 12;
 const MEDIA_LIMIT = 24;
 const MEDIA_MAX_BYTES = 4 * 1024 * 1024;
 const MEDIA_HOSTS = ["images.unsplash.com", "utfs.io", "ufs.sh"];
-const APP_SHELL = ["/", "/offline", "/patterns", "/iphone-install", "/iphone-install.svg", "/love-is-foods-icon.svg", "/love-is-foods-icon-192.png", "/love-is-foods-icon-512.png", "/manifest.webmanifest"];
+const APP_SHELL = ["/", "/offline", "/patterns", "/iphone-install", "/iphone-install.svg", "/love-is-foods-icon.svg", "/manifest.webmanifest"];
 
 self.addEventListener("install", event => {
   event.waitUntil((async () => {
