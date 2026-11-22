@@ -9,6 +9,7 @@ const page=read("src/app/page.tsx");
 const storefront=read("src/components/FoodStorefront.tsx");
 const order=read("src/app/order/order-form.tsx");
 check(/const CACHE_VERSION = "luvies-foods-shell-v\d+"/.test(sw),"versioned app-shell cache namespace must remain in place");
+check(page.includes("Store shell cache contract: luvies-foods-shell-v5.") && sw.includes('const CACHE_VERSION = "luvies-foods-shell-v5";'),"Store page and service-worker shell cache versions must stay synchronized");
 check(sw.includes('event.waitUntil(self.skipWaiting())')&&!sw.includes("await self.skipWaiting()"),"service-worker updates must wait for the explicit user refresh action");
 check(sw.includes("navigationPreload.enable()")&&sw.includes("event.preloadResponse"),"navigation preload must remain optional and used");
 check(sw.includes("function isSafePublicHtml")&&sw.includes('value === "cookie"')&&sw.includes('value === "authorization"'),"private/cookie-varying HTML must not enter the public cache");
