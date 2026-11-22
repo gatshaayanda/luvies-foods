@@ -15,7 +15,7 @@ export default function FoodStorefront(){
   <div className="lf-topline"><span>MADE WITH LOVE · GABORONE</span><span>GOOD FOOD, GOOD MOOD</span></div>
   <header className="lf-header">
    <Link href="/" className="lf-brand" aria-label="Love is Foods home"><span className="lf-mark">L<span>♥</span></span><span><strong>LOVE IS FOODS</strong><small>GOOD FOOD, MADE WITH LOVE</small></span></Link>
-   <nav><Link href="/account">My account</Link><Link className="lf-briefcase" href="/admin" aria-label="Owner Briefcase">💼</Link></nav>
+   <nav><Link href="/account">My account</Link></nav>
   </header>
   <section className="lf-hero">
    <div className="lf-hero-copy"><span className="lf-eyebrow">FRESHLY MADE · FULL OF LOVE</span><h1>Good food.<br/><em>Made with love.</em></h1><p>Comforting meals, made to bring a little more joy to your day.</p><div className="lf-hero-actions"><Link href="/order" className="lf-primary">Order your meal <span>↗</span></Link><a href="#menu" className="lf-secondary">Explore the menu</a></div><div className="lf-hero-note"><span>●</span> Two favourites on the menu · P40 each</div></div>
