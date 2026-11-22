@@ -97,7 +97,7 @@ h1 em{font-style:normal;color:var(--plug-blue);text-shadow:0 0 22px rgba(8,102,2
 .fieldGrid input,.fieldGrid select,.fieldGrid textarea,.adminForm input,.adminForm textarea{width:100%;border:1px solid #454039;border-radius:10px;padding:12px;background:#0f0f10;color:#fff;outline:none}
 .fieldGrid input:focus,.fieldGrid select:focus,.fieldGrid textarea:focus,.adminForm input:focus,.adminForm textarea:focus{border-color:var(--plug-blue);box-shadow:0 0 0 3px rgba(8,102,255,.1)}
 .fieldGrid textarea{min-height:95px}.total{display:flex;justify-content:space-between;align-items:end;border-top:1px solid #37332e;padding-top:17px;margin-top:17px}.total strong{font-family:Impact,"Arial Black",Arial,sans-serif;font-size:2.2rem;color:var(--plug-blue)}.orderTruth{color:#8f887e;font-size:.76rem;line-height:1.5}
-.confirm{text-align:center;padding:50px 22px}.confirmIcon{font-size:3.2rem;margin-bottom:15px}.confirm p{color:#b9b2a7;line-height:1.65;max-width:620px;margin:15px auto}.notice{padding:12px 14px;border-radius:12px;background:#111827;border:1px solid #0866FF;margin:15px 0;font-weight:800;color:#9bbdff}
+.confirm{text-align:center;padding:50px 22px;color:#fff}.confirmIcon{font-size:3.2rem;margin-bottom:15px}.confirm h1,.confirm strong,.confirm p,.confirm .orderTruth{color:#fff}.confirm p{line-height:1.65;max-width:620px;margin:15px auto}.notice{padding:12px 14px;border-radius:12px;background:#111827;border:1px solid #0866FF;margin:15px 0;font-weight:800;color:#9bbdff}
 
 .adminPage{min-height:100vh;background:#0b0b0c;padding:28px 0 60px;color:#fff}.adminShell{width:min(1200px,calc(100% - 24px));margin:auto}.adminAuthorized{min-height:100vh;background:#0b0b0c}.adminAccountBar{width:min(1200px,calc(100% - 24px));margin:auto;padding:12px 0;display:flex;justify-content:space-between;align-items:center;color:#918a80;font-size:.78rem;border-bottom:1px solid #2b2824}
 .adminHeader{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:22px}.adminHeader h1{font-size:clamp(2.8rem,6vw,5rem);margin:7px 0}.adminHeader p{color:#9f978c;margin:0}
@@ -6338,7 +6338,7 @@ body{background:#fbf8f7;color:#202b3c}
 
 /* Luvie's Foods — customer account, matched to the public Store */
 .lf-account-page{min-height:100vh;background:#fbf7f3;color:#202b3c}
-.lf-account-topline{min-height:27px;padding:7px max(18px,calc((100% - 1116px)/2));display:flex;justify-content:space-between;gap:14px;background:#202b3c;color:#f9e8e8;font-size:9px;font-weight:900;letter-spacing:.15em}
+.lf-account-topline{min-height:27px;padding:7px max(18px,calc((100% - 1116px)/2));display:flex;justify-content:space-between;gap:14px;background:#202b3c;color:#fff;font-size:9px;font-weight:900;letter-spacing:.15em}
 .lf-account-header{max-width:1116px;min-height:78px;margin:auto;padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid #eee3dc}
 .lf-account-header .lf-brand{display:flex;align-items:center;gap:11px;color:#202b3c}
 .lf-account-header .lf-mark{width:43px;height:43px;display:grid;place-items:center;border-radius:50%;background:#db0b0b;color:#fff;font:700 19px Georgia,serif}
