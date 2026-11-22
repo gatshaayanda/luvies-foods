@@ -16,10 +16,10 @@ export default function OrderForm({embedded=false,onClose}:{embedded?:boolean;on
  const today=gaboroneDateKey();
  const[menu,setMenu]=useState<MenuItem[]>([]),[menuLoaded,setMenuLoaded]=useState(false),[menuUnavailable,setMenuUnavailable]=useState(false);
  const[quantities,setQuantities]=useState<Record<string,number>>({}),[scheduledDate,setScheduledDate]=useState(""),[scheduledTime,setScheduledTime]=useState(""),[selectedDate,setSelectedDate]=useState(today);
- const[submitted,setSubmitted]=useState(false),[reference,setReference]=useState(""),[pendingSync,setPendingSync]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(""),[user,setUser]=useState<User|null>(null),[saved,setSaved]=useState({name:"",phone:"",location:"",notes:""}),[step,setStep]=useState(1),[mode,setMode]=useState<"pickup"|"delivery">("pickup"),[deliveryLocation,setDeliveryLocation]=useState(""),[showInstructions,setShowInstructions]=useState(false);
+ const[submitted,setSubmitted]=useState(false),[reference,setReference]=useState(""),[pendingSync,setPendingSync]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(""),[user,setUser]=useState<User|null>(null),[saved,setSaved]=useState({name:"",phone:"",location:"",notes:""}),[step,setStep]=useState(1),[mode,setMode]=useState<"pickup"|"delivery">("pickup"),[deliveryLocation,setDeliveryLocation]=useState(""),[showInstructions,setShowInstructions]=useState(false),[customerName,setCustomerName]=useState(""),[customerPhone,setCustomerPhone]=useState(""),[instructions,setInstructions]=useState("");
  useEffect(()=>{const requested=new URLSearchParams(window.location.search).get("date");if(requested&&/^\d{4}-\d{2}-\d{2}$/.test(requested)&&requested>=today){setSelectedDate(requested);setScheduledDate(requested)}} , [today]);
  useEffect(()=>{const params=new URLSearchParams(window.location.search);const entries=(params.get("items")??"").split(",").map(part=>{const [id,quantity]=part.split(":");return{id,quantity:Number(quantity)}}).filter(item=>item.id&&Number.isInteger(item.quantity)&&item.quantity>0&&item.quantity<=50);if(entries.length)setQuantities(Object.fromEntries(entries.map(item=>[item.id,item.quantity])));},[]);
- useEffect(()=>{const unsub=onAuthStateChanged(auth,async next=>{setUser(next);if(next){try{const profile=await getCustomerProfile(next.uid);if(profile){setSaved({name:profile.name,phone:profile.phone,location:profile.preferredDeliveryLocation,notes:profile.notes});setDeliveryLocation(profile.preferredDeliveryLocation)}}catch(error){console.warn("Luvie's Foods customer profile unavailable",error)}}});void getMenuItems().then(setMenu).catch(()=>{const cached=readCachedMenuItems();if(cached.length){setMenu(cached);setMenuUnavailable(false)}else setMenuUnavailable(true)}).finally(()=>setMenuLoaded(true));return unsub},[]);
+ useEffect(()=>{const unsub=onAuthStateChanged(auth,async next=>{setUser(next);if(next){try{const profile=await getCustomerProfile(next.uid);if(profile){setSaved({name:profile.name,phone:profile.phone,location:profile.preferredDeliveryLocation,notes:profile.notes});setDeliveryLocation(profile.preferredDeliveryLocation);setCustomerName(profile.name);setCustomerPhone(profile.phone);setInstructions(profile.notes)}}catch(error){console.warn("Luvie's Foods customer profile unavailable",error)}}});void getMenuItems().then(setMenu).catch(()=>{const cached=readCachedMenuItems();if(cached.length){setMenu(cached);setMenuUnavailable(false)}else setMenuUnavailable(true)}).finally(()=>setMenuLoaded(true));return unsub},[]);
  const visibleMenu=useMemo(()=>{const legacyToday=menu.filter(item=>item.available&&item.section==="deal"&&item.category.trim().toLowerCase()==="deal"&&!item.id.startsWith("deal-"));const daily=menu.filter(item=>item.available&&item.section==="daily"&&(item.days??[]).includes(weekdayForDate(selectedDate)));const deals=menu.filter(item=>item.available&&(item.section==="deal"||(!item.section&&item.category.toLowerCase()==="deal"))&&!legacyToday.some(service=>service.id===item.id));return [...daily,...(selectedDate===today?legacyToday:[]),...deals].filter((item,index,array)=>array.findIndex(candidate=>candidate.id===item.id)===index)},[menu,selectedDate,today]);
  const nextPublishedDate=useMemo(()=>{for(let offset=1;offset<=7;offset++){const candidate=addGaboroneDays(selectedDate,offset);if(menu.some(item=>item.available&&item.section==="daily"&&(item.days??[]).includes(weekdayForDate(candidate))))return candidate}return null},[menu,selectedDate]);
 
@@ -60,14 +60,14 @@ export default function OrderForm({embedded=false,onClose}:{embedded?:boolean;on
    <div className="orderWrap">
     <div className="orderCard confirm">{embedded&&<button type="button" className="lf-order-close" onClick={onClose} aria-label="Close order">×</button>}
      <div className="confirmIcon">🍔</div>
-     <span className="kicker">{pendingSync?"Offline save":"Order submitted"}</span>
-     <h1>{pendingSync?"Saved on this phone.":"Order received."}</h1>
-     <p>{pendingSync?"Your order is waiting to synchronize. Reconnect this device so it can reach Luvie's Foods. Until then, the kitchen has not received it.":"Your order was written to the Luvie's Foods order queue. The kitchen can review it and contact you if needed."}</p>
+     <span className="kicker">{pendingSync?"SAVED ON THIS DEVICE":"REQUEST RECEIVED"}</span>
+     <h1>{pendingSync?"Your request is waiting to sync.":"Your food request is in."}</h1>
+     <p>{pendingSync?"Your order is waiting to synchronize. Reconnect this device so it can reach Luvie's Foods. Until then, the kitchen has not received it.":"Lesedi has received your food request and can review the selected meals, requested time and fulfilment details. This is not a confirmed order and no payment has been taken."}</p>
      <strong>Reference #{reference.slice(0,8).toUpperCase()}</strong>
      
      <div className="actions centered">
       <div>
-       <p className="orderTruth"><strong>Your order is saved with Luvie's Foods.</strong> You can follow it from <Link href="/account">My Luvie's Foods</Link> when this guest session is available.</p>
+       <p className="orderTruth"><strong>Your request is saved with Luvie's Foods.</strong> You can follow it from <Link href="/account">My Luvie's Foods</Link> when this guest session is available.</p>
       </div>
       <div>
        <Link className="button buttonLight" href="/account">My Luvie's Foods →</Link>
@@ -75,7 +75,7 @@ export default function OrderForm({embedded=false,onClose}:{embedded?:boolean;on
       </div>
       <div>
        <Link className="button buttonLight" href="/">Back to Luvie's Foods →</Link>
-       <p className="orderTruth">Returns to the menu and deals. Your submitted order stays in the kitchen queue.</p>
+       <p className="orderTruth">Returns to the menu and deals. Your submitted request stays in the kitchen queue.</p>
       </div>
      </div>
     </div>
@@ -105,9 +105,9 @@ export default function OrderForm({embedded=false,onClose}:{embedded?:boolean;on
     </section>
     <section className="orderCard lf-request-stage" hidden={step!==3}>
      <span className="kicker">03 · YOUR DETAILS</span><h2>How can Lesedi reach you?</h2><p className="orderTruth">Only your name and WhatsApp/contact number are needed for this request.</p>
-     <div className="fieldGrid"><label className="fieldFull">Your name<input name="customerName" autoComplete="name" defaultValue={saved.name} required/></label><label className="fieldFull">WhatsApp number<input name="phone" type="tel" autoComplete="tel" inputMode="tel" defaultValue={saved.phone} required/></label></div>
+     <div className="fieldGrid"><label className="fieldFull">Your name<input name="customerName" autoComplete="name" value={customerName} onChange={event=>setCustomerName(event.target.value)} required/></label><label className="fieldFull">WhatsApp number<input name="phone" type="tel" autoComplete="tel" inputMode="tel" value={customerPhone} onChange={event=>setCustomerPhone(event.target.value)} required/></label></div>
      <button type="button" className="lf-optional-toggle" aria-expanded={showInstructions} onClick={()=>setShowInstructions(value=>!value)}>{showInstructions?"− Hide":"＋ Add"} special instructions <span>Optional</span></button>
-     {showInstructions&&<label className="lf-request-field">Anything Lesedi should know?<textarea name="instructions" defaultValue={saved.notes} rows={3} placeholder="Allergies, collection notes or other useful details…"/></label>}
+     {showInstructions&&<label className="lf-request-field">Anything Lesedi should know?<textarea name="instructions" value={instructions} onChange={event=>setInstructions(event.target.value)} rows={3} placeholder="Allergies, collection notes or other useful details…"/></label>}
      <div className="lf-request-review"><div><span>{selected.map(item=>item.quantity+" × "+item.name).join(" · ")}</span><strong>P{total.toFixed(2)}</strong></div><small>{scheduledDate} · {scheduledTime} · {mode==="delivery"?"Delivery":"Collection"}</small></div>
      {error&&<p role="alert" className="notice">{error}</p>}
      <div className="lf-request-actions"><button type="button" className="button buttonLight" onClick={()=>{setError("");setStep(2)}}>← Back</button><button className="button buttonPrimary" type="submit" disabled={busy||!selected.length}>{busy?"Sending request…":"Send food request · P"+total.toFixed(2)}</button></div>
