@@ -6509,3 +6509,21 @@ body{background:#fbf8f7;color:#202b3c}
 .lf-food-message-compose textarea{width:100%;min-height:82px;padding:11px 12px;border:1px solid #e5d9d1;border-radius:10px;background:#fff;color:#202b3c;font:inherit;font-size:12px;resize:vertical}
 .lf-food-message-compose textarea:focus{outline:2px solid #db0b0b40;border-color:#db0b0b}
 @media(max-width:560px){.lf-account-tabs{gap:0}.lf-account-tabs button{padding:0 11px;font-size:11px}.lf-food-message-threads>button{align-items:flex-start;flex-direction:column}.lf-food-message-threads>button>span:last-child{font-size:9px}}
+
+.lf-bc-message-threads{display:grid;gap:8px}
+.lf-bc-message-threads>button{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;padding:13px;border:1px solid #eee3dc;border-radius:12px;background:#fffdfb;text-align:left;cursor:pointer}
+.lf-bc-message-threads>button>span:first-child{display:grid;gap:5px;min-width:0}
+.lf-bc-message-threads strong{color:#202b3c;font-size:12px}
+.lf-bc-message-threads small,.lf-bc-message-threads>button>span:last-child{color:#82746e;font-size:10px;overflow-wrap:anywhere}
+.lf-bc-message-thread{display:grid;gap:12px}
+.lf-bc-message-thread>button{justify-self:start;border:0;background:transparent;color:#9d353c;font-size:11px;font-weight:900;cursor:pointer}
+.lf-bc-message-list{display:grid;gap:9px;max-height:430px;overflow:auto;padding:12px;border:1px solid #eee3dc;border-radius:13px;background:#fffdfb}
+.lf-bc-message{max-width:min(88%,560px);padding:10px 12px;border-radius:12px;background:#f5eee9}
+.lf-bc-message.mine{justify-self:end;background:#fff0f1}
+.lf-bc-message small{color:#887a74;font-size:9px;font-weight:850}
+.lf-bc-message p{margin:5px 0 0;color:#453b37;font-size:12px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.lf-bc-message-thread form{display:grid;justify-items:start;gap:9px}
+.lf-bc-message-thread textarea{width:100%;min-height:82px;padding:11px 12px;border:1px solid #e5d9d1;border-radius:10px;background:#fff;color:#202b3c;font:inherit;font-size:12px;resize:vertical}
+.lf-bc-message-thread form button{min-height:40px;padding:0 16px;border:0;border-radius:999px;background:#db0b0b;color:#fff;font-size:11px;font-weight:900;cursor:pointer}
+.lf-bc-message-thread form button:disabled{opacity:.55;cursor:wait}
+@media(max-width:560px){.lf-bc-message-threads>button{align-items:flex-start;flex-direction:column}}
