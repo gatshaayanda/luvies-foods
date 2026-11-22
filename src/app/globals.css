@@ -6537,3 +6537,52 @@ body{background:#fbf8f7;color:#202b3c}
 .lf-order-overlay .lf-request-stage-head>div>.kicker{color:#f0c4a7}
 .lf-order-overlay .lf-request-stage-head>div>p{color:#c8bdb6}
 .lf-order-overlay .lf-request-stage-head>strong{color:#f0a078}
+
+
+/* Luvie's Foods request flow — use the same warm storefront design language. */
+.lf-order-overlay{background:#fbf7f3!important;color:#202b3c!important;padding:18px 22px 44px!important;font-family:Inter,Arial,sans-serif!important}
+.lf-order-overlay .orderWrap{max-width:900px!important;margin:0 auto!important}
+.lf-order-overlay .lf-order-header{height:auto;min-height:68px;max-width:none;padding:8px 0 16px;margin:0 0 24px;border-bottom:1px solid #eadfd8;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.lf-order-overlay .lf-order-header .lf-brand{display:flex;align-items:center;gap:10px;color:#202b3c!important;text-decoration:none}
+.lf-order-overlay .lf-order-header .lf-brand>span:last-child{display:grid;gap:3px}
+.lf-order-overlay .lf-order-header .lf-brand strong{font-size:14px;letter-spacing:.12em;color:#202b3c}
+.lf-order-overlay .lf-order-header .lf-brand small{font-size:9px;letter-spacing:.12em;color:#8a7772}
+.lf-order-overlay .lf-order-header .lf-mark{width:42px;height:42px;border-radius:14px;background:#db0b0b;color:#fff;display:grid;place-items:center;font:900 25px Georgia,serif;position:relative}
+.lf-order-overlay .lf-order-header .lf-mark span{position:absolute;font:10px Arial;right:5px;top:4px;color:#ffd6d6}
+.lf-order-overlay .lf-order-header .actions{display:flex;align-items:center;gap:16px;margin:0}
+.lf-order-overlay .lf-order-navlink{border:0;background:transparent;color:#202b3c!important;font:800 12px Inter,Arial,sans-serif;text-decoration:none;padding:10px 0;cursor:pointer}
+.lf-order-overlay .lf-order-navlink:hover{color:#db0b0b!important}
+.lf-order-overlay .lf-request-intro{margin:0 0 22px}
+.lf-order-overlay .lf-request-intro h1{font:700 clamp(38px,6vw,58px)/.98 Georgia,'Times New Roman',serif;text-transform:none;letter-spacing:-.045em;color:#202b3c!important;margin:12px 0}
+.lf-order-overlay .lf-request-intro h1 em{color:#db0b0b}
+.lf-order-overlay .lf-request-intro>.kicker{color:#c04467!important;font-size:10px;letter-spacing:.2em}
+.lf-order-overlay .lf-request-intro>p{color:#6d6462!important;font-size:15px;line-height:1.6;max-width:650px}
+.lf-order-overlay .lf-request-progress{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px}
+.lf-order-overlay .lf-request-progress span{display:flex;align-items:center;gap:9px;min-width:0;padding:12px 13px;border:1px solid #eadfd8;border-radius:14px;background:#fff;color:#6d6462!important;font-size:12px;font-weight:800;letter-spacing:0;border-bottom:1px solid #eadfd8;white-space:nowrap}
+.lf-order-overlay .lf-request-progress span b{flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:#f7e9e6;color:#9c4545;display:grid;place-items:center;font-size:12px}
+.lf-order-overlay .lf-request-progress span.active{border-color:#db0b0b;background:#fff8f6;color:#202b3c!important}
+.lf-order-overlay .lf-request-progress span.active b{background:#db0b0b;color:#fff}
+.lf-order-overlay .lf-request-progress span.complete{border-color:#eadfd8;background:#fff;color:#365b43!important}
+.lf-order-overlay .lf-request-progress span.complete b{background:#e8f1e8;color:#365b43}
+.lf-order-overlay .lf-request-stage{background:#fff!important;color:#202b3c!important;border:1px solid #eadfd8!important;border-radius:22px!important;padding:26px!important;box-shadow:0 12px 32px #36231d0d!important}
+.lf-order-overlay .lf-request-stage .kicker{color:#c04467!important}
+.lf-order-overlay .lf-request-stage h2{font:700 clamp(24px,3vw,32px)/1.1 Georgia,'Times New Roman',serif;text-transform:none;letter-spacing:-.025em;color:#202b3c!important;margin:8px 0}
+.lf-order-overlay .lf-request-stage p{color:#6d6462!important}
+.lf-order-overlay .lf-request-stage-head>strong{color:#db0b0b!important;background:#fff1ee;border-radius:999px;padding:8px 12px;font-size:12px}
+.lf-order-overlay .lf-request-field{display:grid;gap:8px;margin:18px 0;color:#403735!important;font-size:13px;font-weight:800}
+.lf-order-overlay .lf-request-field input,.lf-order-overlay .lf-request-field textarea,.lf-order-overlay .lf-request-stage .fieldGrid input{width:100%;min-height:48px;border:1px solid #e5d9d2!important;border-radius:12px!important;padding:13px 14px!important;background:#fff!important;color:#202b3c!important;font:500 14px Inter,Arial,sans-serif!important;box-shadow:0 2px 6px #36231d08}
+.lf-order-overlay .lf-request-field textarea{min-height:120px;resize:vertical}
+.lf-order-overlay .lf-request-field input::placeholder,.lf-order-overlay .lf-request-field textarea::placeholder{color:#928783!important;opacity:1}
+.lf-order-overlay .lf-request-field input:focus,.lf-order-overlay .lf-request-field textarea:focus,.lf-order-overlay .lf-request-stage .fieldGrid input:focus{outline:2px solid #db0b0b!important;outline-offset:2px;border-color:#db0b0b!important}
+.lf-order-overlay .lf-request-stage .total{border-top:1px solid #eadfd8;border-bottom:0;padding:16px 0 4px;color:#403735}
+.lf-order-overlay .lf-request-stage .total strong{color:#db0b0b!important;font:700 25px Georgia,serif}
+.lf-order-overlay .lf-request-next,.lf-order-overlay .lf-request-actions .buttonPrimary,.lf-order-overlay .lf-request-stage button[type=submit]{width:100%;min-height:50px;border:0!important;border-radius:999px!important;background:#db0b0b!important;color:#fff!important;font:900 12px Inter,Arial,sans-serif!important;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 8px 20px #db0b0b2b}
+.lf-order-overlay .lf-request-next:hover,.lf-order-overlay .lf-request-actions .buttonPrimary:hover{background:#bd0808!important}
+.lf-order-overlay .lf-request-actions{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-top:18px}
+.lf-order-overlay .lf-request-actions .buttonLight{min-height:48px;border:1px solid #eadfd8!important;border-radius:999px!important;background:#fff!important;color:#403735!important;font-size:12px}
+.lf-order-overlay .lf-fulfilment-choice{color:#403735!important}
+.lf-order-overlay .lf-fulfilment-choice label{background:#fff!important;color:#403735!important;border-color:#eadfd8!important;border-radius:12px!important}
+.lf-order-overlay .lf-request-stage .fieldGrid label{color:#403735!important;font-weight:800;font-size:13px}
+.lf-order-overlay .lf-request-stage .orderTruth{color:#6d6462!important}
+.lf-order-overlay .lf-order-close{background:#fff!important;color:#202b3c!important;border:1px solid #eadfd8!important}
+@media(max-width:680px){.lf-order-overlay{padding:10px 15px 28px!important}.lf-order-overlay .lf-order-header{min-height:58px;margin-bottom:18px}.lf-order-overlay .lf-request-progress{gap:6px}.lf-order-overlay .lf-request-progress span{padding:9px 6px;gap:5px;font-size:10px;white-space:normal}.lf-order-overlay .lf-request-progress span b{flex-basis:23px;width:23px;height:23px}.lf-order-overlay .lf-request-stage{padding:19px!important;border-radius:17px!important}.lf-order-overlay .lf-request-stage-head{gap:8px}.lf-order-overlay .lf-request-stage-head>strong{font-size:10px;padding:7px 9px}}
