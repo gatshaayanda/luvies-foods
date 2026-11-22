@@ -6446,3 +6446,45 @@ body{background:#fbf8f7;color:#202b3c}
 @media(max-width:760px){.lf-bc-welcome{align-items:flex-start;flex-direction:column}.lf-bc-date{text-align:left}.lf-bc-metrics{grid-template-columns:1fr 1fr}.lf-bc-columns{grid-template-columns:1fr}.lf-bc-header-actions{gap:9px;font-size:10px}.lf-bc-header-actions .lf-bc-live{display:none}}
 @media(max-width:520px){.lf-bc-shell{width:calc(100% - 22px)}.lf-bc-topline{padding:0 11px;font-size:8px}.lf-bc-header{height:62px}.lf-bc-header-actions{gap:9px}.lf-bc-header-actions>a{font-size:9px}.lf-bc-brand strong{font-size:11px}.lf-bc-brand small{font-size:8px}.lf-bc-welcome{padding:22px 0 18px}.lf-bc-welcome h1{font-size:37px}.lf-bc-tabs{margin-bottom:15px}.lf-bc-tabs button{padding:9px 11px}.lf-bc-section-title h2{font-size:24px}.lf-bc-metrics article{padding:12px}.lf-bc-metrics strong{font-size:22px}.lf-bc-panel{padding:14px}.lf-bc-order-controls{align-items:flex-start;flex-direction:column}.lf-bc-order-controls>div{width:100%;justify-content:space-between}.lf-bc-menu-toolbar{align-items:flex-start;flex-direction:column}.lf-bc-menu-toolbar>div{width:100%}.lf-bc-menu-toolbar button{flex:1}.lf-bc-footer{flex-direction:column}.lf-bc-form-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.lf-briefcase *{scroll-behavior:auto!important;transition:none!important}}
+
+
+/* Luvie's Foods · guest-first request journey */
+.lf-meal-select{display:flex;align-items:center;gap:7px;min-height:40px}
+.lf-meal-select button{min-width:38px;min-height:38px;padding:0 11px;border:1px solid #b66c4d;border-radius:9px;background:#fff8f2;color:#603522;font-weight:900;cursor:pointer}
+.lf-meal-select button:focus-visible,.lf-selection-bar a:focus-visible,.lf-account-current-request a:focus-visible{outline:3px solid #b66c4d;outline-offset:3px}
+.lf-meal-select strong{min-width:16px;text-align:center}
+.lf-selection-bar{position:sticky;bottom:12px;z-index:30;width:min(920px,calc(100% - 24px));margin:18px auto 24px;padding:12px 14px;border:1px solid #c58b6c;border-radius:14px;background:#fffaf6;color:#2b211c;box-shadow:0 12px 34px rgba(30,18,12,.18);display:flex;align-items:center;justify-content:space-between;gap:14px}
+.lf-selection-bar>div{display:grid;gap:3px}.lf-selection-bar small{font-size:.82rem;color:#6c5a50}
+.lf-selection-bar a{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 14px;border-radius:10px;background:#603522;color:#fff;font-weight:850}
+.lf-account-current-request{display:grid;grid-template-columns:1fr;gap:12px;margin:0 0 18px;padding:18px;border:1px solid #c58b6c;border-radius:15px;background:#fffaf6;color:#2b211c}
+.lf-account-current-request h2{margin:5px 0;font-size:1.45rem}.lf-account-current-request p{margin:0;color:#66564c;line-height:1.5}
+.lf-account-request-items{display:grid;gap:7px;padding:11px 0;border-top:1px solid #e5d7ce;border-bottom:1px solid #e5d7ce}
+.lf-account-request-items>div,.lf-account-request-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lf-account-request-bottom{flex-wrap:wrap}.lf-account-request-bottom>strong{font-size:1rem}
+.lf-request-wrap{max-width:780px}
+.lf-request-intro{margin:8px 0 18px}.lf-request-intro h1{font-size:clamp(2.2rem,5vw,3.5rem);line-height:.98;margin:10px 0}.lf-request-intro>p{color:#b9b2a7;line-height:1.55;margin:0}
+.lf-request-progress{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px}
+.lf-request-progress span{display:flex;align-items:center;gap:7px;padding:9px 8px;border-bottom:2px solid #49443d;color:#aaa29a;font-size:.82rem;font-weight:800}
+.lf-request-progress span b{display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#292521;color:#fff}
+.lf-request-progress span.active{border-color:#d78e67;color:#fff}.lf-request-progress span.complete{border-color:#6d9c70;color:#d9f1dc}
+.lf-request-progress span.complete b{background:#315d38}
+.lf-request-form{display:block}.lf-request-stage{max-width:100%}.lf-request-stage[hidden]{display:none}
+.lf-request-stage-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.lf-request-stage-head h2{margin:6px 0;font-size:1.55rem}.lf-request-stage-head p{margin:0;color:#aaa29a;line-height:1.5;font-size:.9rem}
+.lf-request-stage-head>strong{white-space:nowrap;color:#d78e67}
+.lf-request-next{width:100%;margin-top:14px;min-height:48px}
+.lf-fulfilment-choice{display:grid;gap:10px;margin:18px 0;font-weight:850}
+.lf-fulfilment-choice>div{display:flex;gap:10px;flex-wrap:wrap}
+.lf-fulfilment-choice label{display:flex;align-items:center;gap:8px;min-height:44px;padding:9px 13px;border:1px solid #514a42;border-radius:10px;background:#111;cursor:pointer}
+.lf-fulfilment-choice input{accent-color:#d78e67;width:18px;height:18px}
+.lf-request-field{display:grid;gap:7px;margin:14px 0;font-size:.88rem;font-weight:850}
+.lf-request-field input,.lf-request-field textarea{width:100%;border:1px solid #514a42;border-radius:10px;padding:12px;background:#0f0f10;color:#fff}
+.lf-request-field input:focus,.lf-request-field textarea:focus{outline:2px solid #d78e67;outline-offset:1px}
+.lf-optional-toggle{display:flex;align-items:center;gap:8px;margin:15px 0;padding:9px 0;border:0;background:transparent;color:#f0c4a7;font-weight:850;cursor:pointer}
+.lf-optional-toggle span{color:#a69b91;font-size:.78rem;font-weight:600}
+.lf-request-review{display:grid;gap:7px;margin:16px 0;padding:13px;border:1px solid #514a42;border-radius:11px;background:#111}
+.lf-request-review>div{display:flex;justify-content:space-between;gap:12px}.lf-request-review>div span{color:#ddd;line-height:1.45}.lf-request-review>div strong{white-space:nowrap;color:#f0c4a7}
+.lf-request-review small{color:#a69b91}
+.lf-request-actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:16px}
+.lf-request-actions .button{flex:1;min-width:140px}
+@media(max-width:560px){.lf-selection-bar{align-items:stretch;flex-direction:column}.lf-selection-bar a{width:100%}.lf-request-progress{gap:3px}.lf-request-progress span{justify-content:center;flex-direction:column;text-align:center;font-size:.72rem}.lf-request-stage-head{flex-direction:column}.lf-request-actions{display:grid;grid-template-columns:1fr}.lf-account-request-bottom{align-items:stretch;flex-direction:column}.lf-account-request-bottom a{width:100%}}
