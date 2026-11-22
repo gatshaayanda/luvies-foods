@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import {useEffect,useState,type FormEvent} from "react";
-import {useFoodLanguage} from "@/lib/food-translations";
+import {foodText,useFoodLanguage} from "@/lib/food-translations";
 
 type Message={id:number;from:"guide"|"you";text:string};
 const quickReplies=[
@@ -13,6 +13,7 @@ const quickReplies=[
 ];
 export default function FoodCustomerHelper(){
  const {language,t}=useFoodLanguage();
+ const welcome=foodText(language,"Dumela! I can help you find the menu, start a custom request, understand collection and delivery, or reach Lesedi. I'm an automated guide, not a person.");
  const[open,setOpen]=useState(false);
  const[input,setInput]=useState("");
  const[messages,setMessages]=useState<Message[]>([]);
