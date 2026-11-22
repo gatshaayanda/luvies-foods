@@ -65,16 +65,17 @@ export async function updateConversationRead(id:string,role:"customer"|"admin"){
 export async function recordConversationMessage(id:string,role:"customer"|"admin",preview:string){await updateDoc(doc(db,"conversations",id),{updatedAt:new Date().toISOString(),lastMessageAt:new Date().toISOString(),lastMessagePreview:preview.slice(0,160),...(role==="customer"?{unreadForAdmin:true}:{unreadForCustomer:true})})}
 
 export async function ensureStarterMenuSeeded():Promise<MenuItem[]>{
+ // Seed only missing approved starter meals. A partial earlier write must not prevent
+ // the other meal from being restored, and existing owner edits must never be overwritten.
  const snapshot=await getDocs(menuCollection);
- if(snapshot.empty){
-  const meals:MenuItem[]=[
-   {id:"rice-and-chicken",name:"Rice and chicken",price:40,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:1,imageUrl:"https://9hqs4mvyjb.ufs.sh/f/4b6x094yqDzNr2Ycpkziq1PRh9nKcZ6A3UgIYaVJCrpDTeO0",section:"deal",days:[]},
-   {id:"rice-and-beef",name:"Rice and beef",price:40,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:2,imageUrl:"https://9hqs4mvyjb.ufs.sh/f/4b6x094yqDzN4cSgJSyqDzNSR9iuQ7HtY2bdagyBOnkUPMrX",section:"deal",days:[]}
-  ];
-  await Promise.all(meals.map(item=>setDoc(doc(menuCollection,item.id),item)));
-  return meals;
- }
- return snapshot.docs.map(item=>({id:item.id,...item.data() as Omit<MenuItem,"id">})).sort((a,b)=>a.sortOrder-b.sortOrder||a.name.localeCompare(b.name));
+ const existing=new Set(snapshot.docs.map(item=>item.id));
+ const meals:MenuItem[]=[
+  {id:"rice-and-chicken",name:"Rice and chicken",price:40,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:1,imageUrl:"https://9hqs4mvyjb.ufs.sh/f/4b6x094yqDzNr2Ycpkziq1PRh9nKcZ6A3UgIYaVJCrpDTeO0",section:"deal",days:[]},
+  {id:"rice-and-beef",name:"Rice and beef",price:40,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:2,imageUrl:"https://9hqs4mvyjb.ufs.sh/f/4b6x094yqDzN4cSgJSyqDzNSR9iuQ7HtY2bdagyBOnkUPMrX",section:"deal",days:[]}
+ ];
+ for(const meal of meals){if(!existing.has(meal.id))await setDoc(doc(menuCollection,meal.id),meal)}
+ const refreshed=await getDocs(menuCollection);
+ return refreshed.docs.map(item=>({id:item.id,...item.data() as Omit<MenuItem,"id">})).sort((a,b)=>a.sortOrder-b.sortOrder||a.name.localeCompare(b.name));
 }
 
 // Legacy menu migration is intentionally disabled. 
