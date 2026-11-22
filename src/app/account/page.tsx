@@ -116,9 +116,9 @@ export default function AccountPage(){
  const requestParam=requestMeals.map(entry=>entry.id+":"+entry.quantity).join(",");
 
  return <main className="lf-account-page">
-  <div className="lf-account-topline"><span>MADE WITH LOVE · GABORONE</span><span>{t("YOUR CUSTOMER SPACE")}</span></div>
+  <div className="lf-account-topline"><span>{t("MADE WITH LOVE · GABORONE")}</span><span>{t("YOUR CUSTOMER SPACE")}</span></div>
   <header className="lf-account-header">
-   <Link href="/" className="lf-brand" aria-label="Luvie's Foods home"><span className="lf-mark">L<span>♥</span></span><span><strong>LUVIE'S FOODS</strong><small>GOOD FOOD, MADE WITH LOVE</small></span></Link>
+   <Link href="/" className="lf-brand" aria-label="Luvie's Foods home"><span className="lf-mark">L<span>♥</span></span><span><strong>LUVIE'S FOODS</strong><small>{t("GOOD FOOD, MADE WITH LOVE")}</small></span></Link>
    <nav><Link href="/#menu">{t("Explore menu")}</Link><Link className="lf-account-header-cta" href="/?order=1">{t("Order food")} <span>↗</span></Link><FoodLanguageSwitcher/></nav>
   </header>
 
