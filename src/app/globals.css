@@ -6284,6 +6284,32 @@ body{background:#fbf8f7;color:#202b3c}
 .lf-empty,.lf-state{padding:23px;background:#fff;border:1px solid #eee2dc;border-radius:16px;color:#766b67}.lf-empty{display:grid;gap:7px}.lf-empty strong{font:700 20px Georgia,serif;color:#202b3c}.lf-empty span{font-size:12px}.lf-empty a{color:#db0b0b;font-size:11px;font-weight:900;margin-top:5px}
 .lf-promise{max-width:1116px;margin:0 auto 25px;padding:17px 20px;background:#202b3c;color:#fff;border-radius:16px;display:flex;align-items:center;gap:13px}.lf-promise>span{font-size:22px;color:#ff9eaa}.lf-promise div{display:grid;gap:3px;flex:1}.lf-promise strong{font:700 16px Georgia,serif}.lf-promise small{font-size:10px;color:#d4d8de}.lf-promise>a{font-size:11px;font-weight:900;color:#fff;border-bottom:1px solid #c04467;padding:7px 0}
 .lf-footer{max-width:1160px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;color:#827774;font-size:9px;letter-spacing:.12em}.lf-footer>a:first-child{font-weight:1000;color:#202b3c}.lf-footer>a:first-child span{color:#db0b0b}
+
+/* Luvie's Foods — published-menu pause state */
+.lf-empty-feature{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(250px,.75fr);gap:24px;align-items:center;overflow:hidden;padding:clamp(22px,4vw,38px);border:1px solid #ead9d2;border-radius:22px;background:radial-gradient(ellipse at 88% 8%,#f9e3e6 0,transparent 38%),linear-gradient(120deg,#fff 0%,#fff9f5 100%);box-shadow:0 16px 38px #39251a0b;animation:lf-rise-in .55s cubic-bezier(.2,.7,.2,1) both}
+.lf-empty-copy{position:relative;z-index:1;display:grid;justify-items:start;gap:10px;max-width:560px}
+.lf-empty-copy h3{margin:0;color:#202b3c;font:700 clamp(26px,3.3vw,38px)/1.08 Georgia,'Times New Roman',serif;letter-spacing:-.04em;text-transform:none}
+.lf-empty-copy p{max-width:520px;margin:0;color:#665c59;font-size:15px;line-height:1.65}
+.lf-custom-cta{display:inline-flex;align-items:center;justify-content:center;gap:22px;min-height:48px;margin-top:5px;padding:0 20px;border-radius:999px;background:#db0b0b;color:#fff!important;font-size:13px;font-weight:900;box-shadow:0 8px 20px #db0b0b25;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.lf-custom-cta span{font-size:18px;transition:transform .2s ease}
+.lf-custom-cta:hover{transform:translateY(-2px);background:#bd0808;box-shadow:0 12px 24px #db0b0b30}
+.lf-custom-cta:hover span{transform:translate(2px,-2px)}
+.lf-custom-cta:focus-visible{outline:3px solid #202b3c;outline-offset:4px}
+.lf-empty-copy>small{color:#766b67;font-size:12px;line-height:1.5}
+.lf-menu-clock{position:relative;display:grid;align-content:center;justify-items:start;gap:10px;min-height:190px;overflow:hidden;padding:23px;border-radius:17px;background:#202b3c;color:#fff;box-shadow:0 12px 28px #202b3c20}
+.lf-clock-label{position:relative;z-index:1;color:#ffc4cc;font-size:10px;font-weight:900;letter-spacing:.16em}
+.lf-menu-clock>strong{position:relative;z-index:1;color:#fff;font:700 clamp(29px,4vw,44px)/1 Georgia,'Times New Roman',serif;letter-spacing:-.04em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lf-menu-clock>strong.lf-clock-pending{font-size:clamp(22px,3vw,30px);white-space:normal}
+.lf-menu-clock>small{position:relative;z-index:1;max-width:230px;color:#e4e6e9;font-size:12px;line-height:1.5}
+.lf-clock-mark{position:absolute;right:13px;bottom:-42px;color:#ffffff0c;font:180px/1 Georgia,serif;transform:rotate(-14deg);pointer-events:none}
+.lf-menu-admin-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+.lf-menu-admin-head h2{margin:0 0 5px}
+.lf-menu-admin-head p{margin:0;color:#b9b2a7;font-size:12px;line-height:1.45}
+.lf-menu-admin-head .actions{margin:0}
+@keyframes lf-rise-in{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:760px){.lf-empty-feature{grid-template-columns:1fr;gap:18px;padding:20px}.lf-menu-clock{min-height:150px;padding:20px}.lf-menu-clock>strong{font-size:36px}.lf-menu-admin-head{align-items:flex-start;flex-direction:column}.lf-menu-admin-head .actions{width:100%}.lf-menu-admin-head .actions button{flex:1}}
+@media(prefers-reduced-motion:reduce){.lf-empty-feature{animation:none}.lf-custom-cta,.lf-custom-cta span{transition:none}.lf-custom-cta:hover{transform:none}}
+
 .i13-install-card{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);z-index:1000;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:9px;width:auto;max-width:420px;margin:0 auto;padding:11px 12px;background:#fff;color:#202b3c;border:1px solid #eadfd8;border-radius:16px;box-shadow:0 12px 34px #202b3c28}
 .i13-install-brand{padding-right:25px}.i13-install-mark{background:#db0b0b;color:#fff;border:0;box-shadow:none;border-radius:11px}.i13-install-brand strong{color:#202b3c}.i13-install-brand small{color:#776b67}.i13-install-action{background:#db0b0b;color:#fff;border-radius:11px;min-height:42px;font-size:11px}.i13-install-close{background:#f5eeeb;color:#202b3c}
 @media(max-width:760px){.lf-hero{grid-template-columns:1fr;gap:20px;padding-top:26px}.lf-hero-copy{padding:4px 0}.lf-hero h1{font-size:52px}.lf-hero-photo{height:270px;grid-row:2}.lf-hero-stamp{right:28px;top:auto;bottom:260px;width:68px;height:68px}.lf-menu-grid{grid-template-columns:1fr}.lf-meal{grid-template-columns:39% 1fr;min-height:152px}.lf-meal-image{min-height:152px}.lf-meal-info{padding:13px}.lf-meal-info h3{font-size:18px}.lf-promise{margin:0 12px 20px}.lf-footer{gap:8px;font-size:8px}.lf-topline{padding:0 12px;font-size:8px}}
