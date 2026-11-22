@@ -32,8 +32,9 @@ export default function OrderForm({embedded=false,onClose}:{embedded?:boolean;on
  function change(id:string,delta:number){setQuantities(current=>({...current,[id]:Math.max(0,(current[id]??0)+delta)}))}
  function onScheduledDateChange(value:string){setScheduledDate(value);setSelectedDate(value)}
  async function submit(event:FormEvent<HTMLFormElement>){
+  const formElement=event.currentTarget;
   event.preventDefault();if(busy)return;if(!selected.length&&!(customMode&&customDescription.trim())){setError(menuUnavailable||!visibleMenu.length?"No menu items are currently published for this date. Describe the food you would like as a custom request.":"Choose at least one food item.");return}if(unavailableSelected.length){setError("One or more selected items are not published for "+weekdayForDate(selectedDate)+". Remove them or choose a date when they are available.");return}setBusy(true);setError("");
-  const form=new FormData(event.currentTarget),name=String(form.get("customerName")??"").trim(),phone=String(form.get("phone")??"").trim(),mode=String(form.get("mode")??"pickup") as "pickup"|"delivery",formDate=String(form.get("scheduledDate")??scheduledDate),formTime=String(form.get("scheduledTime")??scheduledTime),scheduledFor=gaboroneScheduledIso(formDate&&formTime?`${formDate}T${formTime}`:""),deliveryLocation=String(form.get("deliveryLocation")??"").trim(),instructions=String(form.get("instructions")??"").trim();
+  const form=new FormData(formElement),name=String(form.get("customerName")??"").trim(),phone=String(form.get("phone")??"").trim(),mode=String(form.get("mode")??"pickup") as "pickup"|"delivery",formDate=String(form.get("scheduledDate")??scheduledDate),formTime=String(form.get("scheduledTime")??scheduledTime),scheduledFor=gaboroneScheduledIso(formDate&&formTime?`${formDate}T${formTime}`:""),deliveryLocation=String(form.get("deliveryLocation")??"").trim(),instructions=String(form.get("instructions")??"").trim();
   if(!name||!phone||!formDate||!formTime||!scheduledFor){setError("Please choose the date and time you need the order.");setBusy(false);return}
   const scheduledMs=new Date(scheduledFor).getTime();if(!Number.isFinite(scheduledMs)||scheduledMs<Date.now()){setError("Choose a future time for your order.");setBusy(false);return}
   if(mode==="delivery"&&!deliveryLocation){setError("Add your delivery location or landmark.");setBusy(false);return}
@@ -55,7 +56,7 @@ export default function OrderForm({embedded=false,onClose}:{embedded?:boolean;on
       })
       .catch(profileError=>console.warn("Luvie's Foods customer profile save unavailable",profileError));
    }
-   try{window.localStorage.removeItem(customDraftKey)}catch{}setSubmitted(true);event.currentTarget.reset();
+   try{window.localStorage.removeItem(customDraftKey)}catch{}setSubmitted(true);formElement.reset();
   }catch(error){console.error("Luvie’s Foods order submission failed",error);const code=typeof error==="object"&&error!==null&&"code" in error?String((error as {code?:unknown}).code):"";if(code.includes("permission-denied"))setError("Firebase rejected this request because its Firestore order rules are not up to date. Lesedi has NOT received it. Your details are still on this screen; please contact Luvie’s Foods while the rules are published.");else if(code.includes("unavailable")||!navigator.onLine)setError("Luvie’s Foods could not reach the order service. Lesedi has NOT received this request. Check your connection and try again; your details are still on this screen.");else setError("We couldn’t save your request. Lesedi has NOT received it. Your details are still here. Please try again, or contact Luvie’s Foods if it keeps happening.")}finally{setBusy(false)}
  }
  if(submitted)return (
