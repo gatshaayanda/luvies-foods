@@ -29,7 +29,7 @@ export default function FoodCustomerHelper(){
   {open&&<section className="lf-customer-helper-panel" role="dialog" aria-modal="false" aria-labelledby="lf-customer-helper-title">
    <header><div><small>LUVIE'S FOODS · CUSTOMER HELP</small><strong id="lf-customer-helper-title">Need a hand?</strong></div><button type="button" aria-label="Close help" onClick={()=>setOpen(false)}>×</button></header>
    <div className="lf-customer-helper-thread" aria-live="polite">{messages.map(message=><p key={message.id} className={message.from}>{message.text}</p>)}</div>
-   <div className="lf-customer-helper-shortcuts">{quickReplies.map(item=><button key={item.label} type="button" onClick={()=>answer(item.label)}>{item.label}</button>)}</div>
+   <div className="lf-customer-helper-shortcuts">{quickReplies.map(item=><Link key={item.label} href={item.href} onClick={()=>answer(item.label)}>{item.label}</Link>)}</div>
    <form onSubmit={submit}><input value={input} onChange={event=>setInput(event.target.value)} placeholder="Ask about food or your order…" aria-label="Ask Luvie's Foods customer help" maxLength={240}/><button type="submit" disabled={!input.trim()}>Send</button></form>
    <p className="lf-customer-helper-footnote">Automated guidance · For a personal response, <Link href="/account?tab=messages">message Lesedi</Link>.</p>
   </section>}
