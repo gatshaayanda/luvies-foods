@@ -1,0 +1,17 @@
+"use client";
+
+import {useEffect,useState} from "react";
+import {addDoc,collection} from "firebase/firestore";
+import {auth,db} from "@/lib/firebase/client";
+import {subscribeToAdminConversations,subscribeToConversation,updateConversationRead,recordConversationMessage,type Conversation,type ConversationMessage} from "@/lib/firebase/data";
+
+const stamp=(value:string)=>{try{return new Intl.DateTimeFormat("en-BW",{timeZone:"Africa/Gaborone",dateStyle:"medium",timeStyle:"short"}).format(new Date(value))}catch{return value}};
+
+export default function FoodAdminMessages(){
+ const[user,setUser]=useState(auth.currentUser),[threads,setThreads]=useState<Conversation[]>([]),[active,setActive]=useState<string|null>(null),[messages,setMessages]=useState<ConversationMessage[]>([]),[draft,setDraft]=useState(""),[busy,setBusy]=useState(false),[notice,setNotice]=useState("");
+ useEffect(()=>auth.onAuthStateChanged(next=>setUser(next)),[]);
+ useEffect(()=>subscribeToAdminConversations(setThreads,error=>setNotice(error.message)),[]);
+ useEffect(()=>{if(!active){setMessages([]);return}const stop=subscribeToConversation(active,()=>{},setMessages,error=>setNotice(error.message));void updateConversationRead(active,"admin").catch(error=>setNotice(error instanceof Error?error.message:"Conversation could not be marked as read."));return stop},[active]);
+ async function send(){const text=draft.trim();if(!text||busy||!user||!active)return;setBusy(true);setNotice("");try{const now=new Date().toISOString();await addDoc(collection(db,"conversations",active,"messages"),{senderId:user.uid,senderRole:"admin",text,attachment:null,createdAt:now});await recordConversationMessage(active,"admin",text);setDraft("")}catch(error){setNotice(error instanceof Error?error.message:"Your reply could not be sent.")}finally{setBusy(false)}}
+ return <section className="lf-bc-panel"><div className="lf-bc-section-title"><div><span className="lf-eyebrow">CUSTOMER CARE</span><h2>Messages</h2></div><span>{threads.filter(thread=>thread.unreadForAdmin).length} unread</span></div>{active?<div className="lf-bc-message-thread"><button type="button" onClick={()=>setActive(null)}>← All conversations</button><div className="lf-bc-message-list" aria-live="polite">{messages.map(message=><article className={"lf-bc-message "+(message.senderRole==="admin"?"mine":"")} key={message.id}><small>{message.senderRole==="admin"?"Lesedi":"Customer"} · {stamp(message.createdAt)}</small><p>{message.text}</p></article>)}</div><form onSubmit={event=>{event.preventDefault();void send()}}><textarea rows={3} maxLength={2000} value={draft} onChange={event=>setDraft(event.target.value)} placeholder="Reply to your customer…" required/><button type="submit" disabled={busy||!draft.trim()}>{busy?"Sending…":"Send reply"}</button></form></div>:threads.length===0?<div className="lf-bc-empty"><strong>No customer messages yet.</strong><p>When a customer starts a conversation from their account, it will appear here.</p></div>:<div className="lf-bc-message-threads">{threads.map(thread=><button type="button" key={thread.id} onClick={()=>setActive(thread.id)}><span><strong>{thread.customerName||"Luvie's Foods customer"}</strong><small>{thread.title} · {thread.lastMessagePreview||"No messages yet."}</small></span><span>{thread.unreadForAdmin?"NEW · ":""}{stamp(thread.updatedAt)}</span></button>)}</div>}{notice&&<p className="lf-bc-notice" role="status">{notice}</p>}</section>;
+}
