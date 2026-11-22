@@ -91,6 +91,13 @@ export async function saveMenuItem(item:MenuItem){
 }
 export async function deleteMenuItem(id:string){await ownerMenuRequest("delete",undefined,id)}
 export async function getBusinessSettings():Promise<BusinessSettings|null>{const snapshot=await getDoc(doc(settingsCollection,"main"));return snapshot.exists()?{id:snapshot.id,...snapshot.data() as Omit<BusinessSettings,"id">}:null}
-export async function saveBusinessSettings(settings:BusinessSettings){await setDoc(doc(settingsCollection,"main"),settings)}
+export async function saveBusinessSettings(settings:BusinessSettings){
+ const user=auth.currentUser;
+ if(!user)throw Object.assign(new Error("Sign in to the owner Briefcase before publishing store changes."),{code:"unauthenticated"});
+ const token=await user.getIdToken(true);
+ const response=await fetch("/api/owner/menu",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+token},body:JSON.stringify({action:"save-settings",settings})});
+ const payload=await response.json().catch(()=>({}));
+ if(!response.ok)throw Object.assign(new Error(typeof payload.error==="string"?payload.error:"The owner settings service could not complete this change."),{code:typeof payload.code==="string"?payload.code:"unknown"});
+}
 export async function getDailyReconciliation(date:string):Promise<DailyReconciliation|null>{const snapshot=await getDoc(doc(reconciliationCollection,date));return snapshot.exists()?{date:snapshot.id,...snapshot.data() as Omit<DailyReconciliation,"date">}:null}
 export async function saveDailyReconciliation(record:DailyReconciliation){await setDoc(doc(reconciliationCollection,record.date),record)}
