@@ -163,7 +163,7 @@ export default function AccountPage(){
     </form>}
    </section>}
 
-   {message&&<p className="lf-account-message" role="status">{message}</p>}
+   {message&&<p className="lf-account-message" role="status">{t(message)}</p>}
    <p className="lf-account-footnote">Your orders and customer details are saved to your Luvie's Foods account. An order is only confirmed as received when the order submission says it has been saved; a pending offline save has not reached the kitchen yet.</p>
   </div>
 
