@@ -7,6 +7,7 @@ import {auth} from "@/lib/firebase/client";
 import {getCustomerProfile,saveCustomerProfile,subscribeToCustomerOrders,getMenuItems,type CustomerProfile,type FoodOrder,type MenuItem} from "@/lib/firebase/data";
 
 const money=(amount:number)=>"P"+amount.toFixed(2);
+const itemUnitPrice=(item:MenuItem,quantity:number)=>item.friendPrice!==undefined&&quantity>=2?item.friendPrice:item.price;
 const dateTime=(value:string)=>{try{return new Intl.DateTimeFormat("en-BW",{timeZone:"Africa/Gaborone",dateStyle:"medium",timeStyle:"short"}).format(new Date(value))}catch{return value}};
 const statusCopy:Record<string,string>={New:"Received · waiting for Lesedi to review",Accepted:"Accepted · your order is being arranged",Preparing:"Being prepared",Ready:"Ready for collection",Delivering:"On the way",Collected:"Collected",Delivered:"Delivered",Cancelled:"Cancelled"};
 
@@ -67,7 +68,7 @@ export default function AccountPage(){
  const active=orders.filter(order=>!["Collected","Delivered","Cancelled"].includes(order.status));
  const greeting=profile?.name.trim().split(/\s+/)[0]||user?.displayName?.split(/\s+/)[0]||"there";
  const requestMeals=selectedRequest.map(entry=>({...entry,item:selectedMenu.find(item=>item.id===entry.id)})).filter(entry=>entry.item?.available);
- const requestTotal=requestMeals.reduce((sum,entry)=>sum+(entry.item?.price??0)*entry.quantity,0);
+ const requestTotal=requestMeals.reduce((sum,entry)=>sum+(entry.item?itemUnitPrice(entry.item,entry.quantity):0)*entry.quantity,0);
  const requestParam=requestMeals.map(entry=>entry.id+":"+entry.quantity).join(",");
 
  return <main className="lf-account-page">
@@ -83,7 +84,7 @@ export default function AccountPage(){
     <span className="lf-account-session"><i/> {user?.isAnonymous?"Customer space":"Signed in"}</span>
    </section>
 
-   {selectedRequest.length>0&&<section className="lf-account-current-request" aria-labelledby="lf-current-request-title"><div><span className="lf-eyebrow">YOUR SELECTION</span><h2 id="lf-current-request-title">Your food is ready.</h2><p>We brought your selected meals here. Review them, then continue to the short request.</p></div><div className="lf-account-request-items">{requestMeals.map(entry=><div key={entry.id}><span>{entry.quantity} × {entry.item?.name}</span><strong>{money((entry.item?.price??0)*entry.quantity)}</strong></div>)}</div><div className="lf-account-request-bottom"><strong>Estimated total · {money(requestTotal)}</strong><Link className="lf-account-primary" href={"/?order=1&items="+encodeURIComponent(requestParam)}>Continue with {requestMeals.length} selected {requestMeals.length===1?"item":"items"} <span>→</span></Link></div>{requestMeals.length===0&&<p role="status">Those meals are no longer available. Return to the Store to choose from the current menu.</p>}</section>}
+   {selectedRequest.length>0&&<section className="lf-account-current-request" aria-labelledby="lf-current-request-title"><div><span className="lf-eyebrow">YOUR SELECTION</span><h2 id="lf-current-request-title">Your food is ready.</h2><p>We brought your selected meals here. Review them, then continue to the short request.</p></div><div className="lf-account-request-items">{requestMeals.map(entry=><div key={entry.id}><span>{entry.quantity} × {entry.item?.name}</span><strong>{money((entry.item?itemUnitPrice(entry.item,entry.quantity):0)*entry.quantity)}</strong></div>)}</div><div className="lf-account-request-bottom"><strong>Estimated total · {money(requestTotal)}</strong><Link className="lf-account-primary" href={"/?order=1&items="+encodeURIComponent(requestParam)}>Continue with {requestMeals.length} selected {requestMeals.length===1?"item":"items"} <span>→</span></Link></div>{requestMeals.length===0&&<p role="status">Those meals are no longer available. Return to the Store to choose from the current menu.</p>}</section>}
 
    <section className="lf-account-summary" aria-label="Order summary">
     <div><span>ACTIVE ORDERS</span><strong>{active.length}</strong><small>{active.length===1?"Order being handled":"Orders being handled"}</small></div>
