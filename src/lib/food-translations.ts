@@ -8,6 +8,7 @@ export const FOOD_LANGUAGE_EVENT = "luvies-foods:language-changed";
 
 const setswana: Record<string,string> = {
   "Language":"Puo",
+  "Display language":"Puo e e bontshiwang",
   "GOOD":"DIJO",
   "MADE WITH LOVE":"DI DIRILWE KA LORATO",
   "Briefcase":"Ofisi ya mong wa kgwebo",
