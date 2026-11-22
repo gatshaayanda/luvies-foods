@@ -37,7 +37,8 @@ async function getOwnerDatabase(request:Request){
 }
 async function listMenu(db:ReturnType<typeof getFirestore>){
  const snapshot=await db.collection("menu").get();
- return snapshot.docs.map(item=>({id:item.id,...item.data()})).sort((a,b)=>Number(a.sortOrder??0)-Number(b.sortOrder??0)||String(a.name??"").localeCompare(String(b.name??"")));
+ const rows=snapshot.docs.map(item=>({id:item.id,...item.data()} as {id:string;sortOrder?:unknown;name?:unknown}));
+ return rows.sort((a,b)=>Number(a.sortOrder??0)-Number(b.sortOrder??0)||String(a.name??"").localeCompare(String(b.name??"")));
 }
 
 export async function POST(request:Request){
