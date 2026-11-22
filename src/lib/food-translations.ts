@@ -11,6 +11,7 @@ const setswana: Record<string,string> = {
   "GOOD":"DIJO",
   "MADE WITH LOVE":"DI DIRILWE KA LORATO",
   "Briefcase":"Ofisi ya mong wa kgwebo",
+  "Open the owner Briefcase":"Bula ofisi ya mong wa kgwebo",
   "My Luvie's Foods":"Akhaonto ya me ya Luvie's Foods",
   "You're signed in with Google. Your saved Luvie's Foods account is loading.":"O tsentse ka Google. Akhaonto ya gago ya Luvie's Foods e a laisiwa."
   "FOOD":"DIJO",
