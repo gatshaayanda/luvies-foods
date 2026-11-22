@@ -20,7 +20,7 @@ export default function FoodAdminDashboard(){
  const [notes,setNotes]=useState(""),[notesSaved,setNotesSaved]=useState(false);
  useEffect(()=>{
   let mounted=true;
-  void ensureStarterMenuSeeded().then(items=>{if(mounted)setMenu(items)}).catch(error=>{if(mounted){const code=typeof error?.code==="string"?error.code:"unknown";setNotice("Starter menu could not be loaded ("+code+"). Check the signed-in owner access and Firestore menu permissions.")}});
+  void ensureStarterMenuSeeded().then(items=>{if(mounted)setMenu(items)}).catch(error=>{if(mounted){const failure=error as {code?:string};const code=typeof failure?.code==="string"?failure.code:"unknown";setNotice("Starter menu could not be loaded ("+code+"). Check the signed-in owner access and Firestore menu permissions.")}});
   const stopOrders=subscribeToFoodOrders(items=>{setOrders(items);setLoading(false)},e=>{setNotice(e.message);setLoading(false)});
   const stopMenu=subscribeToMenuItems(setMenu,e=>setNotice(e.message));
   const stopSettings=subscribeToBusinessSettings(value=>{if(value)setSettings({...baseSettings,...value})},e=>setNotice(e.message));
