@@ -9,6 +9,10 @@ export const FOOD_LANGUAGE_EVENT = "luvies-foods:language-changed";
 const setswana: Record<string,string> = {
   "Language":"Puo",
   "GOOD":"DIJO",
+  "MADE WITH LOVE":"DI DIRILWE KA LORATO",
+  "Briefcase":"Ofisi ya mong wa kgwebo",
+  "My Luvie's Foods":"Akhaonto ya me ya Luvie's Foods",
+  "You're signed in with Google. Your saved Luvie's Foods account is loading.":"O tsentse ka Google. Akhaonto ya gago ya Luvie's Foods e a laisiwa."
   "FOOD":"DIJO",
   "MADE WITH LOVE · GABORONE":"DI DIRILWE KA LORATO · GABORONE",
   "GOOD FOOD, MADE WITH LOVE":"DIJO TSE DI MONATE, DI DIRILWE KA LORATO",
