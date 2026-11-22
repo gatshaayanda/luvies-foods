@@ -16,7 +16,6 @@ type InstallPromptEvent = Event & {
 type InstallState = "hidden" | "native" | "embedded";
 
 const INSTALL_DISMISSED_KEY = "luvies-foods:install:card-dismissed-at-v2";
-const INSTALL_DISMISS_MS = 7 * 24 * 60 * 60 * 1000;
 
 function environment() {
   if (typeof window === "undefined") return { standalone: true, ios: false, android: false, embedded: false };
@@ -35,18 +34,6 @@ function isIosSafari() {
   const ios = /iPad|iPhone|iPod/i.test(nav.userAgent) ||
     (nav.platform === "MacIntel" && nav.maxTouchPoints > 1);
   return ios && /Safari/i.test(nav.userAgent) && !/CriOS|FxiOS|EdgiOS|OPiOS|DuckDuckGo/i.test(nav.userAgent);
-}
-
-function dismissedRecently() {
-  try {
-    const value = window.localStorage.getItem(INSTALL_DISMISSED_KEY);
-    if (!value) return false;
-    const at = Date.parse(value);
-    if (!Number.isFinite(at)) return false;
-    return Date.now() - at < INSTALL_DISMISS_MS;
-  } catch {
-    return false;
-  }
 }
 
 function rememberDismissal() {
@@ -121,7 +108,8 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
       event.preventDefault();
       const prompt = event as InstallPromptEvent;
       installPromptRef.current = prompt;
-      setInstallCardDismissed(dismissedRecently());
+      // A fresh browser-owned install event makes the branded card available again.
+      setInstallCardDismissed(false);
       setCanInstall(true);
       // Retain the one-shot native event for the user's explicit Install click.
       // Do not interrupt page load with a second, custom install screen.
