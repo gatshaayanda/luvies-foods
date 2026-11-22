@@ -1,7 +1,7 @@
 "use client";
 import {addDoc,collection,doc,getDoc,getDocs,onSnapshot,query,setDoc,updateDoc,deleteDoc,where} from "firebase/firestore";
 import type {Unsubscribe} from "firebase/firestore";
-import {db} from "@/lib/firebase/client";
+import {auth,db} from "@/lib/firebase/client";
 
 export const ORDER_STATUSES=["New","Accepted","Preparing","Ready","Delivering","Collected","Delivered","Cancelled"] as const;
 export type OrderStatus=typeof ORDER_STATUSES[number];
@@ -64,19 +64,17 @@ export function subscribeToConversation(id:string,onConversation:(conversation:C
 export async function updateConversationRead(id:string,role:"customer"|"admin"){const field=role==="customer"?"unreadForCustomer":"unreadForAdmin";const readField=role==="customer"?"customerLastReadAt":"adminLastReadAt";await updateDoc(doc(db,"conversations",id),{[field]:false,[readField]:new Date().toISOString()})}
 export async function recordConversationMessage(id:string,role:"customer"|"admin",preview:string){await updateDoc(doc(db,"conversations",id),{updatedAt:new Date().toISOString(),lastMessageAt:new Date().toISOString(),lastMessagePreview:preview.slice(0,160),...(role==="customer"?{unreadForAdmin:true}:{unreadForCustomer:true})})}
 
-export async function ensureStarterMenuSeeded():Promise<MenuItem[]>{
- // Seed only missing approved starter meals. A partial earlier write must not prevent
- // the other meal from being restored, and existing owner edits must never be overwritten.
- const snapshot=await getDocs(menuCollection);
- const existing=new Set(snapshot.docs.map(item=>item.id));
- const meals:MenuItem[]=[
-  {id:"rice-and-chicken",name:"Rice and chicken",price:40,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:1,imageUrl:"https://9hqs4mvyjb.ufs.sh/f/4b6x094yqDzNr2Ycpkziq1PRh9nKcZ6A3UgIYaVJCrpDTeO0",section:"deal",days:[]},
-  {id:"rice-and-beef",name:"Rice and beef",price:40,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:2,imageUrl:"https://9hqs4mvyjb.ufs.sh/f/4b6x094yqDzN4cSgJSyqDzNSR9iuQ7HtY2bdagyBOnkUPMrX",section:"deal",days:[]}
- ];
- for(const meal of meals){if(!existing.has(meal.id))await setDoc(doc(menuCollection,meal.id),meal)}
- const refreshed=await getDocs(menuCollection);
- return refreshed.docs.map(item=>({id:item.id,...item.data() as Omit<MenuItem,"id">})).sort((a,b)=>a.sortOrder-b.sortOrder||a.name.localeCompare(b.name));
+async function ownerMenuRequest(action:"seed"|"save"|"delete",item?:MenuItem,id?:string):Promise<MenuItem[]>{
+ const user=auth.currentUser;
+ if(!user)throw Object.assign(new Error("Sign in to the owner Briefcase before changing the menu."),{code:"unauthenticated"});
+ const token=await user.getIdToken(true);
+ const response=await fetch("/api/owner/menu",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+token},body:JSON.stringify({action,item,id})});
+ const payload=await response.json().catch(()=>({}));
+ if(!response.ok)throw Object.assign(new Error(typeof payload.error==="string"?payload.error:"The owner menu service could not complete this change."),{code:typeof payload.code==="string"?payload.code:"unknown"});
+ return Array.isArray(payload.items)?payload.items as MenuItem[]:[];
 }
+export async function ensureStarterMenuSeeded():Promise<MenuItem[]>{return ownerMenuRequest("seed")}
+
 
 // Legacy menu migration is intentionally disabled. 
 // Existing menu records must never be silently reclassified by the current day. 
@@ -89,12 +87,9 @@ export async function saveMenuItem(item:MenuItem){
  if(!item.id.trim())throw new Error("Menu item is missing its record ID.");
  if(!item.name.trim())throw new Error("Enter a meal name before saving.");
  if(!Number.isFinite(item.price)||item.price<0)throw new Error("Enter a valid meal price.");
- // Firestore rejects undefined values. Strip optional empty fields before writing so
- // older menu records and newly-created drafts share the same safe save path.
- const payload=Object.fromEntries(Object.entries(item).filter(([,value])=>value!==undefined));
- await setDoc(doc(menuCollection,item.id),payload);
+ await ownerMenuRequest("save",item);
 }
-export async function deleteMenuItem(id:string){await deleteDoc(doc(db,"menu",id))}
+export async function deleteMenuItem(id:string){await ownerMenuRequest("delete",undefined,id)}
 export async function getBusinessSettings():Promise<BusinessSettings|null>{const snapshot=await getDoc(doc(settingsCollection,"main"));return snapshot.exists()?{id:snapshot.id,...snapshot.data() as Omit<BusinessSettings,"id">}:null}
 export async function saveBusinessSettings(settings:BusinessSettings){await setDoc(doc(settingsCollection,"main"),settings)}
 export async function getDailyReconciliation(date:string):Promise<DailyReconciliation|null>{const snapshot=await getDoc(doc(reconciliationCollection,date));return snapshot.exists()?{date:snapshot.id,...snapshot.data() as Omit<DailyReconciliation,"date">}:null}
