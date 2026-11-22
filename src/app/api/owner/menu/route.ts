@@ -22,6 +22,7 @@ const starterMeals:DocumentData[]=[
  {id:"rice-and-beef",name:"Rice and beef",price:40,category:"Meals",description:"",available:true,preparationMinutes:20,sortOrder:2,imageUrl:"https://9hqs4mvyjb.ufs.sh/f/4b6x094yqDzN4cSgJSyqDzNSR9iuQ7HtY2bdagyBOnkUPMrX",section:"deal",days:[]}
 ];
 const menuFields=["id","name","price","friendPrice","category","description","available","preparationMinutes","sortOrder","imageUrl","section","days","brand","productType","sizes","colors","sourceUrl"] as const;
+const settingsFields=["id","location","hours","locationNote","announcementEnabled","announcementText","announcementImageUrl","menuPublishedAt","updatedAt"] as const;
 
 async function getOwnerDatabase(request:Request){
  const header=request.headers.get("authorization")??"";
@@ -64,6 +65,14 @@ export async function POST(request:Request){
   }else if(action==="delete"){
    if(typeof body?.id!=="string"||!body.id.trim())return NextResponse.json({error:"A menu item ID is required.",code:"invalid-argument"},{status:400});
    await db.collection("menu").doc(body.id).delete();
+  }else if(action==="save-settings"){
+   const settings=body?.settings;
+   if(!settings||typeof settings!=="object"||settings.id!=="main"||typeof settings.updatedAt!=="string"){
+    return NextResponse.json({error:"The store settings are incomplete. Refresh the Briefcase and try again.",code:"invalid-argument"},{status:400});
+   }
+   const clean=Object.fromEntries(settingsFields.filter(key=>settings[key]!==undefined).map(key=>[key,settings[key]]));
+   await db.collection("businessSettings").doc("main").set(clean);
+   return NextResponse.json({settings:clean},{headers:{"Cache-Control":"no-store"}});
   }else{
    return NextResponse.json({error:"Unsupported menu action.",code:"invalid-argument"},{status:400});
   }
