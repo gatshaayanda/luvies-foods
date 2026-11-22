@@ -22,6 +22,9 @@ export default function AccountPage(){
  const[tab,setTab]=useState<"requests"|"messages"|"receipts"|"rewards"|"details">("requests");
  const[selectedRequest,setSelectedRequest]=useState<{id:string;quantity:number}[]>([]);
  const[selectedMenu,setSelectedMenu]=useState<MenuItem[]>([]);
+ const[customDraft,setCustomDraft]=useState("");
+
+ useEffect(()=>{try{const draft=window.localStorage.getItem("luvies-foods-custom-request-draft");if(draft){const parsed=JSON.parse(draft) as {description?:string};setCustomDraft(parsed.description??"")}}catch(error){console.warn("Luvie’s Foods request draft unavailable",error)}},[]);
 
  useEffect(()=>{
   const params=new URLSearchParams(window.location.search);
@@ -84,6 +87,8 @@ export default function AccountPage(){
     <div><span className="lf-eyebrow">YOUR ACCOUNT</span><h1>Dumela, {greeting}.</h1><p>Your food requests, messages, receipts and rewards, together in one place.</p><button type="button" className="lf-account-view-details" onClick={()=>setTab("details")}>View details ↗</button></div>
     <span className="lf-account-session"><i/> {user?.isAnonymous?"Customer space":"Signed in"}</span>
    </section>
+
+   {customDraft.trim()&&<section className="lf-account-current-request" aria-label="Unfinished custom food request"><div><span className="lf-eyebrow">YOUR UNFINISHED INQUIRY</span><h2>Pick up where you left off.</h2><p>Your custom food request is saved on this device. Your description will be waiting when you return to it.</p></div><div className="lf-account-request-items"><div><span>{customDraft}</span><strong>Price on request</strong></div></div><div className="lf-account-request-bottom"><strong>Not sent yet · Lesedi has not received this inquiry</strong><Link className="lf-account-primary" href="/?order=1&custom=1">Continue your custom request <span>→</span></Link></div></section>}
 
    {selectedRequest.length>0&&<section className="lf-account-current-request" aria-labelledby="lf-current-request-title"><div><span className="lf-eyebrow">YOUR SELECTION</span><h2 id="lf-current-request-title">Your food is ready.</h2><p>We brought your selected meals here. Review them, then continue to the short request.</p></div><div className="lf-account-request-items">{requestMeals.map(entry=><div key={entry.id}><span>{entry.quantity} × {entry.item?.name}</span><strong>{money((entry.item?itemUnitPrice(entry.item,entry.quantity):0)*entry.quantity)}</strong></div>)}</div><div className="lf-account-request-bottom"><strong>Estimated total · {money(requestTotal)}</strong><Link className="lf-account-primary" href={"/?order=1&items="+encodeURIComponent(requestParam)}>Continue with {requestMeals.length} selected {requestMeals.length===1?"item":"items"} <span>→</span></Link></div>{requestMeals.length===0&&<p role="status">Those meals are no longer available. Return to the Store to choose from the current menu.</p>}</section>}
 
