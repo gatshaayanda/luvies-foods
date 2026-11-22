@@ -6334,3 +6334,81 @@ body{background:#fbf8f7;color:#202b3c}
 .lf-announcement-copy strong{font:700 19px Georgia,serif;color:#202b3c}
 .lf-announcement>img{width:104px;height:76px;object-fit:cover;border-radius:10px;flex:0 0 auto}
 @media(max-width:760px){.lf-announcement{margin:0 13px 22px;padding:12px;gap:12px}.lf-announcement-copy strong{font-size:16px}.lf-announcement>img{width:82px;height:68px}}
+
+
+/* Luvie's Foods — customer account, matched to the public Store */
+.lf-account-page{min-height:100vh;background:#fbf7f3;color:#202b3c}
+.lf-account-topline{min-height:27px;padding:7px max(18px,calc((100% - 1116px)/2));display:flex;justify-content:space-between;gap:14px;background:#202b3c;color:#f9e8e8;font-size:9px;font-weight:900;letter-spacing:.15em}
+.lf-account-header{max-width:1116px;min-height:78px;margin:auto;padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid #eee3dc}
+.lf-account-header .lf-brand{display:flex;align-items:center;gap:11px;color:#202b3c}
+.lf-account-header .lf-mark{width:43px;height:43px;display:grid;place-items:center;border-radius:50%;background:#db0b0b;color:#fff;font:700 19px Georgia,serif}
+.lf-account-header .lf-mark span{color:#ffd9df}
+.lf-account-header .lf-brand strong,.lf-account-header .lf-brand small{display:block}
+.lf-account-header .lf-brand strong{font-size:13px;font-weight:1000;letter-spacing:.09em}
+.lf-account-header .lf-brand small{margin-top:4px;color:#887a74;font-size:8px;letter-spacing:.13em}
+.lf-account-header nav{display:flex;align-items:center;gap:20px;font-size:12px;font-weight:850}
+.lf-account-header nav>a:first-child{color:#665c59}
+.lf-account-header-cta{display:inline-flex;align-items:center;gap:12px;min-height:40px;padding:0 17px;border-radius:999px;background:#db0b0b;color:#fff!important}
+.lf-account-header-cta span{font-size:17px}
+.lf-account-wrap{width:min(100% - 32px,1000px);margin:auto;padding:35px 0 54px}
+.lf-account-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:24px}
+.lf-account-intro h1{margin:9px 0 7px;color:#202b3c;font:700 clamp(34px,5vw,48px)/1.04 Georgia,'Times New Roman',serif;letter-spacing:-.045em;text-transform:none}
+.lf-account-intro p{margin:0;color:#716662;font-size:14px;line-height:1.55}
+.lf-account-session{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid #eadfd8;border-radius:999px;background:#fff;color:#665c59;font-size:10px;font-weight:850;white-space:nowrap}
+.lf-account-session i{width:7px;height:7px;border-radius:50%;background:#16866a}
+.lf-account-summary{display:grid;grid-template-columns:1fr 1fr auto;align-items:stretch;gap:10px;margin-bottom:21px}
+.lf-account-summary>div{display:grid;gap:5px;padding:15px 17px;border:1px solid #eadfd8;border-radius:15px;background:#fff}
+.lf-account-summary>div span{color:#8b7b74;font-size:9px;font-weight:950;letter-spacing:.13em}
+.lf-account-summary>div strong{color:#202b3c;font:700 27px/1 Georgia,serif;font-variant-numeric:tabular-nums}
+.lf-account-summary>div small{color:#81746e;font-size:10px}
+.lf-account-summary>a{display:flex;align-items:center;justify-content:center;gap:14px;min-width:155px;padding:12px 16px;border-radius:15px;background:#202b3c;color:#fff;font-size:12px;font-weight:900}
+.lf-account-summary>a span{color:#ffc4cc;font-size:18px}
+.lf-account-tabs{display:flex;gap:7px;margin-bottom:12px;border-bottom:1px solid #eadfd8}
+.lf-account-tabs button{display:flex;align-items:center;gap:8px;min-height:43px;padding:0 15px;border:0;border-bottom:3px solid transparent;background:transparent;color:#82746e;font-size:12px;font-weight:900;cursor:pointer}
+.lf-account-tabs button.active{border-bottom-color:#db0b0b;color:#202b3c}
+.lf-account-tabs button span{display:grid;place-items:center;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:#f4e8e4;color:#9d353c;font-size:10px}
+.lf-account-panel{padding:22px;border:1px solid #eadfd8;border-radius:18px;background:#fff;box-shadow:0 12px 32px #39251a08}
+.lf-account-panel-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px}
+.lf-account-panel-head h2{margin:5px 0 0;color:#202b3c;font:700 24px/1.1 Georgia,serif;text-transform:none;letter-spacing:-.025em}
+.lf-account-panel-head>span{color:#82746e;font-size:10px}
+.lf-account-empty{display:grid;justify-items:center;padding:36px 15px 30px;text-align:center}
+.lf-account-empty-mark{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#fff0f1;color:#db0b0b;font:24px Georgia,serif}
+.lf-account-empty h3{margin:14px 0 7px;color:#202b3c;font:700 23px/1.15 Georgia,serif;text-transform:none;letter-spacing:-.025em}
+.lf-account-empty p{max-width:430px;margin:0 0 17px;color:#756963;font-size:13px;line-height:1.6}
+.lf-account-primary{display:inline-flex;align-items:center;justify-content:center;gap:18px;min-height:45px;padding:0 18px;border:0;border-radius:999px;background:#db0b0b;color:#fff;font-size:11px;font-weight:950;cursor:pointer;transition:transform .18s ease,background .18s ease}
+.lf-account-primary:hover{transform:translateY(-1px);background:#bd0808}
+.lf-account-primary:disabled{opacity:.6;cursor:wait;transform:none}
+.lf-account-primary span{font-size:17px}
+.lf-account-orders{display:grid;gap:10px}
+.lf-account-order{padding:15px;border:1px solid #eee3dc;border-radius:14px;background:#fffdfb}
+.lf-account-order-top,.lf-account-order-bottom{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.lf-account-order-top>div{display:grid;gap:4px}
+.lf-account-order-ref{color:#9a3b48;font-size:9px;font-weight:950;letter-spacing:.13em}
+.lf-account-order-top small{color:#897b74;font-size:10px}
+.lf-order-status{padding:6px 9px;border-radius:999px;background:#f5eee9;color:#65534d;font-size:9px;font-weight:950;white-space:nowrap}
+.lf-order-status-new{background:#fff1df;color:#86551b}.lf-order-status-accepted,.lf-order-status-preparing,.lf-order-status-delivering{background:#eaf1f8;color:#294e70}.lf-order-status-ready,.lf-order-status-collected,.lf-order-status-delivered{background:#e8f5ee;color:#176343}.lf-order-status-cancelled{background:#f8e9e9;color:#963d3d}
+.lf-account-order-items{display:grid;gap:7px;margin:13px 0;padding:12px 0;border-top:1px solid #f0e7e1;border-bottom:1px solid #f0e7e1}
+.lf-account-order-items>div{display:flex;justify-content:space-between;gap:12px;color:#4f4541;font-size:12px}
+.lf-account-order-items strong,.lf-account-order-bottom>strong{color:#202b3c;font-weight:950;font-variant-numeric:tabular-nums}
+.lf-account-order-bottom>div{display:grid;gap:4px;min-width:0}
+.lf-account-order-bottom span{color:#5f514b;font-size:10px;font-weight:850}
+.lf-account-order-bottom small{color:#83756e;font-size:10px;line-height:1.45}
+.lf-account-order-note{margin:11px 0 0;padding:9px 11px;border-radius:9px;background:#faf2ee;color:#6c5b53;font-size:11px;line-height:1.5}
+.lf-account-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lf-account-form label{display:grid;gap:6px;color:#594c46;font-size:11px;font-weight:900}
+.lf-account-form input{width:100%;min-height:44px;padding:10px 12px;border:1px solid #e5d9d1;border-radius:10px;background:#fffdfb;color:#202b3c;outline:none}
+.lf-account-form input:focus{border-color:#db0b0b;box-shadow:0 0 0 3px #db0b0b18}
+.lf-account-field-wide{grid-column:1/-1}
+.lf-account-form .lf-account-primary{justify-self:start}
+.lf-account-message{margin:13px 0 0;padding:11px 13px;border:1px solid #ead5d8;border-radius:10px;background:#fff4f4;color:#713c42;font-size:12px;line-height:1.5}
+.lf-account-footnote{max-width:780px;margin:16px 2px 0;color:#8a7c75;font-size:10px;line-height:1.6}
+.lf-account-loading{display:flex;align-items:center;gap:10px;color:#716662;font-size:12px}
+.lf-account-spinner{width:15px;height:15px;border:2px solid #f1d7d8;border-top-color:#db0b0b;border-radius:50%;animation:lf-account-spin .8s linear infinite}
+@keyframes lf-account-spin{to{transform:rotate(360deg)}}
+.lf-account-footer{max-width:1116px;margin:auto;padding:16px 0 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:1px solid #eee3dc;color:#897b74;font-size:9px;letter-spacing:.1em}
+.lf-account-footer>a:first-child{color:#202b3c;font-weight:1000}
+.lf-account-footer>a:first-child span{color:#db0b0b}
+.lf-account-footer>a:last-child{color:#9d353c;font-weight:900;letter-spacing:0}
+@media(max-width:760px){.lf-account-header,.lf-account-footer{margin-left:14px;margin-right:14px}.lf-account-wrap{width:calc(100% - 26px);padding:26px 0 38px}.lf-account-intro{align-items:flex-start;flex-direction:column}.lf-account-summary{grid-template-columns:1fr 1fr}.lf-account-summary>a{grid-column:1/-1;min-height:44px}.lf-account-panel{padding:17px}.lf-account-form{grid-template-columns:1fr}.lf-account-field-wide{grid-column:auto}}
+@media(max-width:430px){.lf-account-topline{font-size:8px;letter-spacing:.1em}.lf-account-header{min-height:68px}.lf-account-header .lf-brand strong{font-size:11px}.lf-account-header .lf-brand small{font-size:7px}.lf-account-header nav{gap:10px;font-size:10px}.lf-account-header-cta{min-height:37px;padding:0 12px}.lf-account-intro h1{font-size:36px}.lf-account-summary>div{padding:13px}.lf-account-panel-head{align-items:flex-start;flex-direction:column}.lf-account-order-top{align-items:flex-start}.lf-account-order-bottom{align-items:flex-end}.lf-account-footer{font-size:8px;letter-spacing:.05em}}
+@media(prefers-reduced-motion:reduce){.lf-account-primary,.lf-account-spinner{transition:none;animation:none}}
