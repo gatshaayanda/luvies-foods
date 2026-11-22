@@ -12,6 +12,7 @@ const quickReplies=[
  {label:"My order or a person",text:"Open My Luvie's Foods, then Messages to contact Lesedi about your saved request.",href:"/account?tab=messages"}
 ];
 export default function FoodCustomerHelper(){
+ const {language,t}=useFoodLanguage();
  const[open,setOpen]=useState(false);
  const[input,setInput]=useState("");
  const[messages,setMessages]=useState<Message[]>([]);
