@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable react/no-unescaped-entities -- Brand name and customer-facing copy contain natural apostrophes. */
 import {useEffect,useState} from "react";
 import {onAuthStateChanged,signInWithEmailAndPassword,signOut,type User} from "firebase/auth";
 import {auth} from "@/lib/firebase/client";
