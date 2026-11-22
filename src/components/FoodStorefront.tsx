@@ -52,8 +52,8 @@ export default function FoodStorefront(){
    </article>)}</div>}
   </section>
   {selectedCount>0&&<div className="lf-selection-bar"><div><strong>{selectedCount} {selectedCount===1?"item":"items"} selected</strong><small>Estimated total · P{selectedTotal.toFixed(2)}</small></div><Link href={"/account?request=1&items="+encodeURIComponent(selectedParam)}>Continue with selected food <span>↗</span></Link></div>}
-  <section className="lf-promise"><span>♥</span><div><strong>Good food, made with love.</strong><small>Choose your favourite, place your order, and we'll take care of the rest.</small></div><button type="button" onClick={()=>setOrderOpen(true)}>Let's eat ↗</button></section>
-  <footer className="lf-footer"><Link href="/">LUVIE'S FOODS <span>♥</span></Link><span>GOOD FOOD, MADE WITH LOVE</span><Link href="/admin" aria-label="Owner Briefcase">💼 Briefcase</Link></footer>
+  <section className="lf-promise"><span>♥</span><div><strong>Good food, made with love.</strong><small>Choose your favourite, place your order, and we'll take care of the rest.</small></div><a href="#menu" aria-label="Browse the menu and choose your food">Let's eat ↗</a></section>
+  <footer className="lf-footer"><Link href="/">LUVIE'S FOODS <span>♥</span></Link><span>GOOD FOOD, MADE WITH LOVE</span><a href="/admin" aria-label="Open the owner Briefcase">💼 Briefcase</a></footer>
   {orderOpen&&<OrderForm embedded onClose={closeOrder}/>}
  </main>;
 }
