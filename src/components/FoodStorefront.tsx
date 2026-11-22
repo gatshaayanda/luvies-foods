@@ -21,7 +21,12 @@ export default function FoodStorefront(){
   const stopSettings=subscribeToBusinessSettings(next=>setSettings(next),()=>{});
   return()=>{stopMenu();stopSettings()};
  },[]);
- const available=items.filter(item=>item.available).sort((a,b)=>a.sortOrder-b.sortOrder);\n const selectedItems=available.filter(item=>(selection[item.id]??0)>0);\n const selectedCount=selectedItems.reduce((sum,item)=>sum+(selection[item.id]??0),0);\n const selectedTotal=selectedItems.reduce((sum,item)=>sum+item.price*(selection[item.id]??0),0);\n const selectedParam=selectedItems.map(item=>item.id+":"+(selection[item.id]??0)).join(",");\n function changeSelection(id:string,delta:number){setSelection(current=>({...current,[id]:Math.max(0,(current[id]??0)+delta)}))}
+ const available=items.filter(item=>item.available).sort((a,b)=>a.sortOrder-b.sortOrder);
+ const selectedItems=available.filter(item=>(selection[item.id]??0)>0);
+ const selectedCount=selectedItems.reduce((sum,item)=>sum+(selection[item.id]??0),0);
+ const selectedTotal=selectedItems.reduce((sum,item)=>sum+item.price*(selection[item.id]??0),0);
+ const selectedParam=selectedItems.map(item=>item.id+":"+(selection[item.id]??0)).join(",");
+ function changeSelection(id:string,delta:number){setSelection(current=>({...current,[id]:Math.max(0,(current[id]??0)+delta)}))}
  const announcementEnabled=settings?.announcementEnabled!==false;
  const announcementText=(settings?.announcementText??DEFAULT_ANNOUNCEMENT.text).trim();
  const announcementImage=settings?.announcementImageUrl??DEFAULT_ANNOUNCEMENT.imageUrl;
@@ -46,7 +51,8 @@ export default function FoodStorefront(){
     <div className="lf-meal-info"><div><small>{item.category||"MADE WITH LOVE"}</small><h3>{item.name}</h3>{item.description&&<p>{item.description}</p>}</div><div className="lf-meal-bottom"><strong>P{item.price.toFixed(2)}</strong><div className="lf-meal-select">{(selection[item.id]??0)>0&&<button type="button" onClick={()=>changeSelection(item.id,-1)} aria-label={"Remove one "+item.name}>−</button>}<strong>{selection[item.id]??0}</strong><button type="button" onClick={()=>changeSelection(item.id,1)} aria-label={"Add one "+item.name}>{(selection[item.id]??0)>0?"+":"Add"}</button></div></div></div>
    </article>)}</div>}
   </section>
-  {selectedCount>0&&<div className="lf-selection-bar"><div><strong>{selectedCount} {selectedCount===1?"item":"items"} selected</strong><small>Estimated total · P{selectedTotal.toFixed(2)}</small></div><Link href={"/account?request=1&items="+encodeURIComponent(selectedParam)}>Continue with selected food <span>↗</span></Link></div>}\n  <section className="lf-promise"><span>♥</span><div><strong>Good food, made with love.</strong><small>Choose your favourite, place your order, and we'll take care of the rest.</small></div><button type="button" onClick={()=>setOrderOpen(true)}>Let's eat ↗</button></section>
+  {selectedCount>0&&<div className="lf-selection-bar"><div><strong>{selectedCount} {selectedCount===1?"item":"items"} selected</strong><small>Estimated total · P{selectedTotal.toFixed(2)}</small></div><Link href={"/account?request=1&items="+encodeURIComponent(selectedParam)}>Continue with selected food <span>↗</span></Link></div>}
+  <section className="lf-promise"><span>♥</span><div><strong>Good food, made with love.</strong><small>Choose your favourite, place your order, and we'll take care of the rest.</small></div><button type="button" onClick={()=>setOrderOpen(true)}>Let's eat ↗</button></section>
   <footer className="lf-footer"><Link href="/">LUVIE'S FOODS <span>♥</span></Link><span>GOOD FOOD, MADE WITH LOVE</span><Link href="/admin" aria-label="Owner Briefcase">💼 Briefcase</Link></footer>
   {orderOpen&&<OrderForm embedded onClose={closeOrder}/>}
  </main>;
