@@ -13,7 +13,7 @@ const quickReplies=[
 ];
 export default function FoodCustomerHelper(){
  const {language,t}=useFoodLanguage();
- const welcome=foodText(language,"Dumela! I can help you find the menu, start a custom request, understand collection and delivery, or reach Lesedi. I&apos;m an automated guide, not a person.");
+ const welcome=foodText(language,"Dumela! I can help you find the menu, start a custom request, understand collection and delivery, or reach Lesedi. I'm an automated guide, not a person.");
  const[open,setOpen]=useState(false);
  const[input,setInput]=useState("");
  const[messages,setMessages]=useState<Message[]>([]);
@@ -31,7 +31,7 @@ export default function FoodCustomerHelper(){
  function submit(event:FormEvent<HTMLFormElement>){event.preventDefault();const value=input.trim();if(!value)return;setInput("");answer(value)}
  return <div className="lf-customer-helper">
   {open&&<section className="lf-customer-helper-panel" role="dialog" aria-modal="false" aria-labelledby="lf-customer-helper-title">
-   <header><div><small>LUVIE'S FOODS · {t("CUSTOMER HELP")}</small><strong id="lf-customer-helper-title">{t("Need a hand?")}</strong></div><button type="button" aria-label={t("Close help")} onClick={()=>setOpen(false)}>×</button></header>
+   <header><div><small>LUVIE&apos;S FOODS · {t("CUSTOMER HELP")}</small><strong id="lf-customer-helper-title">{t("Need a hand?")}</strong></div><button type="button" aria-label={t("Close help")} onClick={()=>setOpen(false)}>×</button></header>
    <div className="lf-customer-helper-thread" aria-live="polite">{messages.map(message=><p key={message.id} className={message.from}>{message.text}</p>)}</div>
    <div className="lf-customer-helper-shortcuts">{quickReplies.map(item=><Link key={item.label} href={item.href} onClick={()=>answer(item.label,t(item.label))}>{t(item.label)}</Link>)}</div>
    <form onSubmit={submit}><input value={input} onChange={event=>setInput(event.target.value)} placeholder={t("Ask about food or your order…")} aria-label={t("Ask Luvie's Foods customer help")} maxLength={240}/><button type="submit" disabled={!input.trim()}>{t("Send")}</button></form>
