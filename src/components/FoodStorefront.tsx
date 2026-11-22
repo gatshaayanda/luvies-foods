@@ -23,13 +23,13 @@ export default function FoodStorefront(){
    <div className="lf-hero-stamp">GOOD<br/>FOOD<br/><span>♥</span></div>
   </section>
   <section className="lf-menu-section" id="menu">
-   <div className="lf-section-head"><div><span className="lf-eyebrow">THE GOOD STUFF</span><h2>Today's menu<span>.</span></h2></div><span className="lf-count">{loaded?available.length+" available":"Menu loading"}</span></div>
-   {error?<p className="lf-state" role="alert">The menu could not be loaded right now. Please try again shortly.</p>:!loaded?<p className="lf-state">Loading today's menu…</p>:available.length===0?<div className="lf-empty"><strong>Fresh menu coming up.</strong><span>Our menu is being updated. Check back soon.</span><Link href="/admin">Owner? Open your Briefcase ↗</Link></div>:<div className="lf-menu-grid">{available.map((item,index)=><article className="lf-meal" key={item.id}>
+   <div className="lf-section-head"><div><span className="lf-eyebrow">THE GOOD STUFF</span><h2>Today&apos;s menu<span>.</span></h2></div><span className="lf-count">{loaded?available.length+" available":"Menu loading"}</span></div>
+   {error?<p className="lf-state" role="alert">The menu could not be loaded right now. Please try again shortly.</p>:!loaded?<p className="lf-state">Loading today&apos;s menu…</p>:available.length===0?<div className="lf-empty"><strong>Fresh menu coming up.</strong><span>Our menu is being updated. Check back soon.</span><Link href="/admin">Owner? Open your Briefcase ↗</Link></div>:<div className="lf-menu-grid">{available.map((item,index)=><article className="lf-meal" key={item.id}>
     <div className="lf-meal-image" style={{backgroundImage:"url('"+(item.imageUrl||foodFallbacks[index%foodFallbacks.length])+"')"}}><span>LOVE IS FOODS</span></div>
     <div className="lf-meal-info"><div><small>{item.category||"MADE WITH LOVE"}</small><h3>{item.name}</h3>{item.description&&<p>{item.description}</p>}</div><div className="lf-meal-bottom"><strong>P{item.price.toFixed(2)}</strong><Link href="/order">Order <span>↗</span></Link></div></div>
    </article>)}</div>}
   </section>
-  <section className="lf-promise"><span>♥</span><div><strong>Good food, made with love.</strong><small>Choose your favourite, place your order, and we'll take care of the rest.</small></div><Link href="/order">Let's eat ↗</Link></section>
+  <section className="lf-promise"><span>♥</span><div><strong>Good food, made with love.</strong><small>Choose your favourite, place your order, and we&apos;ll take care of the rest.</small></div><Link href="/order">Let&apos;s eat ↗</Link></section>
   <footer className="lf-footer"><Link href="/">LOVE IS FOODS <span>♥</span></Link><span>GOOD FOOD, MADE WITH LOVE</span><Link href="/admin">💼 Briefcase</Link></footer>
  </main>;
 }
