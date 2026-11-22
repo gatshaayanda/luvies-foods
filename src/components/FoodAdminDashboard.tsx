@@ -20,7 +20,7 @@ export default function FoodAdminDashboard(){
  const [notes,setNotes]=useState(""),[notesSaved,setNotesSaved]=useState(false);
  useEffect(()=>{
   let mounted=true;
-  void ensureStarterMenuSeeded().then(items=>{if(mounted)setMenu(items)}).catch(error=>{if(mounted){const failure=error as {code?:string};const code=typeof failure?.code==="string"?failure.code:"unknown";setNotice("Starter menu could not be loaded ("+code+"). Check the signed-in owner access and Firestore menu permissions.")}});
+  void ensureStarterMenuSeeded().then(items=>{if(mounted)setMenu(items)}).catch(error=>{if(mounted){const failure=error as {code?:string};const code=typeof failure?.code==="string"?failure.code:"unknown";setNotice("Starter menu could not be loaded ("+code+"): "+(error instanceof Error?error.message:"Check the owner session and Firebase configuration."))}});
   const stopOrders=subscribeToFoodOrders(items=>{setOrders(items);setLoading(false)},e=>{setNotice(e.message);setLoading(false)});
   const stopMenu=subscribeToMenuItems(setMenu,e=>setNotice(e.message));
   const stopSettings=subscribeToBusinessSettings(value=>{if(value)setSettings({...baseSettings,...value})},e=>setNotice(e.message));
@@ -40,7 +40,7 @@ export default function FoodAdminDashboard(){
  async function retryStarterMenu(){
   setSaving(true);setNotice("");
   try{const items=await ensureStarterMenuSeeded();setMenu(items);setNotice("Starter menu checked. "+items.length+" menu item(s) are saved. Review availability, then publish when ready.")}
-  catch(error){const failure=error as {code?:string};const code=typeof failure?.code==="string"?failure.code:"unknown";setNotice("Menu check failed ("+code+"). The app could not read or write the menu with this Firebase session. No Firestore rules were changed.")}
+  catch(error){const failure=error as {code?:string};const code=typeof failure?.code==="string"?failure.code:"unknown";setNotice("Menu check failed ("+code+"): "+(error instanceof Error?error.message:"The owner menu service could not complete the request."))}
   finally{setSaving(false)}
  }
  async function saveItem(event:FormEvent<HTMLFormElement>){
@@ -54,7 +54,7 @@ export default function FoodAdminDashboard(){
    const failure=error as {code?:string;message?:string};
    const code=typeof failure?.code==="string"?failure.code:"unknown";
    const detail=typeof failure?.message==="string"?failure.message:"No additional error detail was returned.";
-   if(code==="permission-denied")setNotice("Firebase denied this menu save (permission-denied). The current owner session is not authorised to write the menu. Check the signed-in owner access record; your Firestore rules were not changed.");
+   if(code==="permission-denied")setNotice("Menu save blocked: "+detail+" Your Firestore rules were not changed.");
    else if(code==="unavailable"||code==="deadline-exceeded"||!navigator.onLine)setNotice("The menu could not reach Firebase ("+code+"). Check the connection and try saving again. Your draft is still open.");
    else setNotice("Menu save failed ("+code+"): "+detail+" Your draft is still open.");
   }finally{setSaving(false)}
