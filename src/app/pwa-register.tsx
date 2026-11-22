@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable react/no-unescaped-entities -- Natural apostrophes are used in customer-facing brand copy. */
+
 // Keep embedded-browser install enforcement explicit at the top-level PWA boundary.
 
 import { useEffect, useRef, useState } from "react";
