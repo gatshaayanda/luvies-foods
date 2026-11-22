@@ -4,10 +4,10 @@ import {useFoodLanguage, type FoodLanguage} from "@/lib/food-translations";
 
 export default function FoodLanguageSwitcher(){
  const {language,setLanguage,t}=useFoodLanguage();
- return <label className="lf-language-switcher" title="Display language">
+ return <label className="lf-language-switcher" title={t("Display language")}>
   <Languages size={15} aria-hidden="true"/>
   <span className="lf-language-label">{t("Language")}</span>
-  <select aria-label="Display language" value={language} onChange={event=>setLanguage(event.target.value as FoodLanguage)}>
+  <select aria-label={t("Display language")} value={language} onChange={event=>setLanguage(event.target.value as FoodLanguage)}>
    <option value="en">English</option>
    <option value="tn">Setswana</option>
   </select>
