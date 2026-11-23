@@ -10,7 +10,7 @@ const storefront=read("src/components/FoodStorefront.tsx");
 const order=read("src/app/order/order-form.tsx");
 const firebase=read("src/lib/firebase/client.ts");
 const offline=read("src/app/offline/page.tsx");
-const version=sw.match(/const CACHE_VERSION = "(luvies-foods-shell-v\\d+)"/)?.[1];
+const version=sw.match(/const CACHE_VERSION = "(luvies-foods-shell-v[0-9]+)"/)?.[1];
 check(Boolean(version),"versioned Luvie's app-shell cache namespace must remain in place");
 check(Boolean(version)&&page.includes("Store shell cache contract: "+version+".") , "Store page and service-worker shell cache versions must stay synchronized");
 check(sw.includes('event.waitUntil(self.skipWaiting())')&&!sw.includes("await self.skipWaiting()"),"service-worker updates must wait for the explicit user refresh action");
