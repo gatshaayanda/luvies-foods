@@ -2,25 +2,20 @@ import Link from "next/link";
 
 export default function OfflinePage() {
   return (
-    <main className="orderPage">
-      <div className="orderWrap">
-        <div className="orderHeader">
-          <Link href="/" className="logo"><span className="logoMark">P</span><span>Iteration 13</span></Link>
+    <main className="lf-store">
+      <section className="lf-menu-section" style={{ maxWidth: 760, margin: "48px auto", padding: 24 }}>
+        <div className="lf-eyebrow">LUVIE'S FOODS · OFFLINE MODE</div>
+        <h1>Still here, even without a connection.</h1>
+        <p>The Luvie's Foods app shell, essential scripts and styles, and this offline page are saved on this device after a successful online visit. The service worker keeps the previous working version available while a new version waits for your choice to refresh.</p>
+        <p>Your previously loaded menu and business settings can be available from Firestore's persistent on-device cache. Menu photos that have been viewed, plus eligible UploadThing and Unsplash images, may also be available offline. Media caching is size-limited; video and uncached images still need a connection.</p>
+        <p>Customer and owner pages are protected and are not served from a public page cache. Firestore uses persistent local storage for previously accessed records and can retain supported writes while offline; those writes sync when the connection returns. A saved local write is not proof that the server accepted it. Keep the app open or reopen it when connected to allow pending work to finish, then check the order or record status before retrying.</p>
+        <p>Firebase authentication, new sign-ins, server APIs, UploadThing uploads, push notifications and other network services may need an internet connection. New media selected while offline is not automatically uploaded unless the relevant form explicitly offers a pending-upload state.</p>
+        <p><strong>Before going offline:</strong> open the Store and allow the menu and its images to load, then open the Account and Briefcase pages once while connected if you expect to use their previously cached Firestore data. Reopen the app online periodically to receive updates.</p>
+        <div className="lf-hero-actions">
+          <Link className="lf-primary" href="/">Return to Luvie's Foods</Link>
+          <Link className="lf-secondary" href="/account">Customer account</Link>
         </div>
-        <section className="orderCard confirm">
-          <div className="confirmIcon">📶</div>
-          <span className="kicker">Offline mode</span>
-          <h1>Iteration 13 is still here.</h1>
-          <p>After the service worker has installed successfully while online, the current Store app shell—including its page markup, Next.js scripts and styles—and the offline screen are cached together. A newer shell is prepared in the background and waits for your Refresh choice before replacing the active version. Some previously viewed service images may also be retained when their host permits a size-checked download within the cache budget. Video streaming and playback are not cached for offline use; uncached or unsupported media still need internet. Cached content can be out of date, and the browser may clear it to free device storage.</p>
-          <p>Customer requests, account text messages, service edits, announcement changes, Briefcase notes and demo payment/status changes save in this browser. Customer and owner views use the same local records on this device; nothing is uploaded or synced to another device.</p>
-          <p>New UploadThing uploads can be staged locally: selected images (4 MB) and videos (16 MB) are stored in IndexedDB and marked Pending Sync. When you reconnect with the matching media field open, the app uploads them to UploadThing and replaces the local reference only after confirmation. Pending media is device-specific, capped at 64 MB, and is not guaranteed to sync while the app is closed. External links, remote Firebase features and other server-dependent actions still need internet. Offline text and admin changes remain browser-local and are not queued for server delivery.</p>
-          <p><strong>Before going offline:</strong> open the Store while connected, browse the important service images, then reload once while still online so the latest app shell and eligible images can be prepared.</p>
-          <div className="actions centered">
-            <Link className="button buttonPrimary" href="/#service-order">Try customer journey</Link>
-            <Link className="button buttonLight" href="/">Open home</Link>
-          </div>
-        </section>
-      </div>
+      </section>
     </main>
   );
 }
